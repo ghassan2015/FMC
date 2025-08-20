@@ -1,3 +1,4 @@
+
 <script>
     // Redraw table on search input keyup
     $('[data-kt-docs-table-filter="search"]').on('keyup', function() {
@@ -80,4 +81,6 @@
         let role = this.value;
         // ضع هنا فلترة الجدول مثلاً
     });
+
+
 </script>

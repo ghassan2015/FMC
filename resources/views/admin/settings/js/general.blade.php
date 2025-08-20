@@ -22,6 +22,7 @@
         };
         reader.readAsDataURL(event.target.files[0]);
     }
+
     function previewSecondaryImage(event) {
         const secondaryReader = new FileReader();
         secondaryReader.onload = function() {
@@ -31,6 +32,7 @@
         };
         secondaryReader.readAsDataURL(event.target.files[0]);
     }
+
     function previewThirtyImage(event) {
         const secondaryReader = new FileReader();
         secondaryReader.onload = function() {
@@ -72,38 +74,58 @@
             $('#submit-button').prop('disabled', true);
             var url = $('#my-form').attr('action');
             $.ajax({
-                url: url, // Update with your URL
-                type: 'POST',
-                data: new FormData(form),
-                processData: false,
-                contentType: false,
-                beforeSend: function() {
+                    url: url, // Update with your URL
+                    type: 'POST',
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
 
-                },
-                success: function(response) {
-                    // Hide the spinner and enable the submit button
-                    $('#spinner').hide();
-                    $('#submit-button').prop('disabled', false);
+                    },
+                    success: function(response) {
+                        // Hide the spinner and enable the submit button
+                        $('#spinner').hide();
+                        $('#submit-button').prop('disabled', false);
 
-                    // Handle the response on success
-                    if (response.success) {
-                        toastr.success(response.message, 'Success', { timeOut: 3000 });
+                        // Handle the response on success
+                        if (response.success) {
+                            toastr.success(response.message, '{{__('label.success')}}', {
+                                timeOut: 3000
+                            });
 
-                        window.location.reload();
+                            window.location.reload();
 
-                    } else {
-                        toastr.error(response.message, 'Error', { timeOut: 3000 });
+                        } else {
+                            toastr.error(response.message,'{{__('label.error')}}', {
+                                timeOut: 3000
+                            });
+
+                        }
+                    },
+                    error: function(response) {
+                        $('#spinner').hide();
+                        $('#submit-button').prop('disabled', false);
+
+                        $('.btn-primary').attr('disabled', false);
+                        $('.hiden_icon').show();
+
+                        var errors = response.responseJSON.errors;
+                        if (errors) {
+                            var errorText = "";
+                            $.each(errors, function(key, value) {
+                                errorText += value + "\n";
+                                $('.' + key).text(value);
+                            });
+
+                        } else {
+                                      toastr.error(response.responseJSON.message, "{{ __('message.process_fail') }}");
+
+                        }
 
                     }
-                },
-                error: function(xhr) {
-                    // Hide the spinner and enable the submit button
-                    $('#spinner').hide();
-                    $('#submit-button').prop('disabled', false);
 
-                }
             });
-        }
+    }
 
     });
 </script>

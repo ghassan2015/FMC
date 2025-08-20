@@ -23,10 +23,13 @@
                 <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
                 {{ __('label.filter') }}
             </button>
-            <a href="{{route('admin.roles.create')}}" type="button" class="btn btn-primary" data-bs-toggle="tooltip" title="{{ __('label.add_new_role') }}">
-                <i class="ki-duotone ki-plus fs-2"></i>
-                {{ __('label.add_new_role') }}
-            </a>
+            @can('add_roles')
+                <a href="{{ route('admin.roles.create') }}" type="button" class="btn btn-primary" data-bs-toggle="tooltip"
+                    title="{{ __('label.add_new_role') }}">
+                    <i class="ki-duotone ki-plus fs-2"></i>
+                    {{ __('label.add_new_role') }}
+                </a>
+            @endcan
         </div>
         <!-- Group actions -->
         <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selected">
@@ -48,8 +51,8 @@
             <div class="col-md-6">
                 <select class="form-select form-select-solid" data-control="select2" id="isActiveFilter">
                     <option value="">{{ __('label.status') }}</option>
-                    <option value="0">{{ __('label.is_inactive') }}</option>
-                    <option value="1">{{ __('label.is_active') }}</option>
+                    <option value="0">{{ __('label.inactive') }}</option>
+                    <option value="1">{{ __('label.active') }}</option>
 
                 </select>
             </div>
@@ -62,7 +65,7 @@
             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                 <th>{{ __('label.name') }}</th>
                 @can('update_status_roles')
-                <th>{{__('label.status')}}</th>
+                    <th>{{ __('label.status') }}</th>
                 @endcan
                 <th>{{ __('label.actions') }}</th>
 

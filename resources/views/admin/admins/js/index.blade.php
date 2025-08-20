@@ -10,63 +10,30 @@
 
     });
 
-    $(document).on('click', '.submit', function(e) {
-        e.preventDefault();
+ $(document).on('click', '.submit_delete', function(e) {
+            e.preventDefault();
 
-        $('#confirmModal').modal('hide');
+            $('#confirmModal').modal('hide');
 
-        var ids = $('#Delete_id').val();
-        $.ajax({
-            url: '{{ route('admin.admins.delete') }}',
-            method: 'POST',
-            data: {
-                "id": ids,
-                "_token": "{{ csrf_token() }}",
-            },
-            success: function(data) {
-                if (data.status === 201) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
+            var ids = $('#Delete_id').val();
 
+            $.ajax({
+                url: '{{ route('admin.admins.delete') }}',
+                method: 'POST',
+                data: {
+                    "id": ids,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    toastr.success(response.message, "{{ __('label.process_success') }}");
                     $('.data-table').DataTable().ajax.reload();
-                } else {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: data.message,
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
+                },
+                error: function(response) {
+                    toastr.error(response.message, "{{ __('label.process_fail') }}");
+                    $('.data-table').DataTable().ajax.reload();
                 }
-
-
-
-            },
-            error: function(data) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: data,
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                $('.data-table').DataTable().ajax.reload();
-
-            }
-
-
+            });
         });
-
-
-
-
-    });
-
 
 
 
@@ -78,7 +45,7 @@
     // Redraw table on search input keyup
     $('[data-kt-docs-table-filter="search"]').on('keyup', function() {
 
-        
+
         $('#kt_datatable_example_1').DataTable().search(this.value).draw();
     });
     table = $('.data-table').DataTable({
@@ -165,63 +132,38 @@
         event.preventDefault();
 
         var _this = $(this);
-        var ids = _this.data('id');
-        var status = _this.prop('checked') ? 1 : 0;
+        var admin_id = _this.data('id');
+        var is_active = _this.prop('checked') ? 1 : 0;
 
-        Swal.fire({
-            title: 'هل انت متأكد من تغيير حالة مدير النظام؟',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'نعم',
-            cancelButtonText: 'إلغاء'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '{{ route('admin.admins.updateStatus') }}',
-                    method: 'POST',
-                    data: {
-                        "id": ids,
-                        "status": status,
-                        "_token": "{{ csrf_token() }}",
-                    },
-                    success: function(data) {
-                        if (data.status == 201) {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: data.message,
-                                showConfirmButton: false,
-                                timer: 3000
-                            });
-                        } else {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: data.message,
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
-                        }
-                        $('.data-table').DataTable().ajax.reload(null, false);
 
-                    },
-                    error: function(data) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: data.responseJSON && data.responseJSON.message ?
-                                data.responseJSON.message : 'حدث خطأ ما',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                        $('.data-table').DataTable().ajax.reload(null, false);
+             $.ajax({
+                url: '{{ route('admin.admins.updateStatus') }}',
+                method: 'POST',
+                data: {
+                    "admin_id": admin_id,
+                    "is_active": is_active,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    if (response.status == 201) {
+                        toastr.success(response.message, "{{ __('label.success') }}");
+
+                    } else {
+                        toastr.error(response.message, "{{ __('label.process_fail') }}");
+
                     }
-                });
-            } else {
-                // Restore previous state if cancelled
-                _this.prop('checked', !_this.prop('checked'));
-            }
-        });
+                    $('.data-table').DataTable().ajax.reload(null, false);
+
+                },
+                error: function(data) {
+
+                    toastr.error(data.responseJSON && data.responseJSON.message ?
+                        data.responseJSON.message : 'حدث خطأ ما', "{{ __('label.process_fail') }}");
+
+                    $('.data-table').DataTable().ajax.reload(null, false);
+                }
+            });
+
     });
 
 

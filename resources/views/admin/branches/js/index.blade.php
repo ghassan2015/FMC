@@ -5,44 +5,44 @@
         <script src="{{ asset('assets/js/messages_ar.min.js') }}"></script>
     @endif
     <script>
-     // عند الضغط على زر الحذف
-$(document).on('click', '.delete', function(e) {
-    e.preventDefault();
+        // عند الضغط على زر الحذف
+        $(document).on('click', '.delete', function(e) {
+            e.preventDefault();
 
-    $('#confirmModal').modal('show');
+            $('#confirmModal').modal('show');
 
-    var name_delete = $(this).data('name_delete');
-    var ids = $(this).data('id');
+            var name_delete = $(this).data('name_delete');
+            var ids = $(this).data('id');
 
-    $('#Delete_id').val(ids);
-    $('#Name_Delete').val(name_delete);
-});
+            $('#Delete_id').val(ids);
+            $('#Name_Delete').val(name_delete);
+        });
 
-// عند الضغط على زر التأكيد داخل المودال
-$(document).on('click', '.submit_delete', function(e) {
-    e.preventDefault();
+        // عند الضغط على زر التأكيد داخل المودال
+        $(document).on('click', '.submit_delete', function(e) {
+            e.preventDefault();
 
-    $('#confirmModal').modal('hide');
+            $('#confirmModal').modal('hide');
 
-    var ids = $('#Delete_id').val();
+            var ids = $('#Delete_id').val();
 
-    $.ajax({
-        url: '{{ route('admin.branches.delete') }}',
-        method: 'POST',
-        data: {
-            "id": ids,
-            "_token": "{{ csrf_token() }}",
-        },
-        success: function(response) {
-            toastr.success(response.message, "{{ __('message.successfully_process') }}");
-            $('.data-table').DataTable().ajax.reload();
-        },
-        error: function(response) {
-            toastr.error(response.message, "{{ __('message.process_fail') }}");
-            $('.data-table').DataTable().ajax.reload();
-        }
-    });
-});
+            $.ajax({
+                url: '{{ route('admin.branches.delete') }}',
+                method: 'POST',
+                data: {
+                    "id": ids,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    toastr.success(response.message, "{{ __('label.process_success') }}");
+                    $('.data-table').DataTable().ajax.reload();
+                },
+                error: function(response) {
+                    toastr.error(response.message, "{{ __('label.process_fail') }}");
+                    $('.data-table').DataTable().ajax.reload();
+                }
+            });
+        });
 
 
 
@@ -79,51 +79,28 @@ $(document).on('click', '.submit_delete', function(e) {
                     searchable: true,
 
                 },
+
+
+
                 {
-                    data: 'max_capacity',
-                    name: 'max_capacity',
+                    data: 'address',
+                    name: 'address',
+                    orderable: false,
+                    searchable: true,
+
+                },
+
+
+
+
+                {
+                    data: 'is_active',
+                    name: 'is_active',
                     orderable: false,
                     searchable: true,
 
                 },
                 {
-                    data: 'registered_count',
-                    name: 'registered_count',
-                    orderable: false,
-                    searchable: true,
-
-                },
-                {
-                    data: 'user_count',
-                    name: 'user_count',
-                    orderable: false,
-                    searchable: true,
-
-                },
-                {
-                    data: 'total_income',
-                    name: 'total_income',
-                    orderable: false,
-                    searchable: true,
-                },
-                {
-                    data: 'total_contracts',
-                    name: 'total_contracts',
-                    orderable: false,
-                    searchable: true,
-
-                },
-                @can('update_status_branch')
-
-
-                    {
-                        data: 'status',
-                        name: 'status',
-                        orderable: false,
-                        searchable: true,
-
-                    },
-                @endcan {
                     data: 'action',
                     name: 'action',
                     orderable: false,
@@ -152,69 +129,43 @@ $(document).on('click', '.submit_delete', function(e) {
 
 
         // Remove inline onchange and handle status toggle via delegated event
-        $(document).on('change', '.check_status', function(event) {
+      $(document).on('change', '.check_status', function(event) {
             event.preventDefault();
 
             var _this = $(this);
             var ids = _this.data('id');
-            var status = _this.prop('checked') ? 1 : 0;
+            var is_active = _this.prop('checked') ? 1 : 0;
 
-            Swal.fire({
-                title: "{{ __('label.change_update_status') }}",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: "{{ __('label.confirm') }}",
-                cancelButtonText: "{{ __('label.cancel') }}",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '{{ route('admin.branches.updateStatus') }}',
-                        method: 'POST',
-                        data: {
-                            "id": ids,
-                            "status": status,
-                            "_token": "{{ csrf_token() }}",
-                        },
-                        success: function(data) {
-                            if (data.status == 201) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: data.message,
-                                    showConfirmButton: false,
-                                    timer: 3000
-                                });
-                            } else {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: data.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
-                            }
-                            $('.data-table').DataTable().ajax.reload(null, false);
 
-                        },
-                        error: function(data) {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: data.responseJSON && data.responseJSON.message ?
-                                    data.responseJSON.message : 'حدث خطأ ما',
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
-                            $('.data-table').DataTable().ajax.reload(null, false);
-                        }
-                    });
-                } else {
-                    // Restore previous state if cancelled
-                    _this.prop('checked', !_this.prop('checked'));
+            $.ajax({
+                url: '{{ route('admin.branches.updateStatus') }}',
+                method: 'POST',
+                data: {
+                    "branch_id": ids,
+                    "is_active": is_active,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    if (response.status == 201) {
+                        toastr.success(response.message, "{{ __('label.success') }}");
+
+                    } else {
+                        toastr.error(response.message, "{{ __('label.process_fail') }}");
+
+                    }
+                    $('.data-table').DataTable().ajax.reload(null, false);
+
+                },
+                error: function(data) {
+
+                    toastr.error(data.responseJSON && data.responseJSON.message ?
+                        data.responseJSON.message : 'حدث خطأ ما', "{{ __('label.process_fail') }}");
+
+                    $('.data-table').DataTable().ajax.reload(null, false);
                 }
             });
-        });
 
+        });
 
 
 
@@ -222,14 +173,14 @@ $(document).on('click', '.submit_delete', function(e) {
 
         $(document).on('click', '.add_branch', function() {
             $('#exampleModal').modal('show');
-            $('#exampleModalLabel').text('{{ __('label.add_new_branch') }}');
 
             let _url = "{{ route('admin.branches.store') }}";
 
+            $('#my-form')[0].reset();
+
             $('#my-form').attr('action', _url);
-            $('#name').val('');
-            $('#code').val('');
             $('#status').prop('checked', true);
+
 
 
 
@@ -240,27 +191,24 @@ $(document).on('click', '.submit_delete', function(e) {
 
 
         $(document).on('click', '.edit', function() {
-            $('#exampleModal').modal('show');
-            $('#exampleModalLabel').text("{{ __('label.servi') }}");
-            var name = $(this).data('name');
-            var code = $(this).data('code');
+            let button = $(this);
+            // ملء الحقول
+            $('#branch_id').val(button.data('branch_id'));
+            $('#name_ar').val(button.data('name_ar'));
+            $('#name_en').val(button.data('name_en'));
+            $('#address_ar').val(button.data('address_ar'));
+            $('#address_en').val(button.data('address_en'));
+            $('#is_active').prop('checked', button.data('is_active'));
+            // تحديث صورة الغلاف
+            let photo = button.data('photo');
+            if (photo) {
+                $('#logoPreview').css('background-image', 'url(' + photo + ')');
 
-            var branch_id = $(this).data('branch_id');
-            var status = $(this).data('status');
-            let _url = "{{ route('admin.branches.update') }}";
-
-            $('#my-form').attr('action', _url);
-            $('#name').val(name);
-            $('#code').val(code);
-
-            $('#branch_id').val(branch_id);
-            if (status != 0) {
-                $('#status').prop('checked', true);
-
-            } else {
-                $('#status').prop('checked', false);
             }
 
+            $('#my-form').attr('action', "{{ route('admin.branches.update') }}");
+            // فتح المودال
+            $('#exampleModal').modal('show');
         });
 
 
@@ -305,7 +253,7 @@ $(document).on('click', '.submit_delete', function(e) {
 
                         if (response.status) {
                             toastr.success(response.message,
-                                "{{ __('message.successfully_process') }}");
+                                "{{ __('label.successfully_process') }}");
                             $('#exampleModal').modal('hide');
                             $('.data-table').DataTable().ajax.reload()
 
@@ -333,15 +281,9 @@ $(document).on('click', '.submit_delete', function(e) {
                             });
 
                         } else {
-                            if (response.status) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: response.message,
-                                    showConfirmButton: false,
-                                    timer: 1000
-                                });
-                            }
+                            toastr.error(response.responseJSON.message, "Error!");
+
+
                         }
 
                     }

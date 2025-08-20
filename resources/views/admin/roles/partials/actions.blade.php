@@ -9,7 +9,7 @@
 
 
         <div class="menu-item px-3">
-            <a href="{{ route('admin.admins.edit', $data->id) }}" class="menu-link px-3"
+            <a href="{{ route('admin.roles.edit', $data->id) }}" class="menu-link px-3"
                 data-kt-docs-table-filter="edit_row">
                 <i class="fa fa-edit px-3" style="color: #007bff;"></i>
                 {{ __('label.edit') }}

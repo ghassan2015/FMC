@@ -23,39 +23,24 @@
                 "id": ids,
                 "_token": "{{ csrf_token() }}",
             },
-            success: function(data) {
-                if (data.status === 201) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
+            success: function(response) {
+                if (response.status == 201) {
+                    toastr.success(response.message, "{{ __('label.success') }}");
 
-                    $('.data-table').DataTable().ajax.reload();
                 } else {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: data.message,
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
+                    toastr.error(response.message, "{{ __('label.error') }}");
+
                 }
+                $('.data-table').DataTable().ajax.reload(null, false);
+
+
 
 
 
             },
             error: function(data) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: data,
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                $('.data-table').DataTable().ajax.reload();
+                toastr.error(data.responseJSON.message, "{{ __('label.error') }}");
+
 
             }
 
@@ -106,13 +91,12 @@
 
             @can('update_status_roles')
 
-            {
-                data: 'status',
-                name: 'status',
-                orderable: false
-            },
-            @endcan
-            {
+                {
+                    data: 'status',
+                    name: 'status',
+                    orderable: false
+                },
+            @endcan {
                 data: 'action',
                 name: 'action',
                 orderable: false,
@@ -143,62 +127,36 @@
 
         var _this = $(this);
         var ids = _this.data('id');
-        var status = _this.prop('checked') ? 1 : 0;
+        var is_active = _this.prop('checked') ? 1 : 0;
 
-        Swal.fire({
-            title: "{{__('label.change_update_status')}}",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: '{{__('label.yes')}}',
-            cancelButtonText: '{{__('label.cancel')}}',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '{{ route('admin.roles.updateStatus') }}',
-                    method: 'POST',
-                    data: {
-                        "id": ids,
-                        "status": status,
-                        "_token": "{{ csrf_token() }}",
-                    },
-                    success: function(data) {
-                        if (data.status == 201) {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: data.message,
-                                showConfirmButton: false,
-                                timer: 3000
-                            });
-                        } else {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: data.message,
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
-                        }
-                        $('.data-table').DataTable().ajax.reload(null, false);
 
-                    },
-                    error: function(data) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: data.responseJSON && data.responseJSON.message ?
-                                data.responseJSON.message : 'حدث خطأ ما',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                        $('.data-table').DataTable().ajax.reload(null, false);
-                    }
-                });
-            } else {
-                // Restore previous state if cancelled
-                _this.prop('checked', !_this.prop('checked'));
+        $.ajax({
+            url: '{{ route('admin.roles.updateStatus') }}',
+            method: 'POST',
+            data: {
+                "id": ids,
+                "is_active": is_active,
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(response) {
+                if (response.status == 201) {
+                    toastr.success(response.message, "{{ __('label.success') }}");
+
+                } else {
+                    toastr.error(response.message, "{{ __('label.error') }}");
+
+                }
+                $('.data-table').DataTable().ajax.reload(null, false);
+
+            },
+            error: function(data) {
+
+                toastr.error(data.responseJSON.message, "{{ __('label.error') }}");
+
+                $('.data-table').DataTable().ajax.reload(null, false);
             }
         });
+
     });
 
 

@@ -1,3 +1,5 @@
+                        @if(auth('admin')->user()->can('edit_admin')||auth('admin')->user()->can('delete_admin'))
+
                 <a href="#" class="btn btn-icon btn-light btn-active-light-primary btn-sm"
                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
                     <i class="fa fa-ellipsis-v fs-5"></i>
@@ -26,3 +28,4 @@
                         </div>
                     @endcan
                 </div>
+                @endif

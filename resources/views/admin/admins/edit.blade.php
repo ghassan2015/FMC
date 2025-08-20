@@ -27,12 +27,12 @@
                     <div class="col-md-6">
                         <label class="form-label required">{{ __('label.name') }}</label>
                         <input type="text" name="name" class="form-control" value="{{ old('name', $admin->name) }}">
-                        <div class="text-danger name_error" style="display: none"></div>
+                        <div class="text-danger name" ></div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label required">{{ __('label.email') }}</label>
                         <input type="email" name="email" class="form-control" value="{{ old('email', $admin->email) }}">
-                        <div class="text-danger email_error" style="display: none"></div>
+                        <div class="text-danger email" ></div>
                     </div>
                 </div>
 
@@ -41,12 +41,12 @@
                         <label class="form-label required">{{ __('label.mobile') }}</label>
                         <input type="text" name="mobile" class="form-control"
                             value="{{ old('mobile', $admin->mobile) }}">
-                        <div class="text-danger phone_error" style="display: none"></div>
+                        <div class="text-danger mobile" ></div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label required">{{ __('label.password') }}</label>
                         <input type="password" name="password" class="form-control">
-                        <div class="text-danger password_error" style="display: none"></div>
+                        <div class="text-danger password" ></div>
                     </div>
                 </div>
 
@@ -64,7 +64,7 @@
                                     {{ $value->name }}</option>
                             @endforeach
                         </select>
-                        <div class="text-danger branch_error" style="display: none"></div>
+                        <div class="text-danger branch_id" ></div>
                     </div>
 
                     <div class="col-md-4">
@@ -79,7 +79,7 @@
                                     {{ $value->name }}</option>
                             @endforeach
                         </select>
-                        <div class="text-danger role_id_error" style="display: none"></div>
+                        <div class="text-danger role_id" ></div>
                     </div>
 
                     <div class="col-md-4">
@@ -141,58 +141,46 @@
                                     {{ $name }}</option>
                             @endforeach
                         </select>
-                        <div class="text-danger redirect_route_error" style="display: none"></div>
+                        <div class="text-danger redirect_route" ></div>
                     </div>
                 </div>
 
-                <div class="row mb-5">
-                    <div class="col-md-6">
-                        <label for="image" class="form-label required d-block mb-2">{{ __('label.photo') }}</label>
+                 <div class="row mb-5">
+                        <div class="col-md-12 ">
+                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('{{ asset('assets/media/svg/avatars/blank.svg') }}'); margin: auto;">
 
-                        <div class="image-input image-input-empty" data-kt-image-input="true">
-                            <!--begin::Image preview wrapper-->
-                            <div class="image-input-wrapper w-125px h-125px"
-                                style="background-image: url('{{ $admin->getAttachment() }}'); background-size: cover;">
+                                <div class="image-input-wrapper w-125px h-125px" id="logoPreview" style="background-image: url('{{ $admin->getAttachment() }}');"></div>
+
+                                <!-- Change -->
+                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute top-0 end-0 translate-middle" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="{{ __('label.change_avatar') }}">
+                                    <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span class="path2"></span></i>
+                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg, .webp" />
+                                    <input type="hidden" name="avatar_remove" />
+                                </label>
+
+                                <!-- Cancel -->
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute top-0 start-0 translate-middle" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="{{ __('label.cancel_avatar') }}">
+                                    <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                </span>
+
+                                <!-- Remove -->
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute bottom-0 end-50 translate-middle-x" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="{{ __('label.remove_avatar') }}">
+                                    <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                </span>
                             </div>
-                            <!--end::Image preview wrapper-->
-
-                            <!--begin::Edit button-->
-                            <label
-                                class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                                <i class="ki-duotone ki-pencil fs-6"></i>
-                                <input type="file" name="image" id="image"
-                                    accept=".png, .jpg, .jpeg, .gif, .bmp, .webp" />
-                                <input type="hidden" name="avatar_remove" />
-                            </label>
-                            <!--end::Edit button-->
-
-                            <!--begin::Cancel button-->
-                            <span
-                                class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                                <i class="ki-outline ki-cross fs-3"></i>
-                            </span>
-                            <!--end::Cancel button-->
-
-                            <!--begin::Remove button-->
-                            <span
-                                class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                                <i class="ki-outline ki-cross fs-3"></i>
-                            </span>
-                            <!--end::Remove button-->
+                            <div class="form-text mt-2">
+                                <i class="fas fa-info-circle"></i> {{ __('label.allowed_file_types') }}: jpg, png, jpeg, webp
+                            </div>
                         </div>
                     </div>
-
 
                     <div class="row mb-5">
                         <label for="image" class="form-label required d-block mb-2">{{ __('label.status') }}</label>
 
                         <div class="col-md-6 d-flex align-items-center mb-2 ">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="status" name="status"
-                                    value="1" checked>
+                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active"
+                                    value="{{$admin->is_active}}" checked>
                             </div>
                         </div>
                     </div>
@@ -211,11 +199,6 @@
     </div>
     </div>
 @endsection
-@section('scripts')
-    <script>
-        var imageInputElement = document.querySelector('[data-kt-image-input="true"]');
-        if (imageInputElement) {
-            new KTImageInput(imageInputElement);
-        }
-    </script>
-@endsection
+ @push('scripts')
+        @include('admin.admins.js.create_edit')
+    @endpush

@@ -761,7 +761,7 @@
                                      <!--begin::Col-->
                                      <div class="row g-2">
                                          <div class="col-4">
-                                             <a href="{{ route('admin.users.index') }}"
+                                             <a href=""
                                                  class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
                                                  <i class="fa-solid fa-users fa-2x mb-2"></i>
                                                  <span class="fw-semibold">المستخدمين</span>
@@ -769,7 +769,7 @@
                                          </div>
 
                                          <div class="col-4">
-                                             <a href="{{ route('admin.branches.index') }}"
+                                             <a href=""
                                                  class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
                                                  <i class="fa-solid fa-code-branch fa-2x mb-2"></i>
                                                  <span class="fw-semibold">الفروع</span>
@@ -777,7 +777,7 @@
                                          </div>
 
                                          <div class="col-4">
-                                             <a href="{{ route('admin.invoices.index') }}"
+                                             <a href=""
                                                  class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
                                                  <i class="fa-solid fa-file-invoice-dollar fa-2x mb-2"></i>
                                                  <span class="fw-semibold">الفواتير</span>
@@ -785,7 +785,7 @@
                                          </div>
 
                                          <div class="col-4">
-                                             <a href="{{ route('admin.reports.index') }}"
+                                             <a href=""
                                                  class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
                                                  <i class="fa-solid fa-chart-line fa-2x mb-2"></i>
                                                  <span class="fw-semibold">التقارير</span>
@@ -793,7 +793,7 @@
                                          </div>
 
                                          <div class="col-4">
-                                             <a href="{{ route('admin.roles.index') }}"
+                                             <a href=""
                                                  class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
                                                  <i class="fa-solid fa-user-shield fa-2x mb-2"></i>
                                                  <span class="fw-semibold">الأدوار</span>
@@ -801,7 +801,7 @@
                                          </div>
 
                                          <div class="col-4">
-                                             <a href="{{ route('admin.activities.index') }}"
+                                             <a href=""
                                                  class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
                                                  <i class="fa-solid fa-tasks fa-2x mb-2"></i>
                                                  <span class="fw-semibold">الأنشطة</span>

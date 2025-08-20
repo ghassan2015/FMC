@@ -22,11 +22,11 @@
                 {{ __('label.filter') }}
             </button>
             @can('add_branch')
-            <button type="button" class="btn btn-primary add_branch" data-bs-toggle="tooltip"
-                title="{{ __('label.add_new_branch') }}">
-                <i class="ki-duotone ki-plus fs-2"></i>
-                {{ __('label.add_new_branch') }}
-            </button>
+                <button type="button" class="btn btn-primary add_branch" data-bs-toggle="tooltip"
+                    title="{{ __('label.add_new_branch') }}">
+                    <i class="ki-duotone ki-plus fs-2"></i>
+                    {{ __('label.add_new_branch') }}
+                </button>
             @endcan
         </div>
         <!-- Group actions -->
@@ -44,31 +44,12 @@
         <div class="col-12 col-md-6 mb-3 mb-md-0">
             <select class="form-select form-select-solid" dir="rtl" data-control="select2" id="isActiveFilter">
                 <option value="">{{ __('label.status') }}</option>
-                <option value="0">{{ __('label.is_inactive') }}</option>
-                <option value="1">{{ __('label.is_active') }}</option>
+                <option value="0">{{ __('label.inactive') }}</option>
+                <option value="1">{{ __('label.active') }}</option>
             </select>
         </div>
         <div class="col-12 col-md-6 d-flex gap-2">
-            @can('export_pdf_branch')
-            <button type="button" class="btn btn-light-success flex-fill" id="exportExcelBtn">
-                <i class="ki-duotone ki-file-excel fs-1">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                </i>
-                {{ __('label.export_excel') }}
-            </button>
-            @endcan
-         @can('export_pdf_branch')
-
-            <button type="button" class="btn btn-light-danger flex-fill" id="exportPdfBtn">
-                <i class="ki-duotone ki-file-pdf fs-1">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                </i>
-                {{ __('label.export_pdf') }}
-            </button>
-
-            @endcan
+         
         </div>
     </div>
     <!-- Datatable -->
@@ -76,14 +57,10 @@
         <thead>
             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                 <th>{{ __('label.name') }}</th>
-                <th>{{ __('label.max_capacity') }}</th>
-                <th>{{ __('label.registered_count') }}</th>
-                <th>{{ __('label.user_count') }}</th>
-                <th>{{ __('label.total_income') }}</th>
-                <th>{{ __('label.total_contracts') }}</th>
-                @can('update_status_branch')
-                <th>{{ __('label.status') }}</th>
+                <th>{{ __('label.address') }}</th>
 
+                @can('update_status_branch')
+                    <th>{{ __('label.status') }}</th>
                 @endcan
                 <th>{{ __('label.actions') }}</th>
 

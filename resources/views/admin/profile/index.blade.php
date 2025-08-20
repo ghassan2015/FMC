@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('main_title','بيانات الملف الشخصي')
-@section('main_page','الملف الشخصي')
-@section('title','الملف الشخصي')
+@section('title', __('label.profile'))
+@section('toolbarSubTitle', __('label.profile'))
+@section('toolbarPage', __('label.profile_data'))
 
 @section('content')
     <div id="kt_app_content_container" class="app-container container-fluid">
@@ -13,10 +13,10 @@
 
         <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
             <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">بيانات الشخصية</a>
+                <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">{{__('label.personal_logo')}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">تغير كلمة المرور</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">{{__('label.change_password')}}</a>
             </li>
 
         </ul>
@@ -30,7 +30,7 @@
                         <!--begin::Input group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label fw-semibold fs-6">الصورة</label>
+                            <label class="col-lg-4 col-form-label fw-semibold fs-6">{{__('label.logo')}}</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
@@ -79,7 +79,7 @@
                         <!--begin::Input group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">الاسم</label>
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{__('label.name')}}</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
@@ -105,7 +105,7 @@
                         <!--begin::Input group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">الايميل</label>
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{__('label.email')}}</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
@@ -120,7 +120,7 @@
                         <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                                <span class="required">رقم الجوال</span>
+                                <span class="required">{{__('label.mobile')}}</span>
                                 <span class="ms-1" data-bs-toggle="tooltip" title="Phone number must be active">
 																<i class="ki-duotone ki-information-5 text-gray-500 fs-6">
 																	<span class="path1"></span>
@@ -145,7 +145,7 @@
                     <!--end::Card body-->
                     <!--begin::Actions-->
                     <div class="card-footer d-flex justify-content-end py-6 px-9">
-                        <button type="submit" class="btn btn-primary" form="kt_account_profile_details_form" id="submit-button">تاكيد</button>
+                        <button type="submit" class="btn btn-primary" form="kt_account_profile_details_form" id="submit-button">{{__('label.submit')}}</button>
                         <div id="spinner" class="spinner-border text-primary" role="status" style="display:none;">
                             <span class="visually-hidden">Loading...</span>
                         </div>
@@ -165,7 +165,7 @@
                         <!--begin::Input group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">كلمة المرور الحالية</label>
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{__('label.current_password')}}</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
@@ -191,7 +191,7 @@
                         <!--begin::Input group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
-                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">كلمة المرور الجديدة</label>
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{__('label.new_password')}}</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
@@ -206,7 +206,7 @@
                         <div class="row mb-6">
                             <!--begin::Label-->
 
-                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">تاكيد كلمة المرور</label>
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{__('label.confirm_new_password')}}</label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
@@ -223,7 +223,7 @@
                     <!--end::Card body-->
                     <!--begin::Actions-->
                     <div class="card-footer d-flex justify-content-end py-6 px-9">
-                        <button type="submit" class="btn btn-primary" form="kt_account_profile_password_form" id="password_submit-button">تاكيد</button>
+                        <button type="submit" class="btn btn-primary" form="kt_account_profile_password_form" id="password_submit-button">{{__('label.submit')}}</button>
                         <div id="password_spinner" class="spinner-border text-primary" role="status" style="display:none;">
                             <span class="visually-hidden">Loading...</span>
                         </div>

@@ -61,32 +61,13 @@
         <div class="col-12 col-md-4 mb-3 mb-md-0">
             <select class="form-select form-select-solid" dir="rtl" data-control="select2" id="isActiveFilter">
                 <option value="">{{ __('label.status') }}</option>
-                <option value="0">{{ __('label.is_inactive') }}</option>
-                <option value="1">{{ __('label.is_active') }}</option>
+                <option value="0">{{ __('label.inactive') }}</option>
+                <option value="1">{{ __('label.active') }}</option>
             </select>
         </div>
 
 
-        <div class="col-12 col-md-6 d-flex gap-2 m-3">
-            @can('export_excel_admin')
-                <button type="button" class="btn btn-light-success flex-fill" id="exportExcelBtn">
-                    <i class="ki-duotone ki-file-excel fs-1">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i>
-                    {{ __('label.export_excel') }}
-                </button>
-            @endcan
-            @can('export_excel_admin')
-                <button type="button" class="btn btn-light-danger flex-fill" id="exportPdfBtn">
-                    <i class="ki-duotone ki-file-pdf fs-1">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i>
-                    {{ __('label.export_pdf') }}
-                </button>
-            @endcan
-        </div>
+
     </div>
     <!-- Datatable -->
     <table id="kt_datatable_example_1" class="table align-middle table-row-dashed fs-6 gy-5 data-table">

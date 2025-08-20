@@ -11,9 +11,12 @@
     <div class="menu-item px-3">
         <a  class="menu-link px-3 edit"
         data-branch_id="{{$data->id}}"
-        data-name="{{$data->name}}"
-        data-code="{{$data->code}}"
-        data-status="{{$data->status}}"
+                    data-name_ar="{{ $data->getTranslation('name', 'ar') }}"
+                    data-name_en="{{ $data->getTranslation('name', 'en') }}"
+                        data-address_ar="{{ $data->getTranslation('address', 'ar') }}"
+                    data-address_en="{{ $data->getTranslation('address', 'en') }}"
+                    data-photo="{{ $data->photo }}"
+                    data-is_active="{{ $data->is_active }}"
         data-kt-docs-table-filter="edit_row">
             <i class="fa fa-edit px-3" style="color: #007bff;"></i>
             {{ __('label.edit') }}

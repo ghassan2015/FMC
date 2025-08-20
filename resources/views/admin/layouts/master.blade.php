@@ -119,7 +119,7 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Scrolltop-->
     @include('Shared.delete')
 
-    
+
     <!--begin::Javascript-->
     <script>
         var hostUrl = "assets/";
@@ -131,6 +131,8 @@ License: For each use you must have a valid license purchased only from above li
     <script src="{{ url('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ url('assets/js/scripts.bundle.js') }}"></script>
     <script src="{{ url('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <script>
         $(".kt_datepicker").flatpickr({
             allowInput: true,
