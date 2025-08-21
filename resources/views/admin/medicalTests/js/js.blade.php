@@ -42,8 +42,7 @@
                 },
             },
 
-            columns: [
-                {
+            columns: [{
                     data: 'name',
                     name: 'name',
                     orderable: false,
@@ -57,8 +56,7 @@
 
 
 
-
-
+             \
                 {
                     data: 'action',
                     name: 'action',
@@ -156,7 +154,7 @@
                         });
 
                     }
-                                                $('.data-table').DataTable().ajax.reload(null, false);
+                    $('.data-table').DataTable().ajax.reload(null, false);
 
                 },
                 error: function(xhr) {
@@ -186,7 +184,7 @@
 
 
 
-    $(document).on('click', '.add_medical_test', function() {
+    $(document).on('click', '.add_city', function() {
         $('#kt_modal_add_edit').modal('show');
 
         let _url = "{{ route('admin.medicalTests.store') }}";
@@ -194,6 +192,7 @@
         $('#my-form').attr('action', _url);
         $('#name_ar').val('');
         $('#name_en').val('');
+        $('#status').prop('checked', true);
 
 
 
@@ -208,8 +207,7 @@
         form.attr('action', "{{ route('admin.medicalTests.update') }}");
 
         const fields = [
-            'city_id', 'name_ar', 'name_en',
-            'price',
+            'medical_test_id', 'name_ar', 'name_en',
         ];
         fields.forEach(field => {
 
@@ -218,13 +216,7 @@
 
         });
 
-        var is_active = $(this).data('is_active');
-        $('#is_active').attr('checked', false);
-
-        if (is_active) {
-            $('#is_active').attr('checked', true);
-        }
-
+       
 
 
 
@@ -260,7 +252,7 @@
 
         // Perform the AJAX delete request
         $.ajax({
-            url: '{{ route('admin.settings.cities.delete') }}',
+            url: '{{ route('admin.medicalTests.delete') }}',
             method: 'POST',
             data: {
                 "id": ids,
@@ -280,7 +272,7 @@
                         timeOut: 3000
                     });
                 }
-                                            $('.data-table').DataTable().ajax.reload(null, false);
+                $('.data-table').DataTable().ajax.reload(null, false);
 
             },
             error: function() {
@@ -297,48 +289,5 @@
 
 
 
-    function toggleActive(element) {
-        var city_id = $(element).data('id');
-        var isActive = $(element).prop('checked') ? 1 : 0;
 
-        $.ajax({
-            url: '{{ route('admin.settings.cities.updateStatus') }}', // Laravel route for toggling the status
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                city_id: city_id,
-                is_active: isActive
-            },
-            success: function(response) {
-
-                // Handle the response on success
-                if (response.success) {
-                    toastr.success(response.message, '{{ __('label.success') }}', {
-                        timeOut: 3000
-                    });
-
-
-                } else {
-                    toastr.error(response.message, '{{ __('label.error') }}', {
-                        timeOut: 3000
-                    });
-
-                }
-                                            $('.data-table').DataTable().ajax.reload(null, false);
-
-            },
-            error: function(xhr) {
-                // Hide the spinner and enable the submit button
-
-                // For other errors, display a general error message
-                toastr.error('{{ __('label.An error occurred. Please try again later') }}',
-                    '{{ __('label.error') }}', {
-                        timeOut: 3000
-                    });
-
-
-            }
-
-        });
-    }
 </script>

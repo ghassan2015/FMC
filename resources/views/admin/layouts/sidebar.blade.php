@@ -86,7 +86,7 @@
                     class="menu-item {{ request()->routeIs('admin.branches.*') ? 'here show' : '' }} menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
-                            <i class="fas fa-hospital -2"></i>
+                            <i class="fas fa-hospital "></i>
                         </span>
                         <span class="menu-title">{{ __('label.branches') }}</span>
                         <span class="menu-arrow"></span>
@@ -159,6 +159,33 @@
                     </div>
                 </div>
             @endif
+
+               @if (auth('admin')->user()->can('view_doctor'))
+                <div data-kt-menu-trigger="click"
+                    class="menu-item {{ request()->routeIs('admin.doctors.*') ? 'here show' : '' }} menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-abstract-41  fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('label.doctors') }}</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                        @can('view_doctor')
+                            <div class="menu-item">
+                                <a class="menu-link {{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.doctors.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.doctors') }}</span>
+                                </a>
+                            </div>
+                        @endcan
+
+                    </div>
+                </div>
+            @endif
+
    @if (auth('admin')->user()->can('view_articale'))
                 <div data-kt-menu-trigger="click"
                     class="menu-item {{ request()->routeIs('admin.articales.*') ? 'here show' : '' }} menu-accordion">
@@ -171,7 +198,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
 
-                        @can('view_video')
+                        @can('view_articale')
                             <div class="menu-item">
                                 <a class="menu-link {{ request()->routeIs('admin.articales.*') ? 'active' : '' }}"
                                     href="{{ route('admin.articales.index') }}">

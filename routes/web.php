@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Branches\BranchController;
 use App\Http\Controllers\Admin\Cities\CitiesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Doctors\DoctorController;
+use App\Http\Controllers\Admin\MedicalTest\MedicalTestController;
 use App\Http\Controllers\Admin\Profile\ProfileController;
 use App\Http\Controllers\Admin\Roles\RoleController;
 use App\Http\Controllers\Admin\Services\ServicController;
@@ -183,8 +184,7 @@ Route::group(
                     Route::get('/getIndex', [DoctorController::class, 'getIndex'])->name('admin.doctors.getIndex')->middleware('can:view_articale');
                     Route::get('/create', [DoctorController::class, 'create'])->name('admin.doctors.create')->middleware('can:view_articale');
                     Route::post('/store', [DoctorController::class, 'store'])->name('admin.doctors.store')->middleware('can:add_articale');
-                                     Route::get('/edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctors.edit')->middleware('can:view_articale');
-
+                     Route::get('/edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctors.edit')->middleware('can:view_articale');
                     Route::post('/update', [DoctorController::class, 'update'])->name('admin.doctors.update')->middleware('can:edit_articale');
                     Route::post('/updateStatus', [DoctorController::class, 'updateStatus'])->name('admin.doctors.updateStatus')->middleware('can:update_status_articale');
                     Route::post('/delete', [DoctorController::class, 'delete'])->name('admin.doctors.delete')->middleware('can:delete_articale');
@@ -192,6 +192,15 @@ Route::group(
 
 
 
+
+        Route::group(['prefix' => 'medical_tests'], function () {
+                    Route::get('/', [MedicalTestController::class, 'index'])->name('admin.medicalTests.index')->middleware('can:view_city');
+                    Route::get('/getIndex', [MedicalTestController::class, 'getIndex'])->name('admin.medicalTests.getIndex')->middleware('can:view_city');
+                    Route::post('/store', [MedicalTestController::class, 'store'])->name('admin.medicalTests.store')->middleware('can:add_city');
+                    Route::post('/update', [MedicalTestController::class, 'update'])->name('admin.medicalTests.update')->middleware('can:edit_city');
+                    Route::post('/updateStatus', [MedicalTestController::class, 'updateStatus'])->name('admin.medicalTests.updateStatus')->middleware('can:update_status_city');
+                    Route::post('/delete', [MedicalTestController::class, 'delete'])->name('admin.medicalTests.delete')->middleware('can:delete_city');
+                });
 
 
                 Route::group(['prefix' => 'cities'], function () {
