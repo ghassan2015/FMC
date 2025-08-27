@@ -124,6 +124,67 @@
 
                         </div>
                     </div>
+                    <div id="branchSchedulesContainer">
+                        @foreach ($doctor->branches as $branch)
+                            <div class="branch-schedule mt-4" id="branchSchedule{{ $branch->id }}">
+                                <h5>مواعيد الدكتور في فرع: {{ $branch->name }}</h5>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>اليوم</th>
+                                            <th>من</th>
+                                            <th>إلى</th>
+                                            <th>مدة الجلسة (دقائق)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $days = [
+                                                'Saturday',
+                                                'Sunday',
+                                                'Monday',
+                                                'Tuesday',
+                                                'Wednesday',
+                                                'Thursday',
+                                                'Friday',
+                                            ];
+                                        @endphp
+
+                                        @foreach ($days as $day)
+                                            @php
+                                                $schedule = $doctor->schedules
+                                                    ->where('branch_id', $branch->id)
+                                                    ->where('day', $day)
+                                                    ->first();
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $day }}</td>
+                                                <td>
+                                                    <input type="time"
+                                                        name="schedule[{{ $branch->id }}][{{ $day }}][start]"
+                                                        class="form-control"
+                                                        value="{{ old('schedule.' . $branch->id . '.' . $day . '.start', $schedule->start_time ?? '') }}">
+                                                </td>
+                                                <td>
+                                                    <input type="time"
+                                                        name="schedule[{{ $branch->id }}][{{ $day }}][end]"
+                                                        class="form-control"
+                                                        value="{{ old('schedule.' . $branch->id . '.' . $day . '.end', $schedule->end_time ?? '') }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number"
+                                                        name="schedule[{{ $branch->id }}][{{ $day }}][session_duration]"
+                                                        class="form-control"
+                                                        value="{{ old('schedule.' . $branch->id . '.' . $day . '.session_duration', $schedule->session_duration ?? 30) }}">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <hr>
+                            </div>
+                        @endforeach
+                    </div>
 
                     {{-- Avatar --}}
                     <div class="row mb-5">

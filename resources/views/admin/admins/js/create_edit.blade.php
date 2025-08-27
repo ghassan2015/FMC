@@ -6,7 +6,7 @@
   $("#my-form").validate({
 
             rules: {
-            
+
 
 
 
@@ -28,6 +28,7 @@
                 $('.btn-primary').attr('disabled', true);
                 $('.hiden_icon').hide();
 
+                $('.text-danger').text('')
                 $.ajax({
                     url: _url,
                     type: "post",

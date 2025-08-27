@@ -78,7 +78,7 @@ class BannerController extends Controller
                 if ($banner->photo && Storage::disk('public')->exists($banner->photo)) {
                     Storage::disk('public')->delete($banner->photo);
                 }
-                $path = $request->file('avatar')->store('services', 'public');
+                $path = $request->file('avatar')->store('banners', 'public');
                 $banner->update([
                     'photo' => $path
                 ]);

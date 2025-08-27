@@ -26,7 +26,11 @@ class AdminController extends Controller
 
     public function getIndex(Request $request)
     {
-        $admins = Admin::query();
+        $admins = Admin::query()->doesntHave('doctor')
+        ->when(!auth('admin')->user()->is_super && auth('admin')->user()->branch_id,function($q){
+            $q->where('branch_id',auth('admin')->user()->branch_id);
+        })
+        ;
 
         if ($request->filled('branch_id')) {
             $admins->where('branch_id', $request->branch_id);

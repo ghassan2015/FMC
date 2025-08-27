@@ -21,6 +21,7 @@ class ArticaleRequest extends FormRequest
         'title_en' => $this->title_en ? trim($this->title_en) : null,
         'description_ar' => $this->description_ar ? trim(strip_tags($this->description_ar)) : null,
         'description_en' => $this->description_en ? trim(strip_tags($this->description_en)) : null,
+
     ]);
 }
 
@@ -31,6 +32,7 @@ class ArticaleRequest extends FormRequest
             'title_en' => 'required|string|max:100',
             'description_ar' => 'required|string|max:1000',
             'description_en' => 'required|string|max:1000',
+            'specialization_id'=>'required|exists:specializations,id',
 
             'is_active' => 'nullable',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|required_if:articale_id,null',

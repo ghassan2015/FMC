@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title', __('label.medicalTests'))
-@section('toolbarSubTitle', __('label.medicalTests'))
-@section('toolbarPage', __('label.dispaly_all_medical_tests'))
+@section('title', __('label.medical_test_types'))
+@section('toolbarSubTitle', __('label.medical_test_types'))
+@section('toolbarPage', __('label.dispaly_all_medical_test_types'))
 
 
 @section('content')
@@ -22,11 +22,13 @@
                 <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
                 {{ __('label.filter') }}
             </button>
+            @can('add_medical_test')
                 <button type="button" class="btn btn-primary add_city" data-bs-toggle="tooltip"
                     title="{{ __('label.add_new_medical_test') }}">
                     <i class="ki-duotone ki-plus fs-2"></i>
                     {{ __('label.add_new_medical_test') }}
                 </button>
+                @endcan
         </div>
         <!-- Group actions -->
         <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selected">

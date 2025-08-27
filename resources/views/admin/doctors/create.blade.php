@@ -67,7 +67,7 @@
                         <div class="col-md-6">
                             <label class="form-label required" for="about_us_ar">{{ __('label.aboutus_doctor') }}
                                 (AR)</label>
-                            <textarea  name="about_us_ar" class="form-control" id="about_us_ar" required></textarea>
+                            <textarea name="about_us_ar" class="form-control" id="about_us_ar" required></textarea>
                             <div class="about_us_ar error"></div>
                         </div>
                         <div class="col-md-6">
@@ -81,9 +81,10 @@
 
                     <div class="row mb-5">
 
-                            <div class="col-md-4">
+                        <div class="col-md-4">
                             <label class="form-label required">{{ __('label.license_number') }}</label>
-                            <input type="text" name="license_number" class="form-control" value="{{ old('license_number') }}" required>
+                            <input type="text" name="license_number" class="form-control"
+                                value="{{ old('license_number') }}" required>
                             <div class="text-danger license_number"></div>
 
 
@@ -91,23 +92,18 @@
                         </div>
                         <div class="col-md-4">
                             <label class="form-label required">{{ __('label.branches') }}</label>
-                            <select class="form-select form-select-solid" data-control="select2" multiple name="branch_id"
-                                required data-control="select2">
-                                <option value="">{{ __('label.selected') }}</option>
+                            <select class="form-select form-select-solid" data-control="select2" multiple name="branch_id[]"
+                                required data-control="select2" id="branchesSelect">
                                 @foreach ($branches as $value)
-                                    <option value="{{ $value->id }}"
-                                        {{ old('branch_id') == $value->id ? 'selected' : '' }}>
-                                        {{ $value->name }}
-                                    </option>
+                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
                                 @endforeach
                             </select>
-                                <span class="branch_id error"></span>
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label required">{{ __('label.specializations') }}</label>
-                            <select class="form-select form-select-solid" data-control="select2"
-                                name="specialization_id" required data-control="select2">
+                            <select class="form-select form-select-solid" data-control="select2" name="specialization_id"
+                                required data-control="select2">
                                 <option value="">{{ __('label.selected') }}</option>
                                 @foreach ($specializations as $value)
                                     <option value="{{ $value->id }}"
@@ -117,11 +113,14 @@
                                 @endforeach
                             </select>
 
-                                <span class="specialization_id error"></span>
+                            <span class="specialization_id error"></span>
 
                         </div>
 
 
+                    </div>
+                    <div id="branchSchedulesContainer">
+                        <!-- سيتم إضافة جداول المواعيد لكل فرع هنا -->
                     </div>
 
 

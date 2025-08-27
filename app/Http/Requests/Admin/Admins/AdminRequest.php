@@ -25,8 +25,8 @@ class AdminRequest extends FormRequest
            'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:admins,email,' . $this->admin_id,
             'role_id' => 'required|exists:roles,id',
-            'branch_id' => 'required|exists:branches,id',
-            'mobile' => 'required|string|max:15|unique:admins,mobile,' . $this->admin_id,
+            'branch_id' => 'nullable|exists:branches,id',
+            'mobile' => 'required|string|max:10|unique:admins,mobile,' . $this->admin_id,
             'password' => 'nullable|min:8',
         ];
     }

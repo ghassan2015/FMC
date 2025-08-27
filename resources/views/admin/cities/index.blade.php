@@ -22,11 +22,15 @@
                 <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
                 {{ __('label.filter') }}
             </button>
+            @can('add_city')
+
+
                 <button type="button" class="btn btn-primary add_city" data-bs-toggle="tooltip"
                     title="{{ __('label.add_new_city') }}">
                     <i class="ki-duotone ki-plus fs-2"></i>
                     {{ __('label.add_new_city') }}
                 </button>
+                    @endcan
         </div>
         <!-- Group actions -->
         <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selected">
@@ -56,8 +60,11 @@
             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
 
                 <th>{{ __('label.name') }}</th>
-                <th>{{ __('label.status') }}</th>
+                @can('update_status_city')
 
+
+                <th>{{ __('label.status') }}</th>
+    @endcan
 
                 <th></th>
             </tr>

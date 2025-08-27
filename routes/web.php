@@ -1,19 +1,23 @@
 <?php
 
 use App\Http\Controllers\Admin\Admin\AdminController;
+use App\Http\Controllers\Admin\Appointments\AppointmentController;
 use App\Http\Controllers\Admin\Articles\ArticaleController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Banners\BannerController;
 use App\Http\Controllers\Admin\Branches\BranchController;
+use App\Http\Controllers\Admin\Categories\CategoriesController;
 use App\Http\Controllers\Admin\Cities\CitiesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Doctors\DoctorController;
 use App\Http\Controllers\Admin\MedicalTest\MedicalTestController;
+use App\Http\Controllers\Admin\MedicalTestsUsers\MedicalTestUserController;
 use App\Http\Controllers\Admin\Profile\ProfileController;
 use App\Http\Controllers\Admin\Roles\RoleController;
 use App\Http\Controllers\Admin\Services\ServicController;
 use App\Http\Controllers\Admin\Settings\SettingController;
 use App\Http\Controllers\Admin\Specializations\SpecializationController;
+use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Videoes\VideoController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -129,25 +133,25 @@ Route::group(
 
 
                 Route::group(['prefix' => 'branches'], function () {
-                    Route::get('/', [BranchController::class, 'index'])->name('admin.branches.index');
-                    Route::get('/getIndex', [BranchController::class, 'getIndex'])->name('admin.branches.getIndex');
-                    Route::post('/store', [BranchController::class, 'store'])->name('admin.branches.store');
+                    Route::get('/', [BranchController::class, 'index'])->name('admin.branches.index')->middleware('can:view_branch');
+                    Route::get('/getIndex', [BranchController::class, 'getIndex'])->name('admin.branches.getIndex')->middleware('can:view_branch');
+                    Route::post('/store', [BranchController::class, 'store'])->name('admin.branches.store')->middleware('can:view_branch');
 
-                    Route::post('/update', [BranchController::class, 'update'])->name('admin.branches.update');
-                    Route::post('/updateStatus', [BranchController::class, 'updateStatus'])->name('admin.branches.updateStatus');
-                    Route::post('/delete', [BranchController::class, 'delete'])->name('admin.branches.delete');
-                    Route::get('/pdfExport', [BranchController::class, 'pdfExport'])->name('admin.branches.pdfExport');
-                    Route::get('/excelExport', [BranchController::class, 'excelExport'])->name('admin.branches.excelExport');
+                    Route::post('/update', [BranchController::class, 'update'])->name('admin.branches.update')->middleware('can:view_branch');
+                    Route::post('/updateStatus', [BranchController::class, 'updateStatus'])->name('admin.branches.updateStatus')->middleware('can:view_branch');
+                    Route::post('/delete', [BranchController::class, 'delete'])->name('admin.branches.delete')->middleware('can:view_branch');
+                    Route::get('/pdfExport', [BranchController::class, 'pdfExport'])->name('admin.branches.pdfExport')->middleware('can:view_branch');
+                    Route::get('/excelExport', [BranchController::class, 'excelExport'])->name('admin.branches.excelExport')->middleware('can:view_branch');
                 });
 
                 Route::group(['prefix' => 'services'], function () {
-                    Route::get('/', [ServicController::class, 'index'])->name('admin.services.index');
-                    Route::get('/getIndex', [ServicController::class, 'getIndex'])->name('admin.services.getIndex');
-                    Route::post('/store', [ServicController::class, 'store'])->name('admin.services.store');
+                    Route::get('/', [ServicController::class, 'index'])->name('admin.services.index')->middleware('can:view_service');
+                    Route::get('/getIndex', [ServicController::class, 'getIndex'])->name('admin.services.getIndex')->middleware('can:view_service');
+                    Route::post('/store', [ServicController::class, 'store'])->name('admin.services.store')->middleware('can:add_service');
 
-                    Route::post('/update', [ServicController::class, 'update'])->name('admin.services.update');
-                    Route::post('/updateStatus', [ServicController::class, 'updateStatus'])->name('admin.services.updateStatus');
-                    Route::post('/delete', [ServicController::class, 'delete'])->name('admin.services.delete');
+                    Route::post('/update', [ServicController::class, 'update'])->name('admin.services.update')->middleware('can:edit_service');
+                    Route::post('/updateStatus', [ServicController::class, 'updateStatus'])->name('admin.services.updateStatus')->middleware('can:update_status_service');
+                    Route::post('/delete', [ServicController::class, 'delete'])->name('admin.services.delete')->middleware('can:delete_service');
                 });
 
                 Route::group(['prefix' => 'specializations'], function () {
@@ -177,30 +181,35 @@ Route::group(
                     Route::post('/updateStatus', [ArticaleController::class, 'updateStatus'])->name('admin.articales.updateStatus')->middleware('can:update_status_articale');
                     Route::post('/delete', [ArticaleController::class, 'delete'])->name('admin.articales.delete')->middleware('can:delete_articale');
                 });
-
+ Route::group(['prefix' => 'videos'], function () {
+                    Route::get('/', [VideoController::class, 'index'])->name('admin.videos.index')->middleware('can:view_video');
+                    Route::get('/getIndex', [VideoController::class, 'getIndex'])->name('admin.videos.getIndex')->middleware('can:view_video');
+                    Route::post('/store', [VideoController::class, 'store'])->name('admin.videos.store')->middleware('can:add_video');
+                    Route::post('/update', [VideoController::class, 'update'])->name('admin.videos.update')->middleware('can:edit_video');
+                    Route::post('/updateStatus', [VideoController::class, 'updateStatus'])->name('admin.videos.updateStatus')->middleware('can:update_status_video');
+                    Route::post('/delete', [VideoController::class, 'delete'])->name('admin.videos.delete')->middleware('can:delete_video');
+                });
 
                 Route::group(['prefix' => 'doctors'], function () {
                     Route::get('/', [DoctorController::class, 'index'])->name('admin.doctors.index')->middleware('can:view_articale');
                     Route::get('/getIndex', [DoctorController::class, 'getIndex'])->name('admin.doctors.getIndex')->middleware('can:view_articale');
                     Route::get('/create', [DoctorController::class, 'create'])->name('admin.doctors.create')->middleware('can:view_articale');
                     Route::post('/store', [DoctorController::class, 'store'])->name('admin.doctors.store')->middleware('can:add_articale');
-                     Route::get('/edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctors.edit')->middleware('can:view_articale');
+                    Route::get('/edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctors.edit')->middleware('can:view_articale');
                     Route::post('/update', [DoctorController::class, 'update'])->name('admin.doctors.update')->middleware('can:edit_articale');
                     Route::post('/updateStatus', [DoctorController::class, 'updateStatus'])->name('admin.doctors.updateStatus')->middleware('can:update_status_articale');
                     Route::post('/delete', [DoctorController::class, 'delete'])->name('admin.doctors.delete')->middleware('can:delete_articale');
+
+                    Route::get('/doctor/branches', [DoctorController::class, 'getBranches'])->name('admin.doctors.getBranches');
+                    Route::get('/doctor/available-days', [DoctorController::class, 'getAvailableDays'])->name('admin.doctors.getAvailableDays');
+
+                    Route::get('/doctor/available-times', [DoctorController::class, 'getAvailableTimes'])->name('admin.doctors.getAvailableTimes');
                 });
 
 
 
 
-        Route::group(['prefix' => 'medical_tests'], function () {
-                    Route::get('/', [MedicalTestController::class, 'index'])->name('admin.medicalTests.index')->middleware('can:view_city');
-                    Route::get('/getIndex', [MedicalTestController::class, 'getIndex'])->name('admin.medicalTests.getIndex')->middleware('can:view_city');
-                    Route::post('/store', [MedicalTestController::class, 'store'])->name('admin.medicalTests.store')->middleware('can:add_city');
-                    Route::post('/update', [MedicalTestController::class, 'update'])->name('admin.medicalTests.update')->middleware('can:edit_city');
-                    Route::post('/updateStatus', [MedicalTestController::class, 'updateStatus'])->name('admin.medicalTests.updateStatus')->middleware('can:update_status_city');
-                    Route::post('/delete', [MedicalTestController::class, 'delete'])->name('admin.medicalTests.delete')->middleware('can:delete_city');
-                });
+
 
 
                 Route::group(['prefix' => 'cities'], function () {
@@ -212,20 +221,86 @@ Route::group(
                     Route::post('/delete', [CitiesController::class, 'delete'])->name('admin.settings.cities.delete')->middleware('can:delete_city');
                 });
 
+                 Route::group(['prefix' => 'settings'], function () {
 
-                Route::group(['prefix' => 'videos'], function () {
-                    Route::get('/', [VideoController::class, 'index'])->name('admin.videos.index')->middleware('can:view_video');
-                    Route::get('/getIndex', [VideoController::class, 'getIndex'])->name('admin.videos.getIndex')->middleware('can:view_video');
-                    Route::post('/store', [VideoController::class, 'store'])->name('admin.videos.store')->middleware('can:add_video');
-                    Route::post('/update', [VideoController::class, 'update'])->name('admin.videos.update')->middleware('can:edit_video');
-                    Route::post('/updateStatus', [VideoController::class, 'updateStatus'])->name('admin.videos.updateStatus')->middleware('can:update_status_video');
-                    Route::post('/delete', [VideoController::class, 'delete'])->name('admin.videos.delete')->middleware('can:delete_video');
-                });
-                Route::group(['prefix' => 'settings'], function () {
-
-                    Route::get('/', [SettingController::class, 'index'])->name('admin.settings.index');
+                    Route::get('/', [SettingController::class, 'index'])->name('admin.settings.index')->middleware('can:view_setting');
                     Route::post('/update', [SettingController::class, 'update'])->name('admin.settings.update');
                 });
+
+                   Route::group(['prefix' => 'medical_tests'], function () {
+                    Route::get('/', [MedicalTestController::class, 'index'])->name('admin.medicalTests.index')->middleware('can:view_medical_test');
+                    Route::get('/getIndex', [MedicalTestController::class, 'getIndex'])->name('admin.medicalTests.getIndex')->middleware('can:view_medical_test');
+                    Route::post('/store', [MedicalTestController::class, 'store'])->name('admin.medicalTests.store')->middleware('can:add_medical_test');
+                    Route::post('/update', [MedicalTestController::class, 'update'])->name('admin.medicalTests.update')->middleware('can:edit_medical_test');
+                    Route::post('/updateStatus', [MedicalTestController::class, 'updateStatus'])->name('admin.medicalTests.updateStatus')->middleware('can:update_status_medical_test');
+                    Route::post('/delete', [MedicalTestController::class, 'delete'])->name('admin.medicalTests.delete')->middleware('can:delete_medical_test');
+                    });
+
+
+                Route::group(['prefix' => 'user_medical_test'], function () {
+                    Route::get('/', [MedicalTestUserController::class, 'index'])->name('admin.medicalTestUsers.index')->middleware('can:view_medical_test');
+                    Route::get('/getIndex', [MedicalTestUserController::class, 'getIndex'])->name('admin.medicalTestUsers.getIndex')->middleware('can:view_medical_test');
+                    Route::post('/store', [MedicalTestUserController::class, 'store'])->name('admin.medicalTestUsers.store')->middleware('can:add_medical_test');
+                    Route::post('/update', [MedicalTestUserController::class, 'update'])->name('admin.medicalTestUsers.update')->middleware('can:edit_medical_test');
+                    Route::post('/updateStatus', [MedicalTestUserController::class, 'updateStatus'])->name('admin.medicalTestUsers.updateStatus')->middleware('can:update_status_city');
+                    Route::post('/delete', [MedicalTestUserController::class, 'delete'])->name('admin.medicalTestUsers.delete')->middleware('can:delete_medical_test');
+                });
+
+                      Route::group(['prefix' => 'categories'], function () {
+                    Route::get('/', [CategoriesController::class, 'index'])->name('admin.categories.index')->middleware('can:view_category');
+                    Route::get('/getIndex', [CategoriesController::class, 'getIndex'])->name('admin.categories.getIndex')->middleware('can:view_category');
+                    Route::get('/create', [CategoriesController::class, 'create'])->name('admin.categories.create')->middleware('can:add_category');
+
+
+                    Route::post('/store', [CategoriesController::class, 'store'])->name('admin.categories.store')->middleware('can:add_category');
+                    Route::get('/edit/{id}', [CategoriesController::class, 'edit'])->name('admin.categories.edit')->middleware('can:edit_category');
+
+                    Route::post('/update', [CategoriesController::class, 'update'])->name('admin.categories.update')->middleware('can:edit_category');
+                    Route::post('/updateStatus', [CategoriesController::class, 'updateStatus'])->name('admin.categories.updateStatus')->middleware('can:update_status_category');
+                    Route::post('/delete', [CategoriesController::class, 'delete'])->name('admin.categories.delete')->middleware('can:delete_category');
+                    Route::post('before-surgical-upload', [CategoriesController::class, 'uploadBeforeSurgical'])->name('admin.categories.before_surgical_upload');
+                    Route::post('before-surgical-delete', [CategoriesController::class, 'deleteBeforeSurgical'])->name('admin.categories.before_surgical_delete');
+
+                    Route::post('after-surgical-upload', [CategoriesController::class, 'uploadAfterSurgical'])->name('admin.categories.after_surgical_upload');
+                    Route::post('after-surgical-delete', [CategoriesController::class, 'deleteAfterSurgical'])->name('admin.categories.after_surgical_delete');
+                });
+
+
+
+                    Route::group(['prefix' => 'users'], function () {
+                    Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
+                    Route::get('/getIndex', [UserController::class, 'getIndex'])->name('admin.users.getIndex');
+                    Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
+                    Route::get('/view/{id}', [UserController::class, 'view'])->name('admin.users.view');
+
+                    Route::post('/store', [UserController::class, 'store'])->name('admin.users.store');
+                    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
+
+                    Route::post('/update', [UserController::class, 'update'])->name('admin.users.update');
+                    Route::post('/updateStatus', [UserController::class, 'updateStatus'])->name('admin.users.updateStatus');
+                    Route::post('/delete', [UserController::class, 'delete'])->name('admin.users.delete');
+                });
+
+
+
+
+
+
+
+                Route::group(['prefix' => 'appointments'], function () {
+
+                    Route::get('/', [AppointmentController::class, 'index'])->name('admin.appointments.index')->middleware('can:view_video');
+                    Route::get('/getIndex', [AppointmentController::class, 'getIndex'])->name('admin.appointments.getIndex')->middleware('can:view_video');
+
+                    Route::post('/store', [AppointmentController::class, 'store'])->name('admin.appointments.store')->middleware('can:add_video');
+                    Route::post('/update', [AppointmentController::class, 'update'])->name('admin.appointments.update')->middleware('can:add_video');
+                    Route::post('/delete', [AppointmentController::class, 'delete'])->name('admin.appointments.delete')->middleware('can:add_video');
+                });
+
+
+
+
+
             }
         );
     }

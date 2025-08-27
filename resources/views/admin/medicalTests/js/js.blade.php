@@ -7,7 +7,7 @@
 <script>
     $(document).ready(function() {
 
-        $('[data-kt-data-table-filter="search"]').on('keyup', function() {
+        $('[data-kt-docs-table-filter="search"]').on('keyup', function() {
             table.search(this.value).draw();
         });
         const locale = '{{ app()->getLocale() }}'; // Get the current locale
@@ -56,7 +56,7 @@
 
 
 
-             \
+
                 {
                     data: 'action',
                     name: 'action',
@@ -216,7 +216,7 @@
 
         });
 
-       
+
 
 
 
@@ -244,7 +244,7 @@
         $('#confirmModal').modal('show');
     });
     // Confirm delete action
-    $(document).on('click', '.delete_submit', function(e) {
+    $(document).on('click', '.submit_delete', function(e) {
         e.preventDefault();
 
         var ids = $('#Delete_id').val();

@@ -89,17 +89,16 @@
 
                 },
 
-                @if(auth('admin')->user()->can('update_status_service'))
-                {
-                    data: 'is_active',
-                    name: 'is_active',
-                    orderable: false,
-                    searchable: true,
+                @can('update_status_service')
 
-                },
+                    {
+                        data: 'is_active',
+                        name: 'is_active',
+                        orderable: false,
+                        searchable: true,
 
-                @endcan
-                {
+                    },
+                @endcan {
                     data: 'action',
                     name: 'action',
                     orderable: false,
@@ -175,7 +174,7 @@
             $('#exampleModal').modal('show');
 
             let _url = "{{ route('admin.services.store') }}";
-                $('#logoPreview').css('background-image', 'url(' + '{{ asset('assets/default.png') }}' + ')');
+            $('#logoPreview').css('background-image', 'url(' + '{{ asset('assets/default.png') }}' + ')');
 
             $('#my-form')[0].reset();
 
@@ -242,6 +241,7 @@
                 $('.btn-primary').attr('disabled', true);
                 $('.hiden_icon').hide();
 
+                $('.error').text('');
                 $.ajax({
                     url: _url,
                     type: "post",

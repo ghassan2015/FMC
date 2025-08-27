@@ -74,6 +74,15 @@ return [
             'update_status_articale' => 'تعديل حالة المقالات',
         ],
 
+                '
+                تصنيفات' => [
+            'view_category' => 'عرض التصنيفات',
+            'add_category' => 'اضافة تصنيفات جديدة',
+            'edit_category' => 'تعديل التصنيفات',
+            'delete_category' => 'حذف التصنيفات',
+            'update_status_category' => 'تعديل حالة التصنيفات',
+        ],
+
           'الاطباء' => [
             'view_doctor' => 'عرض الاطباء',
             'add_doctor' => 'اضافة الاطباء',
@@ -81,6 +90,15 @@ return [
             'delete_doctor' => 'حذف الاطباء',
             'update_status_doctor' => 'تعديل حالة الاطباء',
         ],
+
+          'التحليل الطبية' => [
+            'view_medical_test' => 'عرض التحليل الطبية',
+            'add_medical_test' => 'اضافة التحليل الطبية',
+            'edit_medical_test' => 'تعديل التحليل الطبية',
+            'delete_medical_test' => 'حذف التحليل الطبية',
+        ],
+
+
 
         ' المستخدمين' => [
             'view_users' => 'عرض  كافة المستخدمين',

@@ -5,6 +5,7 @@
 @section('toolbarPage', __('label.display_all_doctors'))
 
 @section('content')
+
     <div class="d-flex flex-column flex-md-row flex-stack mb-5 gap-3">
         <!--begin::Search-->
         <div class="d-flex align-items-center position-relative my-1 flex-grow-1">
@@ -94,6 +95,8 @@
             </div>
         </tbody>
     </table>
+
+    @include('admin.appointment.modal.add_edit')
 @endsection
 
 @push('scripts')

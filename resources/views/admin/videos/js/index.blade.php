@@ -89,7 +89,7 @@
 
                 },
 
-                @if(auth('admin')->user()->can('update_status_service'))
+                @can('update_status_video')
                 {
                     data: 'is_active',
                     name: 'is_active',
@@ -106,7 +106,7 @@
                     searchable: true,
                 },
             ],
-          
+
             pageLength: 10,
             lengthMenu: [10, 25, 50, 100],
             drawCallback: function() {
@@ -241,6 +241,7 @@
                 $('.btn-primary').attr('disabled', true);
                 $('.hiden_icon').hide();
 
+                $('.error').text('');
                 $.ajax({
                     url: _url,
                     type: "post",

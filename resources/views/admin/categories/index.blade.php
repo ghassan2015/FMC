@@ -1,29 +1,34 @@
 @extends('admin.layouts.master')
 
-@section('title', __('label.users'))
-@section('toolbarSubTitle', __('label.join_branch_list'))
-@section('toolbarPage', __('label.display_all_join_branch_list'))
+@section('title', __('label.categories'))
+@section('toolbarSubTitle', __('label.categories_list'))
+@section('toolbarPage', __('label.display_all_categories'))
 
 @section('content')
-    <div class="d-flex flex-stack mb-5">
+
+    <div class="d-flex flex-column flex-md-row flex-stack mb-5 gap-3">
         <!--begin::Search-->
-        <div class="d-flex align-items-center position-relative my-1">
+        <div class="d-flex align-items-center position-relative my-1 flex-grow-1">
             <i class="ki-duotone ki-magnifier fs-1 position-absolute ms-6"><span class="path1"></span><span
                     class="path2"></span></i>
-            <input type="text" data-kt-docs-table-filter="search" class="form-control form-control-solid w-400px ps-15"
+            <input type="text" data-kt-docs-table-filter="search" class="form-control form-control-solid w-100 ps-15"
                 placeholder="{{ __('label.search_placeholder') }}" />
         </div>
         <!--end::Search-->
 
         <!--begin::Toolbar-->
-        <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
-
-            <!-- Toolbar -->
-            <button type="button" class="btn btn-light-primary me-3" onclick="toggleFilter()">
+        <div class="d-flex flex-column flex-sm-row justify-content-end gap-2" data-kt-docs-table-toolbar="base">
+            <button type="button" class="btn btn-light-primary me-0 me-sm-3" onclick="toggleFilter()">
                 <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
                 {{ __('label.filter') }}
             </button>
-
+            @can('add_category')
+                <a class="btn btn-primary " data-bs-toggle="tooltip" href="{{ route('admin.categories.create') }}"
+                    title="{{ __('label.add_new_category') }}">
+                    <i class="ki-duotone ki-plus fs-2"></i>
+                    {{ __('label.add_new_category') }}
+                </a>
+            @endcan
         </div>
         <!-- Group actions -->
         <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selected">
@@ -36,30 +41,18 @@
         </div>
     </div>
 
-
-    <!-- Filter Section -->
     <div id="filter-section" class="row mb-5 d-none align-items-end">
-        <div class="row mb-5">
-
-            @if (!auth('admin')->user()->branch_id)
-                <div class="col-md-6 col-sm-6">
-                    <select id="search_branch_id" name="branch_id" class="form-select form-select-solid"
-                        data-control="select2">
-                        <option value="">{{ __('label.all_branches') }}</option>
-                        @foreach ($branches as $branch)
-                            <option value="{{ $branch->id }}">
-                                {{ $branch->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            @endif
 
 
 
-
-
+        <div class="col-12 col-md-4 mb-3 mb-md-0">
+            <select class="form-select form-select-solid" dir="rtl" data-control="select2" id="isActiveFilter">
+                <option value="">{{ __('label.status') }}</option>
+                <option value="0">{{ __('label.inactive') }}</option>
+                <option value="1">{{ __('label.active') }}</option>
+            </select>
         </div>
+
 
 
     </div>
@@ -68,15 +61,12 @@
         <thead>
             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                 <th></th>
-                <th>{{ __('label.name') }} </th>
-                <th>{{ __('label.mobile') }}</th>
-                <th>{{ __('label.total_contracts') }}</th>
-                <th>{{ __('label.total_income') }}</th>
-                <th>{{ __('label.cuurent_branch') }}</th>
-                <th>{{ __('label.transfer_branch') }}</th>
 
-                <th>{{ __('label.whatsapp') }}</th>
+                <th>{{ __('label.name') }}</th>
+                <th>{{ __('label.parent_category') }}</th>
+
                 <th>{{ __('label.actions') }}</th>
+
             </tr>
         </thead>
         <tbody class="text-gray-600 fw-semibold">
@@ -89,15 +79,9 @@
     </table>
 
 
-
-
-    @include('admin.users.modal.add')
-
-
-@endsection
+    @include('Shared.delete')
+    @endsection
 
 @push('scripts')
-    @include('admin.users.js.join_branches')
+    @include('admin.categories.js.index')
 @endpush
-
-<!--end::Datatable-->

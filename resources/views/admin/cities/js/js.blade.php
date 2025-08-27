@@ -18,7 +18,7 @@
             const form = $('#my-form'); // The form you want to set the action for
 
             // Set the action attribute of the form
-            form.attr('action', "{{ route('admin.medicalTests.store') }}");
+            form.attr('action', "{{ route('admin.settings.cities.store') }}");
 
             $('.error').text('');
 
@@ -35,7 +35,7 @@
             searching: true,
 
             ajax: {
-                url: "{{ route('admin.medicalTests.getIndex') }}",
+                url: "{{ route('admin.settings.cities.getIndex') }}",
                 type: 'get',
                 data: function(d) {
                     d.search = $('[data-kt-docs-table-filter="search"]').val();
@@ -50,6 +50,19 @@
                     searchable: true,
 
                 },
+
+                @can('update_status_city')
+
+
+                  {
+                    data: 'is_active',
+                    name: 'is_active',
+                    orderable: false,
+                    searchable: true,
+
+                },
+
+    @endcan
 
 
 
@@ -127,6 +140,7 @@
             $('#spinner').show();
             $('#submit-button').prop('disabled', true);
             var url = $('#my-form').attr('action');
+            $('.error').text('');
             $.ajax({
                 url: url, // Update with your URL
                 type: 'POST',
@@ -134,6 +148,7 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function() {
+
 
                 },
                 success: function(response) {
@@ -186,10 +201,10 @@
 
 
 
-    $(document).on('click', '.add_medical_test', function() {
+    $(document).on('click', '.add_city', function() {
         $('#kt_modal_add_edit').modal('show');
 
-        let _url = "{{ route('admin.medicalTests.store') }}";
+        let _url = "{{ route('admin.settings.cities.store') }}";
 
         $('#my-form').attr('action', _url);
         $('#name_ar').val('');
@@ -205,11 +220,10 @@
 
 
         // Set the action attribute of the form
-        form.attr('action', "{{ route('admin.medicalTests.update') }}");
+        form.attr('action', "{{ route('admin.settings.cities.update') }}");
 
         const fields = [
             'city_id', 'name_ar', 'name_en',
-            'price',
         ];
         fields.forEach(field => {
 
@@ -252,7 +266,7 @@
         $('#confirmModal').modal('show');
     });
     // Confirm delete action
-    $(document).on('click', '.delete_submit', function(e) {
+    $(document).on('click', '.submit_delete', function(e) {
         e.preventDefault();
 
         var ids = $('#Delete_id').val();

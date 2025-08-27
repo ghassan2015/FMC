@@ -1,12 +1,11 @@
     <script src="{{ asset('assets/js/additional-methods.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
 
-<script>
-
-  $("#my-form").validate({
+    <script>
+        $("#my-form").validate({
 
             rules: {
-            
+
 
 
 
@@ -53,7 +52,7 @@
                         $('.hiden_icon').show();
 
                         setTimeout(() => {
-                        window.location.href="{{route('admin.admins.index')}}"
+                            window.location.href = "{{ route('admin.admins.index') }}"
 
                         }, 2000);
 
@@ -86,4 +85,6 @@
             }
 
         });
-</script>
+
+    
+    </script>

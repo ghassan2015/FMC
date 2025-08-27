@@ -89,7 +89,9 @@
 
                 },
 
-                @if(auth('admin')->user()->can('update_status_service'))
+                @can('update_status_specialization')
+
+
                 {
                     data: 'is_active',
                     name: 'is_active',
@@ -242,6 +244,7 @@
                 $('.btn-primary').attr('disabled', true);
                 $('.hiden_icon').hide();
 
+                $('.error').text('');
                 $.ajax({
                     url: _url,
                     type: "post",

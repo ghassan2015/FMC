@@ -92,6 +92,7 @@
 
 
 
+                @if(auth('admin')->user()->can('update_status_branch'))
 
                 {
                     data: 'is_active',
@@ -100,6 +101,7 @@
                     searchable: true,
 
                 },
+                @endif
                 {
                     data: 'action',
                     name: 'action',

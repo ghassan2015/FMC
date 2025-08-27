@@ -58,7 +58,7 @@
                 <th style="width: 10%"></th>
                 <th style="width: 40%">{{ __('label.title') }}</th>
 
-                @if(auth('admin')->user()->can('update_status_service'))
+                @if(auth('admin')->user()->can('update_status_banner'))
                 <th style="width: 25%">{{ __('label.status') }}</th>
                 @endif
                 <th style="width: 25%">{{ __('label.actions') }}</th>

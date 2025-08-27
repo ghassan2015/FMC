@@ -18,7 +18,7 @@ class MedicalTestController extends Controller
     public function getIndex(Request $request)
     {
 
-        $serach = $request->search['value'] ?? false;
+        $serach = $request->search ;
         // if ($request->ajax()) {
         $query = MedicalTest::query()
             ->orderby('id', 'desc')

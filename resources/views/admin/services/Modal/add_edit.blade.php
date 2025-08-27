@@ -92,6 +92,9 @@
                                     <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
                                             class="path2"></span></i>
                                 </span>
+
+                                                            <div class="avatar error"></div>
+
                             </div>
                             <div class="form-text mt-2">
                                 <i class="fas fa-info-circle"></i> {{ __('label.allowed_file_types') }}: jpg, png,

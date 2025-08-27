@@ -27,7 +27,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
    $table->dropColumn('mobile');
             $table->dropColumn('id_number');
-            $table->dropColumn('date_birth');
+            $table->dropColumn('birth_date');
             $table->dropColumn('photo');
 
         });

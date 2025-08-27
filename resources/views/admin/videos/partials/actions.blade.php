@@ -1,4 +1,4 @@
-@if (auth('admin')->user()->can('edit_service') || auth('admin')->user()->can('delete_service'))
+@if (auth('admin')->user()->can('edit_video') || auth('admin')->user()->can('delete_video'))
 
     <a href="#" class="btn btn-icon btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click"
         data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">

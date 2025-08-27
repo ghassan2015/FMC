@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'birth_date',
+        'mobile',
+        'id_number'
+        ,'photo'
     ];
 
     /**
@@ -33,6 +37,15 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+    public function getPhotoAttribute($value){
+
+        if($value){
+            return asset('storage/'.$value);
+        }
+
+        return asset('assets/default.png');
+    }
     /**
      * Get the attributes that should be cast.
      *

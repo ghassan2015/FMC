@@ -88,7 +88,7 @@
                             <label class="form-label required" for="specialization_id">{{ __('label.specialization') }}
                             </label>
 
-                            <select class="form-select form-select-solid" dir="rtl" data-control="select2"
+                            <select class="form-select form-select-solid" dir="rtl" data-control="select2" required
                                 name="specialization_id" id="specialization_id">
                                 <option value="">{{ __('label.selected') }}</option>
 
@@ -97,6 +97,9 @@
                                 @endforeach
 
                             </select>
+                            <div class="specialization_id error"></div>
+
+
 
 
 

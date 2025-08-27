@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $this->call(AdminDBSeeder::class);
+        // $this->call(AdminDBSeeder::class);
+
+        $this->call(ConstantDbSeeder::class);
     }
 }

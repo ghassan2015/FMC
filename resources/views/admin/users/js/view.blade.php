@@ -6,87 +6,7 @@
         let isProgrammaticChange = false;
 
 
-        $(document).on('click', '.add_user', function(e) {
-            e.preventDefault();
-            isProgrammaticChange = true;
 
-            var user_id = $(this).data('user_id');
-            var branch_id = $(this).data('branch_id');
-            var status = $(this).data('status');
-            var user_type_id = $(this).data('user_type_cd_id');
-            var work_space_id = $(this).data('work_space_id');
-            var desk_mangment_id = $(this).data('desk_mangment_id');
-
-            $('#user_type_id').val(user_type_id).trigger('change');
-            $('#add_user_branch_id').val(user_id);
-            $('#add_branch_id').val(branch_id).trigger('change');
-            $('#add_status').val(status).trigger('change');
-
-            if (branch_id) {
-                $('.branch_id').show();
-
-                $.ajax({
-                    url: '{{ route('admin.users.getByBranch') }}',
-                    type: 'GET',
-                    data: {
-                        branch_id: branch_id
-                    },
-                    success: function(response) {
-                        var $workSpace = $('#add_work_space');
-                        $workSpace.empty().append('<option disabled selected>جارٍ التحميل...</option>')
-                            .trigger('change');
-
-                        // تعبئة work spaces بعد التحميل
-                        setTimeout(() => {
-                            $workSpace.empty().append(
-                                '<option value="">{{ __('label.select') }}</option>');
-                            $.each(response.workSpaces, function(i, ws) {
-                                $workSpace.append(
-                                    `<option value="${ws.id}" ${ws.id == work_space_id ? 'selected' : ''}>${ws.code || ws.name}</option>`
-                                );
-                            });
-                            $workSpace.trigger('change');
-                        }, 300); // يمكن حذف setTimeout لو أردت التنفيذ الفوري
-
-                        // إذا كان work_space_id موجود، جلب المكاتب
-                        if (work_space_id) {
-                            var $desk = $('#desk_mangment_id');
-                            $desk.empty().append('<option disabled selected>جارٍ التحميل...</option>')
-                                .trigger('change');
-
-                            $.ajax({
-                                url: '{{ route('admin.users.getByDeskMangments') }}',
-                                type: 'GET',
-                                data: {
-                                    work_space_id: work_space_id
-                                },
-                                success: function(response) {
-                                    $desk.empty().append(
-                                        '<option value="">{{ __('label.select') }}</option>'
-                                    );
-                                    $.each(response.deskMangments, function(i, d) {
-                                        let userName = d.users ? d.users.name : '';
-                                        $desk.append(
-                                            `<option value="${d.id}" ${d.id == desk_mangment_id ? 'selected' : ''}>
-                                        ${(d.code || d.name)}${userName ? ' - ' + userName : ''}
-                                    </option>`
-                                        );
-                                    });
-                                    $desk.trigger('change');
-                                    isProgrammaticChange = false;
-                                }
-                            });
-                        } else {
-                            isProgrammaticChange = false;
-                        }
-                    }
-                });
-            } else {
-                isProgrammaticChange = false;
-            }
-
-            $('#exampleModal').modal('show');
-        });
         $("form[name='my-form']").validate({
             rules: {
                 status: {
@@ -403,6 +323,6 @@
             });
         }
 
-    
+
 
     </script>

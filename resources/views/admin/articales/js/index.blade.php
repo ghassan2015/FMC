@@ -98,7 +98,7 @@
                 }
 ,
 
-                @if (auth('admin')->user()->can('update_status_articale'))
+                @can('update_status_articale')
                     {
                         data: 'is_active',
                         name: 'is_active',
@@ -293,6 +293,7 @@
                 $('#spinner').show();
                 $('.btn-primary').attr('disabled', true);
                 $('.hiden_icon').hide();
+                $('.error').text('');
 
                 $.ajax({
                     url: _url,

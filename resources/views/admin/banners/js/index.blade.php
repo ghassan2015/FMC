@@ -89,7 +89,7 @@
 
                 },
 
-                @if(auth('admin')->user()->can('update_status_service'))
+                @if(auth('admin')->user()->can('update_status_banner'))
                 {
                     data: 'is_active',
                     name: 'is_active',
@@ -242,6 +242,7 @@
                 $('.btn-primary').attr('disabled', true);
                 $('.hiden_icon').hide();
 
+                $('.error').text('');
                 $.ajax({
                     url: _url,
                     type: "post",

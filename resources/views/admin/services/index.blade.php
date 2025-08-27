@@ -21,7 +21,7 @@
                 <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
                 {{ __('label.filter') }}
             </button>
-            @can('add_branch')
+            @can('add_service')
             <button type="button" class="btn btn-primary add_service" data-bs-toggle="tooltip"
                 title="{{ __('label.add_new_service') }}">
                 <i class="ki-duotone ki-plus fs-2"></i>

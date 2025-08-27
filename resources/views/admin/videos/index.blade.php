@@ -23,7 +23,7 @@
             </button>
             @can('add_video')
                 <button type="button" class="btn btn-primary add_service" data-bs-toggle="tooltip"
-                    title="{{ __('label.add_new_service') }}">
+                    title="{{ __('label.add_new_video') }}">
                     <i class="ki-duotone ki-plus fs-2"></i>
                     {{ __('label.add_new_video') }}
                 </button>

@@ -93,12 +93,64 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
 
-                        @can('view_service')
+                        @can('view_branch')
                             <div class="menu-item">
                                 <a class="menu-link {{ request()->routeIs('admin.branches.*') ? 'active' : '' }}"
                                     href="{{ route('admin.branches.index') }}">
                                     <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                     <span class="menu-title">{{ __('label.branches') }}</span>
+                                </a>
+                            </div>
+                        @endcan
+
+                    </div>
+                </div>
+            @endif
+
+            @if (auth('admin')->user()->can('view_service'))
+                <div data-kt-menu-trigger="click"
+                    class="menu-item {{ request()->routeIs('admin.services.*') ? 'here show' : '' }} menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-abstract-18  fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('label.service_list') }}</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                        @can('view_service')
+                            <div class="menu-item">
+                                <a class="menu-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.services.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.service_list') }}</span>
+                                </a>
+                            </div>
+                        @endcan
+
+                    </div>
+                </div>
+            @endif
+
+            @if (auth('admin')->user()->can('view_category'))
+                <div data-kt-menu-trigger="click"
+                    class="menu-item {{ request()->routeIs('admin.categories.*') ? 'here show' : '' }} menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-abstract-49  fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('label.categories_list') }}</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                        @can('view_category')
+                            <div class="menu-item">
+                                <a class="menu-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.categories.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.categories_list') }}</span>
                                 </a>
                             </div>
                         @endcan
@@ -118,7 +170,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
 
-                        @can('view_service')
+                        @can('view_specialization')
                             <div class="menu-item">
                                 <a class="menu-link {{ request()->routeIs('admin.specializations.*') ? 'active' : '' }}"
                                     href="{{ route('admin.specializations.index') }}">
@@ -134,7 +186,7 @@
 
 
 
-                   @if (auth('admin')->user()->can('view_banner'))
+            @if (auth('admin')->user()->can('view_banner'))
                 <div data-kt-menu-trigger="click"
                     class="menu-item {{ request()->routeIs('admin.banners.*') ? 'here show' : '' }} menu-accordion">
                     <span class="menu-link">
@@ -160,7 +212,7 @@
                 </div>
             @endif
 
-               @if (auth('admin')->user()->can('view_doctor'))
+            @if (auth('admin')->user()->can('view_doctor'))
                 <div data-kt-menu-trigger="click"
                     class="menu-item {{ request()->routeIs('admin.doctors.*') ? 'here show' : '' }} menu-accordion">
                     <span class="menu-link">
@@ -186,7 +238,59 @@
                 </div>
             @endif
 
-   @if (auth('admin')->user()->can('view_articale'))
+            @if (auth('admin')->user()->can('view_medical_test'))
+                <div data-kt-menu-trigger="click"
+                    class="menu-item {{ request()->routeIs('admin.medicalTests.*') ? 'here show' : '' }} menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-abstract-10  fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('label.medical_test_types') }}</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                        @can('view_medical_test')
+                            <div class="menu-item">
+                                <a class="menu-link {{ request()->routeIs('admin.medicalTests.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.medicalTests.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.medical_test_types') }}</span>
+                                </a>
+                            </div>
+                        @endcan
+
+                    </div>
+                </div>
+            @endif
+
+            @if (auth('admin')->user()->can('view_medical_test'))
+                <div data-kt-menu-trigger="click"
+                    class="menu-item {{ request()->routeIs('admin.medicalTestUsers.*') ? 'here show' : '' }} menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-abstract-15  fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('label.medical_test') }}</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                        @can('view_medical_test')
+                            <div class="menu-item">
+                                <a class="menu-link {{ request()->routeIs('admin.medicalTestUsers.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.medicalTestUsers.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.medical_test') }}</span>
+                                </a>
+                            </div>
+                        @endcan
+
+                    </div>
+                </div>
+            @endif
+
+            @if (auth('admin')->user()->can('view_articale'))
                 <div data-kt-menu-trigger="click"
                     class="menu-item {{ request()->routeIs('admin.articales.*') ? 'here show' : '' }} menu-accordion">
                     <span class="menu-link">
@@ -307,12 +411,7 @@
                         </div>
                         <div class="d-flex flex-column">
                             <div class="fw-bold d-flex align-items-center fs-5">{{ auth('admin')->user()->name }}
-                                {{-- @forelse(auth('admin')->user()->roles as $role)
-                                    <span
-                                        class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-1">{{ $role->display_name }}</span>
-                                @empty
-                                    <span class="text-muted fs-8">No roles assigned</span>
-                                @endforelse --}}
+
                             </div>
                             <a href="{{ auth('admin')->user()->email }}"
                                 class="fw-semibold text-muted text-hover-primary fs-7">{{ auth('admin')->user()->email }}</a>
@@ -367,43 +466,40 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                    data-kt-menu-placement="right-end" data-kt-menu-offset="-15px, 0">
+                <div class="menu-item px-5" data-kt-menu-trigger="click"
+                    data-kt-menu-placement="bottom-end"
+                    data-kt-menu-offset="0,10">
                     <a href="#" class="menu-link px-5">
-                        <span class="menu-title position-relative">{{ __('label.language') }}
+                        <span class="menu-title position-relative">{{__('label.language')}}
                             <span
                                 class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
-                                {{ app()->getlocale() == 'en' ? 'English' : 'عربي' }}
-                                <img class="w-15px h-15px rounded-1 ms-2"
-                                    src="{{ app()->getlocale() == 'en' ? asset('assets/media/flags/united-states.svg') : asset('assets/media/flags/palestine.svg') }}"
-                                    alt="" /></span></span>
+
+                                <img class="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg"
+                                    alt="" />
+                            </span>
+                        </span>
                     </a>
-                    <!--begin::Menu sub-->
+
                     <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                        <!--begin::Menu item-->
                         <div class="menu-item px-3">
-                            <a href="" class="menu-link d-flex px-5 active">
+                            <a href="{{ LaravelLocalization::getLocalizedURL('en') }}" class="menu-link d-flex px-5 active">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{ asset('assets/media/flags/united-states.svg') }}"
-                                        alt="" />
-                                </span>English</a>
+                                    <img class="rounded-1" src="{{asset('assets/media/flags/united-states.svg')}}" alt="" />
+                                </span>English
+                            </a>
                         </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
                         <div class="menu-item px-3">
-                            <a href="" class="menu-link d-flex px-5">
+                            <a href="{{ LaravelLocalization::getLocalizedURL('ar') }}" class="menu-link d-flex px-5">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{ asset('assets/media/flags/palestine.svg') }}"
-                                        alt="" />
-                                </span>عربي</a>
+                                    <img class="rounded-1" src="{{asset('assets/media/flags/palestine.svg')}}" alt="" />
+                                </span>عربي
+                            </a>
                         </div>
-
-
-                        <!--end::Menu item-->
+                        <!-- باقي العناصر -->
                     </div>
-                    <!--end::Menu sub-->
                 </div>
+
+
                 <div class="menu-item px-5">
 
                     <a href="{{ route('admin.logout') }}"

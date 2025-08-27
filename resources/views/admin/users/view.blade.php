@@ -14,7 +14,7 @@
                 <!--begin: Pic-->
                 <div class="me-7 mb-4">
                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                        <img src="{{ $user->getPhoto() }}" alt="image" />
+                        <img src="{{ $user->photo }}" alt="image" />
                         <div
                             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                         </div>
@@ -40,11 +40,8 @@
                             <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                                 <a href="#"
                                     class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                                    <i
-                                        class="ki-outline ki-profile-circle fs-4 me-1"></i>{{ $user->specialization?->title }}</a>
-                                <a href="#"
-                                    class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                                    <i class="ki-outline ki-geolocation fs-4 me-1"></i>{{ $user->displacement_place }}</a>
+                                    <i class="ki-outline ki-profile-circle fs-4 me-1"></i>{{ $user->mobile }}</a>
+
                                 <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
                                     <i class="ki-outline ki-sms fs-4"></i>{{ $user->email }}</a>
                             </div>
@@ -54,8 +51,7 @@
                         <!--begin::Actions-->
                         <div class="d-flex my-4">
 
-                            <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal"
-                                data-bs-target="#kt_modal_offer_a_deal">نظرة عامة على منصة طاقات</a>
+
                             <!--begin::Menu-->
                             <div class="me-0">
                                 <a href="#" class="btn btn-icon btn-light btn-active-light-primary btn-sm"
@@ -70,7 +66,7 @@
 
 
                                     {{-- تعديل المستخدم --}}
-                                    @if (auth('admin')->user()->can('edit_users') && request('status') !== 'delete-hub')
+                                    @if (auth('admin')->user()->can('edit_users'))
                                         <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
                                             <i class="fas fa-user-edit text-warning"></i>
                                             <a href="{{ route('admin.users.edit', $user->id) }}" class="menu-link px-2">
@@ -79,43 +75,23 @@
                                         </div>
                                     @endif
 
-                                    {{-- عرض الفواتير --}}
+                                    <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
+                                        <i class="fas fa-file-invoice text-success"></i>
+                                        <a href="#" class="menu-link px-2 add_invoice"
+                                            data-user_id="{{ $user->id }}">
+                                            {{ __('label.add_invoice') }}
+                                        </a>
+                                    </div>
 
-                                    {{-- إضافة فاتورة --}}
-                                    @if (
-                                        (auth('admin')->user()->can('add_invoce') && $user->status == 1 && $user->userRooms->isEmpty()) ||
-                                            $user->rooms()->count() > 0)
-                                        <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
-                                            <i class="fas fa-file-invoice text-success"></i>
-                                            <a href="#" class="menu-link px-2 add_invoice"
-                                                data-user_id="{{ $user->id }}">
-                                                {{ __('label.add_invoice') }}
-                                            </a>
-                                        </div>
-                                    @endif
 
 
                                     <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
                                         <i class="fas fa-sms text-dark"></i>
 
-                                        <a href="#" class="menu-link px-2 sendSms"
-                                            data-user_id="{{ $user->id }}">
+                                        <a href="#" class="menu-link px-2 sendSms" data-user_id="{{ $user->id }}">
                                             {{ __('label.send_sms') }}
                                         </a>
                                     </div>
-                                    {{-- اشتراك الإنترنت --}}
-                                    @if (auth('admin')->user()->can('view_internet_subscription') &&
-                                            $user->status == 1 &&
-                                            request('status') !== 'delete-hub')
-                                        <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
-                                            <i class="fas fa-wifi text-primary"></i>
-                                            <a href="#" class="menu-link px-2 internet_subscription"
-                                                data-user_id="{{ $user->id }}"
-                                                data-desk_mangment_id="{{ $user->id }}">
-                                                {{ __('label.internet_subscription') }}
-                                            </a>
-                                        </div>
-                                    @endif
 
                                     {{-- إرسال إشعار --}}
                                     <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
@@ -126,43 +102,11 @@
                                         </a>
                                     </div>
 
-                                    {{-- تحقق المستخدم --}}
-                                    @if (auth('admin')->user()->can('verification_users'))
-                                        <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
-                                            <i class="fas fa-user-check text-success"></i>
-                                            <a href="#" class="menu-link px-2 verification_user"
-                                                data-user_id="{{ $user->id }}">
-                                                {{ __('label.user_verification') }}
-                                            </a>
-                                        </div>
-                                    @endif
 
-                                    {{-- تغيير حالة المستخدم أو نقله لفرع --}}
-                                    @if (auth('admin')->user()->can('add_To_branch') && request('status') !== 'delete-hub')
-                                        <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
-                                            <i class="fas fa-exchange-alt text-info"></i>
-                                            <a href="#" class="menu-link px-2 add_user"
-                                                data-user_id="{{ $user->id }}" data-branch_id="{{ $user->branch_id }}"
-                                                data-status="{{ $user->status }}"
-                                                data-work_space_id="{{ $user->work_space_id }}"
-                                                data-desk_mangment_id="{{ $user->desk_mangment_id }}"
-                                                data-user_type_cd_id="{{ $user->user_type_cd_id }}">
-                                                {{ __('label.status_user') }}
-                                            </a>
-                                        </div>
-                                    @endif
 
-                                    {{-- تحرير المكتب --}}
-                                    @if (auth('admin')->user()->can('release_desk_mangment') && $user->deskMangment)
-                                        <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1 release_block">
-                                            <i class="fas fa-door-open text-success"></i>
-                                            <a href="#" class="menu-link px-2 release"
-                                                data-id="{{ $user->deskMangment->id }}"
-                                                data-code="{{ $user->deskMangment->code }}">
-                                                {{ __('label.release_desk_mangment') }}
-                                            </a>
-                                        </div>
-                                    @endif
+
+
+
 
 
                                 </div>
@@ -185,8 +129,8 @@
                                     <!--begin::Number-->
                                     <div class="d-flex align-items-center">
                                         <i class="ki-outline ki-arrow-up fs-3 text-success me-2"></i>
-                                        <div class="fs-2 fw-bold" data-kt-countup="true"
-                                            data-kt-countup-value="{{ $user->totalIncome() }}" data-kt-countup-prefix="$">0
+                                        <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="100"
+                                            data-kt-countup-prefix="$">0
                                         </div>
                                     </div>
                                     <!--end::Number-->
@@ -200,8 +144,7 @@
                                     <!--begin::Number-->
                                     <div class="d-flex align-items-center">
                                         <i class="ki-outline ki-arrow-down fs-3 text-danger me-2"></i>
-                                        <div class="fs-2 fw-bold" data-kt-countup="true"
-                                            data-kt-countup-value="{{ $user->totalContracts() }}">0</div>
+                                        <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="">0</div>
                                     </div>
                                     <!--end::Number-->
                                     <!--begin::Label-->
@@ -214,8 +157,7 @@
                                     <!--begin::Number-->
                                     <div class="d-flex align-items-center">
                                         <i class="ki-outline ki-arrow-up fs-3 text-success me-2"></i>
-                                        <div class="fs-2 fw-bold" data-kt-countup="true"
-                                            data-kt-countup-value="{{ $user->countProjects() }}">0</div>
+                                        <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="">0</div>
                                     </div>
                                     <!--end::Number-->
                                     <!--begin::Label-->
@@ -228,18 +170,7 @@
                         </div>
                         <!--end::Wrapper-->
                         <!--begin::Progress-->
-                        <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
-                            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                                <span class="fw-semibold fs-6 text-gray-500">{{ __('label.profile_Compleation') }}</span>
-                                <span class="fw-bold fs-6">{{ $user->calculateProfileScore() }}%</span>
-                            </div>
-                            <div class="h-5px mx-3 w-100 bg-light mb-3">
-                                <div class="bg-success rounded h-5px" role="progressbar"
-                                    style="width: {{ $user->calculateProfileScore() }}%;"
-                                    aria-valuenow="{{ $user->calculateProfileScore() }}" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
-                        </div>
+
                         <!--end::Progress-->
                     </div>
                     <!--end::Stats-->
@@ -256,61 +187,25 @@
                         {{ __('label.overview') }}
                     </button>
                 </li>
-                @if (auth('admin')->user()->can('view_invoice'))
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="invoice-tab" data-bs-toggle="tab" data-bs-target="#invoice"
-                            type="button" role="tab" aria-controls="invoice" aria-selected="false">
-                            {{ __('label.invoice_list') }}
-                        </button>
-                    </li>
-                @endif
-                @if (auth('admin')->user()->can('view_job_constrancts'))
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="job_constract-tab" data-bs-toggle="tab"
-                            data-bs-target="#job_constract" type="button" role="tab" aria-controls="job_constract"
-                            aria-selected="false">
-                            {{ __('label.job_constranct_list') }}
-                        </button>
-                    </li>
-                @endif
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="medical_test-tab" data-bs-toggle="tab" data-bs-target="#medical_test"
+                        type="button" role="tab" aria-controls="medical_test" aria-selected="false">
+                        {{ __('label.medical_test') }}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="surgical_operations-tab" data-bs-toggle="tab" data-bs-target="#surgical_operations"
+                        type="button" role="tab" aria-controls="surgical_operations" aria-selected="false">
+                        {{ __('label.surgical_operations') }}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="appointment-tab" data-bs-toggle="tab" data-bs-target="#appointment"
+                        type="button" role="tab" aria-controls="appointment" aria-selected="false">
+                        {{ __('label.appointment') }}
+                    </button>
+                </li>
 
-                @if (auth('admin')->user()->can('view_income_movements'))
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="income_movement-tab" data-bs-toggle="tab"
-                            data-bs-target="#income_movement" type="button" role="tab"
-                            aria-controls="income_movement" aria-selected="false">
-                            {{ __('label.income_movement_list') }}
-                        </button>
-                    </li>
-                @endif
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="training_courses-tab" data-bs-toggle="tab"
-                        data-bs-target="#training_courses" type="button" role="tab"
-                        aria-controls="training_courses" aria-selected="false">
-                        {{ __('label.training_course_list') }}
-                    </button>
-                </li>
-                                @if(auth('admin')->user()->can('view_projects'))
-
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="projects-tab" data-bs-toggle="tab" data-bs-target="#projects"
-                        type="button" role="tab" aria-controls="projects" aria-selected="false">
-                        {{ __('label.project_list') }}
-                    </button>
-                </li>
-                @endif
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="apikeys-tab" data-bs-toggle="tab" data-bs-target="#apikeys"
-                        type="button" role="tab" aria-controls="apikeys" aria-selected="false">
-                        الخبرات العملية
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button"
-                        role="tab" aria-controls="logs" aria-selected="false">
-                        {{ __('label.log_list') }}
-                    </button>
-                </li>
 
 
             </ul>
@@ -320,7 +215,6 @@
                     <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
                         <div class="card-header cursor-pointer">
                             <div class="card-title m-0">
-                                <h3 class="fw-bold m-0">{{ __('label.my_profile') }}</h3>
                             </div>
                             <a href="{{ route('admin.users.edit', $user->id) }}"
                                 class="btn btn-sm btn-primary align-self-center">{{ __('label.edit_user') }}</a>
@@ -329,7 +223,7 @@
                             <div class="row mb-7">
                                 <label class="col-lg-4 fw-semibold text-muted">{{ __('label.name') }}</label>
                                 <div class="col-lg-8">
-                                    <span class="fw-bold fs-6 text-gray-800">{{ $user->full_name ?? $user->name }}</span>
+                                    <span class="fw-bold fs-6 text-gray-800">{{ $user->name }}</span>
                                 </div>
                             </div>
                             <div class="row mb-7">
@@ -349,24 +243,8 @@
                                     <span class="badge badge-success"></span>
                                 </div>
                             </div>
-                            <div class="row mb-7">
-                                <label class="col-lg-4 fw-semibold text-muted">{{ __('label.whatsapp') }}</label>
-                                <div class="col-lg-8 d-flex align-items-center">
-                                    <i class="ki-outline ki-whatsapp fs-2 text-success me-2"></i>
-                                    <a href="https://wa.me/{{ $user->whatsapp }}" target="_blank"
-                                        class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{ $user->whatsapp }}</a>
-                                </div>
-                            </div>
-                            <div class="row mb-7">
-                                <label class="col-lg-4 fw-semibold text-muted">{{ __('label.displacement_place') }}
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="">
-                                        <i class="ki-outline ki-information fs-7"></i>
-                                    </span>
-                                </label>
-                                <div class="col-lg-8">
-                                    <span class="fw-bold fs-6 text-gray-800">{{ $user->displacement_place }}</span>
-                                </div>
-                            </div>
+
+
                             <div class="row mb-7">
                                 <label class="col-lg-4 fw-semibold text-muted">{{ __('label.id_number') }}</label>
                                 <div class="col-lg-8">
@@ -377,92 +255,43 @@
                                 <label class="col-lg-4 fw-semibold text-muted">{{ __('label.birth_date') }}</label>
                                 <div class="col-lg-8">
                                     <span class="fw-bold fs-6 text-gray-800">{{ $user->birth_date }}</span>
-                                </div </div>
-                            </div>
-
-                            <div class="row mb-7">
-                                <label class="col-lg-4 fw-semibold text-muted">{{ __('label.id_photo') }}</label>
-                                <div class="col-lg-8">
-                                    @if ($user->id_photo)
-                                        <img src="{{ $user->getIdPhoto() }}" alt="ID Photo" class="img-fluid rounded"
-                                            style="max-width: 200px;">
-                                    @else
-                                        <span class="fw-bold fs-6 text-gray-800">{{ __('No ID photo available') }}</span>
-                                    @endif
-                                </div </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+
+                    </div>
                 </div>
-                @if (auth('admin')->user()->can('view_invoice'))
-                    <!-- You can add content for other tabs below -->
-                    <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
+
+            <div class="tab-pane fade" id="medical_test" role="tabpanel" aria-labelledby="medical_test-tab">
 
 
-
-                        @include('components.invoice.table')
-
-
-
-                    </div>
-                @endif
-                <!-- Settings Content -->
-
-                @if (auth('admin')->user()->can('view_job_constrancts'))
-                    <div class="tab-pane fade" id="job_constract" role="tabpanel" aria-labelledby="job_constract-tab">
-                        <!-- Security Content -->
-
-                        @include('components.jobConstrancts.table')
-                    </div>
-                @endif
-                @if (auth('admin')->user()->can('view_income_movements'))
-                    <div class="tab-pane fade" id="income_movement" role="tabpanel"
-                        aria-labelledby="income_movement-tab">
-
-
-                        @include('components.incomeMovements.table')
-                    </div>
-                @endif
-
-
-                <div class="tab-pane fade" id="training_courses" role="tabpanel" aria-labelledby="training_courses-tab">
-
-                    @include('components.courseTranings.table')
-                </div>
-                @if(auth('admin')->user()->can('view_projects'))
-                <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
-
-                    @include('components.projects.table')
-                </div>
-                @endif
-                @if (auth('admin')->user()->can('view_logs'))
-                    <div class="tab-pane fade" id="logs" role="tabpanel" aria-labelledby="logs-tab">
-                        @include('components.logs.table')
-                    </div>
-                @endif
-                <div class="tab-pane fade" id="apikeys" role="tabpanel" aria-labelledby="apikeys-tab">
-
-                    @include('components.workExperiences.table')
-                </div>
+                @include('components.medicalTests.table')
 
             </div>
 
-            @include('components.invoice.add_edit_invoice')
+            <div class="tab-pane fade" id="surgical_operations" role="tabpanel" aria-labelledby="surgical_operations-tab">
+saas
+            </div>
 
-            @include('components.internetSubscriptions.add_edit')
-            @include('components.notifications.notification')
-            @include('components.notifications.sms_notification')
+            <div class="tab-pane fade" id="appointment" role="tabpanel" aria-labelledby="appointment-tab">
 
-            @include('admin.users.modal.user_details')
+                @include('components.appointments.table')
+
+            </div>
 
 
 
-            @include('admin.users.modal.add')
 
-            @include('admin.workSpaceMangements.deskMangments.modal.release')
-        @endsection
 
-        @push('scripts')
-            @include('admin.users.js.view')
-        @endpush
+
+
+
+
+
+        </div>
+    @endsection
+
+    @push('scripts')
+        {{-- @include('admin.users.js.view') --}}
+    @endpush

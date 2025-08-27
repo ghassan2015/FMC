@@ -15,6 +15,10 @@ class Admin extends Authenticatable
 
     protected $guarded = [];
 
+
+    public function doctor(){
+        return $this->hasOne(Doctor::class,'admin_id','id');
+    }
     // protected static $logAttributes = [
     //     'name',
     //     'email',
