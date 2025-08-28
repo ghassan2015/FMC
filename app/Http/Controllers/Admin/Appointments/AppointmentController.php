@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin\Appointments;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Branch;
+use App\Models\Constant;
+use App\Models\Doctor;
 use App\Models\DoctorSchedule;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,7 +21,12 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        return view('admin.appointments.index');
+        $data['users'] = User::query()->get();
+        $data['branches'] = Branch::query()->get();
+        $data['paymentTypes'] = Constant::query()->where('group_name', 'payment_type')->get();
+        $data['appointmentStatus'] = Constant::query()->where('group_name', 'appointment')->get();
+
+        return view('admin.appointments.index', $data);
     }
 
     public function getIndex(Request $request)
@@ -110,4 +118,18 @@ class AppointmentController extends Controller
     public function update(Request $request) {}
 
     public function delete(Request $request) {}
+
+    public function getDoctors(Request $request)
+    {
+        $branchId = $request->branch_id;
+
+        $doctors = Doctor::query()
+            ->whereHas('branches', function ($q) use ($branchId) {
+                $q->where('branches.id', $branchId);
+            })
+            ->select('id', 'name')
+            ->get();
+
+        return response()->json($doctors);
+    }
 }

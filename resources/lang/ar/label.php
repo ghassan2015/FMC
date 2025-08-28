@@ -188,7 +188,7 @@ return [
     'surgical_operations'=>'العمليات الجراحية',
     'start_time'=>'يبدا من ',
     'end_time'=>'ينتهي الى',
-    'date'=>'اليوم',
+    'date'=>'تاريخ',
     'appointments'=>'مواعيد العمل',
     'add_appointment'=>'اضافة حجز جديد',
     'payment_status'=>'حالة الدفع',
@@ -205,7 +205,14 @@ return [
     'edit_category'=>'تعديل التصنيفات',
     'add_new_category'=>'اضافة تصنيف جديد',
     'main_category'=>'التصنيف الرئيسي',
-    'display_all_categories'=>'عرض جميع التصنيفات'
+    'display_all_categories'=>'عرض جميع التصنيفات',
+    'doctor_name'=>'اسم الدكتور',
+    'add_new_appointment'=>'اضافة حجز جديد',
+    'appointment_count'=>'اجمالي عدد الحجوزات ',
+    'appointment_month_count'=>'اجمالي عدد الحجوزات الشهر الحالي',
+    'appointment_day_count'=>'اجمالي عدد الحجوزات لهذا اليوم',
+
+    'selected'=>'اختر'
 
 
 

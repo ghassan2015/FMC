@@ -7,7 +7,6 @@
         <script src="{{ asset('assets/js/message_ar.js') }}"></script>
     @endif
     <script>
-
         function loadAppointmentTable(params = {}) {
             if ($.fn.DataTable.isDataTable('#appointment_table')) {
                 $('#appointment_table').DataTable().clear().destroy();
@@ -136,31 +135,43 @@
             });
 
 
-            $(document).on('change', '#doctor_appointment', function(e) {
-                e.preventDefault();
-                let doctorId = $(this).val();
 
-                $('#branchSelect').empty();
-                $('#availableTimes').empty();
+            $(document).on('change', '#AppointmentBranch', function() {
+                var branchId = $(this).val();
+                var doctorSelect = $('#doctorAppointment');
 
-                // تحميل الفروع الخاصة بالدكتور
-                $.get('{{ route('admin.doctors.getBranches') }}', {
-                    doctor_id: doctorId
-                }, function(branches) {
-                    $('#branchSelect').append('<option value="">اختر الفرع</option>');
-                    branches.forEach(branch => {
-                        let locale = "{{ app()->getLocale() }}";
-                        let branchName = branch.name[locale] || branch.name['en'];
-                        $('#branchSelect').append(
-                            `<option value="${branch.id}">${branchName}</option>`);
+                // تفريغ القائمة القديمة
+                doctorSelect.empty().append('<option value="">{{ __('label.seleted') }}</option>');
+
+                if (branchId) {
+                    $.ajax({
+                        url: '{{ route('admin.appointments.getDoctors') }}', // بدون تمرير ID في الرابط
+                        type: 'GET', // يمكن تحويلها لـ POST إذا أردت
+                        data: {
+                            branch_id: branchId
+                        }, // هنا الإرسال في البيانات
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.length > 0) {
+                                $.each(data, function(index, doctor) {
+                                    doctorSelect.append('<option value="' + doctor.id +
+                                        '">' +
+                                        doctor.name + '</option>');
+                                });
+                            }
+                            doctorSelect.trigger('change'); // تحديث select2
+                        },
+                        error: function() {
+                            alert('حدث خطأ أثناء تحميل الأطباء');
+                        }
                     });
-                    $('#appointmentModal').modal('show');
-                });
+                }
             });
 
-            $('#branchSelect, #appointmentDate').change(function() {
-                let doctorId = $('#doctor_appointment').val();
-                let branchId = $('#branchSelect').val();
+
+            $('#appointmentDate,#doctorAppointment,#AppointmentBranch').change(function() {
+                let doctorId = $('#doctorAppointment').val();
+                let branchId = $('#AppointmentBranch').val();
                 let date = $('#appointmentDate').val();
 
                 if (doctorId && branchId && date) {
@@ -184,16 +195,6 @@
                 }
             });
 
-            $(document).on('click', '#availableTimes button', function() {
-                // Remove active class from all buttons
-                $('#availableTimes button').removeClass('btn-primary').addClass('btn-outline-primary');
-
-                // Add active class to the clicked button
-                $(this).removeClass('btn-outline-primary').addClass('btn-primary');
-
-                // Store the selected time in hidden input
-                $('#selectedTime').val($(this).text());
-            });
 
             $('#appointmentModal').on('hidden.bs.modal', function() {
                 const form = $('#my-form-apointment')[0];
@@ -205,45 +206,6 @@
             // عند تغيير حالة status
 
 
-            $(document).on('click', '.edit_appointment', function(e) {
-                e.preventDefault();
-
-                const modal = $('#appointmentModal');
-                const form = $('#my-form-appointment');
-
-                // إعادة ضبط النموذج
-                form[0].reset();
-                $('.error').text('');
-
-                // جلب البيانات من attributes
-                const medical_test_id = $(this).data('medical_test_id');
-                const medical_test_user_id = $(this).data('medical_test_user_id');
-                const status = $(this).data('status');
-                const photo = $(this).data('photo');
-                const user_id = $(this).data('user_id');
-
-                // تعبئة hidden inputs
-                $('#medical_test_user_id').val(medical_test_user_id);
-                $('#medical_id').val(medical_test_user_id); // أو medical_id حسب اسم الحقل الصحيح
-                $('#add_edit_medical_test_id').val(medical_test_id).trigger('change');
-                $('#add_edit_user_id').val(user_id).trigger('change');
-
-                // تعبئة select الحالة
-                $('#add_edit_medical_test_status').val(status).trigger('change');
-
-                // عرض صورة المعاينة إذا كانت موجودة
-                if (photo) {
-                    $('#photo_invoice_preview').attr('src', photo).show();
-                } else {
-                    $('#photo_invoice_preview').hide();
-                }
-
-                // تغيير action الفورم إلى تحديث
-                form.attr('action', '{{ route('admin.medicalTestUsers.update') }}');
-
-                // فتح المودال
-                modal.modal('show');
-            });
 
             $('#add_edit_photo').on('change', function() {
                 const file = this.files[0];
@@ -261,6 +223,8 @@
             });
 
         });
+
+
 
         function toggleAppointmentsFilter() {
             const filterSection = document.getElementById("filter-appointment-section");
@@ -393,6 +357,35 @@
                     });
                 }
             });
+        });
+
+
+
+
+        // عند اختيار الفرع أو التاريخ → جلب المواعيد المتاحة
+
+        $(document).on('click', '#availableTimes button', function() {
+            // Remove active class from all buttons
+            $('#availableTimes button').removeClass('btn-primary').addClass('btn-outline-primary');
+
+            // Add active class to the clicked button
+            $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+
+            // Store the selected time in hidden input
+            $('#selectedTime').val($(this).text());
+        });
+
+
+
+        $(document).on('change', '#userSelect', function(e) {
+            e.preventDefault();
+            if ($(this).val() === 'new') {
+                $('.new_user').removeClass('d-none'); // عرض حقول المستخدم الجديد
+                // مسح القيم القديمة إذا أحببت
+                $('.new_user input').val('');
+            } else {
+                $('.new_user').addClass('d-none'); // إخفاء حقول المستخدم الجديد
+            }
         });
     </script>
 @endpush
