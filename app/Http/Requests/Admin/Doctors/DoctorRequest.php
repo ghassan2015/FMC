@@ -24,7 +24,7 @@ class DoctorRequest extends FormRequest
         $adminId  = $this->admin_id ?? null;
 
         return [
-            'medical_examination_price'=>'required|min:0|numeric',
+            // 'medical_examination_price'=>'required|min:0|numeric',
             'name' => 'required|string|max:255',
 
             // license_number فريد في جدول doctors مع استثناء السجل الحالي

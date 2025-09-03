@@ -424,6 +424,15 @@
                                     <span class="menu-title">{{ __('label.page_settings') }}</span>
                                 </a>
                             @endcan
+
+                                   @can('view_setting')
+                                <a class="menu-link {{ request()->routeIs('admin.settings.getWorkHours') ? 'active' : '' }}"
+                                    href="{{ route('admin.settings.getWorkHours') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.work_hours') }}</span>
+                                </a>
+                            @endcan
+
                             @can('view_city')
                                 <a class="menu-link {{ request()->routeIs('admin.settings.cities.*') ? 'active' : '' }}"
                                     href="{{ route('admin.settings.cities.index') }}">
@@ -431,6 +440,8 @@
                                     <span class="menu-title">{{ __('label.cities') }}</span>
                                 </a>
                             @endcan
+
+
 
 
                         </div>

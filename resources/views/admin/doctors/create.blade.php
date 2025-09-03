@@ -104,113 +104,146 @@
                     <div class="row mb-5">
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.medical_examination_price') }}</label>
-                            <input type="number" name="license_number" class="form-control"
+                            <input type="number" name="medical_examination_price" class="form-control"
                                 value="{{ old('medical_examination_price') }}" required>
                             <div class="text-danger medical_examination_price"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.whatsapp') }}</label>
+                            <input type="text" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}"
+                                required>
+                            <div class="text-danger whatsapp"></div>
+
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+
+
+                        <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.facebook') }}</label>
+                            <input type="url" name="facebook" class="form-control" value="{{ old('facebook') }}"
+                                required>
+                            <div class="text-danger facebook"></div>
 
 
 
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label required">{{ __('label.specializations') }}</label>
-                            <select class="form-select form-select-solid" data-control="select2" name="specialization_id"
-                                required data-control="select2">
-                                <option value="">{{ __('label.selected') }}</option>
-                                @foreach ($specializations as $value)
-                                    <option value="{{ $value->id }}"
-                                        {{ old('specialization_id') == $value->id ? 'selected' : '' }}>
-
-                                        {{ $value->name }}</option>
-                                @endforeach
-                            </select>
-
-                            <span class="specialization_id error"></span>
-
-                        </div>
+                            <label class="form-label required">{{ __('label.instagram') }}</label>
+                            <input type="url" name="instagram" class="form-control" value="{{ old('instagram') }}"
+                                required>
+                            <div class="text-danger instagram"></div>
 
 
-                    </div>
-                    <div id="branchSchedulesContainer">
-                        <!-- سيتم إضافة جداول المواعيد لكل فرع هنا -->
-                    </div>
-
-
-                    <div class="row mb-5">
-                        <div class="col-md-12 ">
-                            <div class="image-input image-input-outline" data-kt-image-input="true"
-                                style="background-image: url('{{ asset('assets/media/svg/avatars/blank.svg') }}'); margin: auto;">
-
-                                <div class="image-input-wrapper w-125px h-125px" id="logoPreview"
-                                    style="background-image: url('{{ asset('assets/default.png') }}');"></div>
-
-                                <!-- Change -->
-                                <label
-                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute top-0 end-0 translate-middle"
-                                    data-kt-image-input-action="change" data-bs-toggle="tooltip"
-                                    title="{{ __('label.change_avatar') }}">
-                                    <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span
-                                            class="path2"></span></i>
-                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg, .webp" />
-                                    <input type="hidden" name="avatar_remove" />
-                                </label>
-
-                                <!-- Cancel -->
-                                <span
-                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute top-0 start-0 translate-middle"
-                                    data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                                    title="{{ __('label.cancel_avatar') }}">
-                                    <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span
-                                            class="path2"></span></i>
-                                </span>
-
-                                <!-- Remove -->
-                                <span
-                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute bottom-0 end-50 translate-middle-x"
-                                    data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-                                    title="{{ __('label.remove_avatar') }}">
-                                    <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
-                                            class="path2"></span></i>
-                                </span>
-                            </div>
-                            <div class="form-text mt-2">
-                                <i class="fas fa-info-circle"></i> {{ __('label.allowed_file_types') }}: jpg, png, jpeg,
-                                webp
-                            </div>
-
-                            <div class="error avatar"></div>
 
                         </div>
                     </div>
 
 
+                    <div class="col-md-6">
+                        <label class="form-label required">{{ __('label.specializations') }}</label>
+                        <select class="form-select form-select-solid" data-control="select2" name="specialization_id"
+                            required data-control="select2">
+                            <option value="">{{ __('label.selected') }}</option>
+                            @foreach ($specializations as $value)
+                                <option value="{{ $value->id }}"
+                                    {{ old('specialization_id') == $value->id ? 'selected' : '' }}>
 
-                    <div class="row mb-5">
-                        <label for="image" class="form-label required d-block mb-2">{{ __('label.status') }}</label>
+                                    {{ $value->name }}</option>
+                            @endforeach
+                        </select>
 
-                        <div class="col-md-6 d-flex align-items-center mb-2 ">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="status" name="status"
-                                    value="1" checked>
-                            </div>
-                        </div>
+                        <span class="specialization_id error"></span>
+
                     </div>
 
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-paper-plane me-1"></i>
-                            <span id="spinner" style="display: none;">
-                                <i class="fa fa-spinner fa-spin"></i>
-                            </span>
-                            {{ __('label.submit') }}
-                        </button>
-                    </div>
-                </form>
 
             </div>
-        </div>
+            <div id="branchSchedulesContainer">
+                <!-- سيتم إضافة جداول المواعيد لكل فرع هنا -->
+            </div>
 
-        <!--end::Form-->
+
+            <div class="row mb-5">
+                <div class="col-md-12 ">
+                    <div class="image-input image-input-outline" data-kt-image-input="true"
+                        style="background-image: url('{{ asset('assets/media/svg/avatars/blank.svg') }}'); margin: auto;">
+
+                        <div class="image-input-wrapper w-125px h-125px" id="logoPreview"
+                            style="background-image: url('{{ asset('assets/default.png') }}');"></div>
+
+                        <!-- Change -->
+                        <label
+                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute top-0 end-0 translate-middle"
+                            data-kt-image-input-action="change" data-bs-toggle="tooltip"
+                            title="{{ __('label.change_avatar') }}">
+                            <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg, .webp" />
+                            <input type="hidden" name="avatar_remove" />
+                        </label>
+
+                        <!-- Cancel -->
+                        <span
+                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute top-0 start-0 translate-middle"
+                            data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                            title="{{ __('label.cancel_avatar') }}">
+                            <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                        </span>
+
+                        <!-- Remove -->
+                        <span
+                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute bottom-0 end-50 translate-middle-x"
+                            data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                            title="{{ __('label.remove_avatar') }}">
+                            <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                        </span>
+                    </div>
+                    <div class="form-text mt-2">
+                        <i class="fas fa-info-circle"></i> {{ __('label.allowed_file_types') }}: jpg, png, jpeg,
+                        webp
+                    </div>
+
+                    <div class="error avatar"></div>
+
+                </div>
+            </div>
+
+
+
+            <div class="row mb-5">
+                <label for="image" class="form-label required d-block mb-2">{{ __('label.status') }}</label>
+
+                <div class="col-md-6 d-flex align-items-center mb-2 ">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="status" name="status" value="1"
+                            checked>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-paper-plane me-1"></i>
+                    <span id="spinner" style="display: none;">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </span>
+                    {{ __('label.submit') }}
+                </button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!--end::Form-->
     </div>
     <!--end::Stepper-->
 

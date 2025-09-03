@@ -38,15 +38,10 @@
                     processData: false,
                     success: function(response) {
 
-                        if (response.status) {
                             toastr.success(response.message,
                                 "{{ __('label.successfully_process') }}");
-                            $('#exampleModal').modal('hide');
 
-                        } else {
-                            toastr.error(response.message, "Error!");
 
-                        }
 
                         $('#spinner').hide();
                         $('.btn-primary').attr('disabled', false);

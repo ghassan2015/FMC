@@ -25,10 +25,7 @@
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
 
-    <!--==============================
- All CSS File
- ============================== -->
-    <!-- Bootstrap -->
+
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <!-- <link rel="stylesheet" href="assets/css/app.min.css"> -->
     <!-- Fontawesome Icon -->

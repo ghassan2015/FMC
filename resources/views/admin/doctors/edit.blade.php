@@ -117,9 +117,42 @@
                                 value="{{ old('medical_examination_price', $doctor->medical_examination_price) }}" required>
                             <div class="text-danger medical_examination_price"></div>
 
+       <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.whatsapp') }}</label>
+                            <input type="text" name="whatsapp" class="form-control"
+                                value="{{ old('whatsapp', $doctor->whatsapp) }}" required>
+                            <div class="text-danger whatsapp"></div>
+
 
 
                         </div>
+
+                        </div>
+
+
+                                   <div class="row mb-5">
+
+
+                       <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.facebook') }}</label>
+                            <input type="url" name="facebook" class="form-control"
+                                value="{{ old('facebook', $doctor->facebook) }}" required>
+                            <div class="text-danger facebook"></div>
+
+
+
+                        </div>
+
+                           <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.instagram') }}</label>
+                            <input type="url" name="instagram" class="form-control"
+                                value="{{ old('instagram', $doctor->instagram) }}" required>
+                            <div class="text-danger instagram"></div>
+
+
+
+                        </div>
+                    </div>
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.specializations') }}</label>
                             <select class="form-select form-select-solid" name="specialization_id" required

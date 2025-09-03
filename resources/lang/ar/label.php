@@ -236,7 +236,7 @@ return [
     'display_all_users' => 'عرض جميع المرضي',
     'last_appointment' => 'عرض اخر عملية حجز',
     'categories' => 'العيادادت الطبية',
-    'medical_examination_price' => 'عرض العيادات الطبية',
+    'medical_examination_price' => 'سعر كشفية العلاجية',
     'nontification_type' => 'نوع الشعار',
     'all' => 'الجميع',
     'reason' => 'اسباب',
@@ -250,7 +250,10 @@ return [
     'add_new_drug_user'=>'اضافة دواء جديد',
     'number_time_use'=>'عدد مرات الاستخدام',
     'drug_data'=>'بيانات الادوية',
-    'user'=>'المستخدم'
+    'user'=>'المستخدم',
+    'work_hours'=>'اوقات العمل',
+    'facebook'=>'رابط الفيس بوك',
+    'instagram'=>'انستغرام'
 
 
 

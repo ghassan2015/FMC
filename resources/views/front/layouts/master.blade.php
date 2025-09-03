@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html lang="ar" dir="rtl">
 @include('front.layouts.head')
 
 
@@ -87,7 +87,7 @@
     <!--==============================
     Sidemenu
     ============================== -->
-    <div class="sidemenu-wrapper d-none d-lg-block  ">
+    <div class="sidemenu-wrapper d-none d-lg-block" s>
         <div class="sidemenu-content">
             <button class="closeButton sideMenuCls"><i class="far fa-times"></i></button>
             <div class="widget footer-widget  ">
@@ -174,108 +174,69 @@
 
 
     @include('front.layouts.header')
-
-
-    <section class="vs-hero-wrapper-eight position-relative">
-        <div class="banner-slide-eight">
-            <div class="banner-slide">
-                <div class="banner-content">
-                    <img src="assets/img/hero/h-bg-8-1.jpg" alt="">
-                    <div class="banner-text">
-                        <div class="container-style8">
-                            <div class="banner-sec-info one-time">
-                                <h1 class="animated" data-animation-in="fadeInUp" data-delay-in="0.1">Extraordinary
-                                    Care <br>is Right Here</h1>
-                                <p class="animated" data-animation-in="fadeInUp" data-delay-in="0.3">As well as
-                                    providing face-to-face consultations with doctors,<br> we offer a growing number of
-                                    online services</p>
-                                <a href="#" class="btn-style8 v8" title="" data-animation-in="fadeInUp"
-                                    data-delay-in="0.5">Discover Services</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="doc-container">
-                        <div class="container-style8">
-                            <div class="doctor-info-box animated" data-animation-in="fadeInUp" data-delay-in="0.3">
-                                <img src="assets/img/hero/h8-1.jpg" alt="">
-                                <div class="content-box">
-                                    <h6 class="title">Find one of our<br> specialist Doctors</h6>
-                                    <a href="#" class="doctor-btn">Search Doctors</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="banner-slide">
-                <div class="banner-content">
-                    <img src="assets/img/hero/h-bg-8-1.jpg" alt="">
-                    <div class="banner-text">
-                        <div class="container-style8">
-                            <div class="banner-sec-info one-time">
-                                <h1 class="animated" data-animation-in="fadeInUp" data-delay-in="0.1">Extraordinary
-                                    Care <br>is Right Here</h1>
-                                <p class="animated" data-animation-in="fadeInUp" data-delay-in="0.3">As well as
-                                    providing face-to-face consultations with doctors,<br> we offer a growing number of
-                                    online services</p>
-                                <a href="#" class="btn-style8 v8" title="" data-animation-in="fadeInUp"
-                                    data-delay-in="0.5">Discover Services</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="doc-container">
-                        <div class="container-style8">
-                            <div class="doctor-info-box animated" data-animation-in="fadeInUp" data-delay-in="0.3">
-                                <img src="assets/img/hero/h8-1.jpg" alt="">
-                                <div class="content-box">
-                                    <h6 class="title">Find one of our<br> specialist Doctors</h6>
-                                    <a href="#" class="doctor-btn">Search Doctors</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="banner-slide">
-                <div class="banner-content">
-                    <img src="assets/img/hero/h-bg-8-1.jpg" alt="">
-                    <div class="banner-text">
-                        <div class="container-style8">
-                            <div class="banner-sec-info one-time">
-                                <h1 class="animated" data-animation-in="fadeInUp" data-delay-in="0.1">Extraordinary
-                                    Care <br>is Right Here</h1>
-                                <p class="animated" data-animation-in="fadeInUp" data-delay-in="0.3">As well as
-                                    providing face-to-face consultations with doctors,<br> we offer a growing number of
-                                    online services</p>
-                                <a href="#" class="btn-style8 v8" title="" data-animation-in="fadeInUp"
-                                    data-delay-in="0.5">Discover Services</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="doc-container">
-                        <div class="container-style8">
-                            <div class="doctor-info-box animated" data-animation-in="fadeInUp" data-delay-in="0.3">
-                                <img src="assets/img/hero/h8-1.jpg" alt="">
-                                <div class="content-box">
-                                    <h6 class="title">Find one of our<br> specialist Doctors</h6>
-                                    <a href="#" class="doctor-btn">Search Doctors</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="banner-arrows">
-            <div class="container-style8">
-                <div id="slidenav3" class="custom-arrows-eight"></div>
+   <section class="vs-hero-wrapper6 position-relative" data-bg-src="assets/img/bg/banner6-1.jpg">
+        <div class="container-style6">
+            <div class="hero-content6">
+                <span class="sub-title wow fadeInUp" data-wow-delay="200ms">Quality Theraphy Starts From here</span>
+                <h1 class="title wow fadeInUp" data-wow-delay="300ms">We Always Put The Patients First</h1>
+                <p  class=" wow fadeInUp" data-wow-delay="400ms">Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue.
+                    The Non odio nam euismod lacinia at quis risus. In dictum non consectetur
+                    a erat nam at lectus. Orci sagittis eu volutpat odio facilisis.
+                </p>
+                <a href="#" class="btn-style wow fadeInUp" data-wow-delay="500ms">Explore Our Services</a>
             </div>
         </div>
     </section>
+    <!-- End hero section -->
+
+    <!-- form-section -->
+    <sectiion class="form-section">
+        <div class="container-style6">
+            <form action="#" class="form-wrap1">
+                <div class="form-box-two">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 form-group wow fadeInUp" data-wow-delay="400ms">
+                            <input type="text" class="form-control  style2" placeholder="Your Name">
+                            <i class="fal small fa-user"></i>
+                        </div>
+                        <div class="col-xl-4 col-md-6 form-group wow fadeInUp" data-wow-delay="500ms">
+                            <input type="email" class="form-control  style2" placeholder="Email Address">
+                            <i class="fal small fa-envelope"></i>
+                        </div>
+                        <div class="col-xl-4 col-md-6 form-group wow fadeInUp" data-wow-delay="600ms">
+                            <input type="text" class="dateTime-pick form-control  style2" placeholder="Select Date & Time">
+                            <i class="fal small fa-calendar-alt"></i>
+                        </div>
+                        <div class="col-xl-4 col-md-6 form-group wow fadeInUp" data-wow-delay="400ms">
+                            <select class="form-select style2">
+                                <option hidden disabled selected>Choose Doctor</option>
+                                <option>Aerospace Medicine</option>
+                                <option>Bariatric Surgery</option>
+                                <option>Infectious Diseases</option>
+                                <option>Laboratory Medicine</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-4 col-md-6 form-group wow fadeInUp" data-wow-delay="500ms">
+                            <select class="form-select style2">
+                                <option hidden disabled selected>Select Services</option>
+                                <option>Aerospace Medicine</option>
+                                <option>Bariatric Surgery</option>
+                                <option>Infectious Diseases</option>
+                                <option>Laboratory Medicine</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-4 col-md-6 form-group wow fadeInUp" data-wow-delay="600ms">
+                            <button type="submit" class="btn-style">Make Appointment</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </sectiion>
 
 
 
-    <section class="main-section space" data-bg-src="assets/img/bg/ser-bg9-1.jpg">
+    <section class="main-section space" data-bg-src="assets/img/bg/ser-bg9-1.jpg"  style="direction: ltr">
         <!-- service-section-nine -->
         <div class="service-section-nine">
             <div class="container-style8">
@@ -481,14 +442,14 @@
     </section>
 
 
-    <section class="team-section-two space" data-bg-src="assets/img/bg/team2-1.jpg">
+    <section class="team-section-two space" data-bg-src="assets/img/bg/team2-1.jpg" >
         <div class="container-style6">
             <div class="title-area-two wow fadeInUp" data-wow-delay="400ms">
                 <span class="sub-title6">Our Special Doctors</span>
                 <h2>Meet Our Expert <br>Doctors</h2>
             </div>
             <div class="row vs-carousel wow fadeIn" data-wow-delay="0.3s" data-slide-show="4" data-lg-slide-show="3"
-                data-md-slide-show="2" data-sm-slide-show="1">
+                data-md-slide-show="2" data-sm-slide-show="1"  style="direction: ltr">
                 <!-- Team block -->
                 <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="400ms">
                     <div class="team-card-two">
@@ -735,7 +696,7 @@
         </div>
     </section>
 
-    <section class="vs-blog-wrapper-seven space space-md-top">
+    <section class="vs-blog-wrapper-seven space space-md-top"  style="direction: ltr">
         <div class="container">
             <div class="row  text-center justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-6 wow fadeIn" data-wow-delay="400ms">
@@ -875,6 +836,5 @@
 </body>
 
 
-<!-- Mirrored from html.vecurosoft.com/medixi/demo/index-8.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 Aug 2025 13:05:41 GMT -->
 
 </html>

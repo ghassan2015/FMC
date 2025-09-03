@@ -86,6 +86,9 @@ class DoctorController extends Controller
                 'mobile'           => $request->mobile,
                 'license_number'   => $request->license_number,
                 'medical_examination_price' => $request->medical_examination_price,
+                'whatsapp'=>$request->whatsapp,
+                                'facebook'=>$request->facebook,
+                'instagram'=>$request->instagram,
 
                 'about_us'         => ['ar' => $request->about_us_ar, 'en' => $request->about_us_en],
                 'specialization_id' => $request->specialization_id,
@@ -138,7 +141,6 @@ class DoctorController extends Controller
             ]);
         } catch (\Exception $exception) {
             DB::rollBack();
-
             return response()->json([
                 'status'  => 422,
                 'message' => __('label.process_fail'),
@@ -181,6 +183,9 @@ class DoctorController extends Controller
                 'mobile'            => $request->mobile,
                 'license_number'    => $request->license_number,
                 'medical_examination_price' => $request->medical_examination_price,
+                  'whatsapp'=>$request->whatsapp,
+                                'facebook'=>$request->facebook,
+                'instagram'=>$request->instagram,
                 'about_us'          => [
                     'ar' => $request->about_us_ar,
                     'en' => $request->about_us_en,
@@ -237,7 +242,6 @@ class DoctorController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            return $exception;
             return response()->json([
                 'status'  => 422,
                 'message' => __('label.process_fail'),

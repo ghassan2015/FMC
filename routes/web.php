@@ -70,6 +70,8 @@ Route::group(
                     ],
                     function () {
                         Route::get('login', [LoginController::class, 'getLogin'])->name('login');
+
+                        Route::get('login', [LoginController::class, 'getLogin'])->name('admin.login');
                         Route::post('post_login', [LoginController::class, 'postLogin'])->name('admin.login.post');
                     }
                 );
@@ -237,6 +239,9 @@ Route::group(
                     Route::post('/update', [SettingController::class, 'update'])->name('admin.settings.update');
                     Route::get('/page', [PageSettingController::class, 'index'])->name('admin.pages.index')->middleware('can:view_setting');
                     Route::post('/update_page', [PageSettingController::class, 'update'])->name('admin.settings.updatePages');
+                    Route::get('/work-hours', [PageSettingController::class, 'getWorkHours'])->name('admin.settings.getWorkHours');
+
+                    Route::post('/update_work_hours', [PageSettingController::class, 'WorkHours'])->name('admin.settings.WorkHours');
                 });
 
                 Route::group(['prefix' => 'medical_tests'], function () {

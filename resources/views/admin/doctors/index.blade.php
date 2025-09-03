@@ -23,7 +23,7 @@
                 {{ __('label.filter') }}
             </button>
             @can('add_admin')
-                <a class="btn btn-primary add_branch" data-bs-toggle="tooltip" href="{{ route('admin.doctors.create') }}"
+                <a class="btn btn-primary" data-bs-toggle="tooltip" href="{{ route('admin.doctors.create') }}"
                     title="{{ __('label.add_new_doctor') }}">
                     <i class="ki-duotone ki-plus fs-2"></i>
                     {{ __('label.add_new_doctor') }}
