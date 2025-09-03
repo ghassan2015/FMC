@@ -20,11 +20,13 @@
 
             <!-- Toolbar -->
 
+            @can('add_user')
             <a type="button" href="{{ route('admin.users.create') }}" class="btn btn-primary" data-bs-toggle="tooltip"
                 title="{{ __('label.add_new_user') }}">
                 <i class="ki-duotone ki-plus fs-2"></i>
                 {{ __('label.add_new_user') }}
             </a>
+            @endcan
         </div>
         <!-- Group actions -->
         <div class="d-flex justify-content-end align-items-center d-none" data-kt-docs-table-toolbar="selected">
@@ -48,6 +50,8 @@
                 <th style="width: 10%;">{{ __('label.name') }} </th>
                 <th style="width: 10%;">{{ __('label.id_number') }}</th>
                 <th style="width: 10%;">{{ __('label.mobile') }}</th>
+                <th style="width: 10%;">{{ __('label.appointment_count') }}</th>
+                <th style="width: 10%;">{{ __('label.last_appointment') }}</th>
 
                 <th style="width: 20%;">{{ __('label.actions') }}</th>
             </tr>
@@ -61,7 +65,6 @@
         </tbody>
     </table>
 
-    @include('Shared.delete')
 @endsection
 
 @push('scripts')

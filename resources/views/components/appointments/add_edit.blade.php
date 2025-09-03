@@ -1,3 +1,17 @@
+<style>
+    /* تحسين الشكل */
+#availableTimes .time-btn {
+    min-width: 90px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+#availableTimes .time-btn:hover {
+    transform: scale(1.05);
+}
+
+    </style>
 <div class="modal fade" id="appointmentModal" tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -12,9 +26,10 @@
 
                 <div class="modal-body">
                     <!-- hidden inputs -->
+                    <input type="hidden" id="appointment_id" name="appointment_id">
                     <input type="hidden" id="selectedTime" name="time">
 
-                    <!-- User / Branch / Doctor -->
+
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.users') }}</label>
@@ -70,8 +85,8 @@
 
                         <div class="col-md-6">
                             <label for="birth_date" class="form-label">{{ __('label.birth_date') }}</label>
-                            <input type="text" name="birth_date" id="birth_date" value="{{ old('birth_date') }}"
-                                class="form-control kt_datepicker">
+                            <input type="text" name="birth_date kt_datepicker" id="birth_date" value="{{ old('birth_date') }}"
+                                class="form-control birth_date">
                         </div>
                     </div>
 
@@ -86,21 +101,22 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.date') }}</label>
-                            <input type="text" class="form-control kt_datepicker" readonly name="appointmentDate"
+                            <input type="text" class="form-control kt_datepicker" readonly name="date"
                                 id="appointmentDate" required>
+
                         </div>
 
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <label class="form-label required">{{ __('label.appointments') }}</label>
-                            <div id="availableTimes" class="d-flex flex-wrap gap-2"
+                            <div id="availableTimes" class="d-flex flex-wrap gap-2 mt-2"
                                 style="min-height: 50px; align-items: center;"></div>
                         </div>
                     </div>
                     <!-- Payment -->
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="form-label required">{{ __('label.payment_type') }}</label>
                             <select class="form-select form-select-solid" data-control="select2" id="payment_type_id"
                                 name="payment_type_id" required>
@@ -110,7 +126,10 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6">
+
+
+
+                        <div class="col-md-4">
                             <label class="form-label required">{{ __('label.payment_status') }}</label>
                             <select class="form-select form-select-solid" data-control="select2" id="is_paid"
                                 name="is_paid" required>
@@ -118,6 +137,18 @@
 
                                 <option value="0">{{ __('label.not_paid') }}</option>
                                 <option value="1">{{ __('label.paid') }}</option>
+                            </select>
+                        </div>
+
+
+                                <div class="col-md-4">
+                            <label class="form-label required">{{ __('label.status') }}</label>
+                            <select class="form-select form-select-solid" data-control="select2" id="appointment_status_id"
+                                name="appointment_status_id" required>
+                                <option value="">{{ __('label.selected') }}</option>
+                                @foreach ($appointmentStatuses as $value)
+                                    <option value="{{ $value->id }}">{{ $value->value_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

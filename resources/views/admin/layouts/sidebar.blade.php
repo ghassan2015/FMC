@@ -238,6 +238,57 @@
                 </div>
             @endif
 
+               @if (auth('admin')->user()->can('view_user'))
+                <div data-kt-menu-trigger="click"
+                    class="menu-item {{ request()->routeIs('admin.users.*') ? 'here show' : '' }} menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-abstract-9  fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('label.users') }}</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                            <div class="menu-item">
+                                <a class="menu-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.users.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.users') }}</span>
+                                </a>
+                            </div>
+
+                    </div>
+                </div>
+            @endif
+
+
+                   @if (auth('admin')->user()->can('view_appointment'))
+                <div data-kt-menu-trigger="click"
+                    class="menu-item {{ request()->routeIs('admin.appointments.*') ? 'here show' : '' }} menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-abstract-15  fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('label.appointments') }}</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                            <div class="menu-item">
+                                <a class="menu-link {{ request()->routeIs('admin.appointments.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.appointments.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.appointments') }}</span>
+                                </a>
+                            </div>
+
+                    </div>
+                </div>
+            @endif
+
+
+
             @if (auth('admin')->user()->can('view_medical_test'))
                 <div data-kt-menu-trigger="click"
                     class="menu-item {{ request()->routeIs('admin.medicalTests.*') ? 'here show' : '' }} menu-accordion">
@@ -347,7 +398,7 @@
 
             @if (auth('admin')->user()->can('view_setting') || auth('admin')->user()->can('view_city'))
                 <div data-kt-menu-trigger="click"
-                    class="menu-item {{ request()->routeIs('admin.settings.*') ? 'here show' : '' }} menu-accordion">
+                    class="menu-item {{ request()->routeIs('admin.settings.*') || request()->routeIs('admin.pages.*') || request()->routeIs('admin.settings.cities.*') ? 'here show' : '' }} menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-outline ki-setting fs-2"></i>
@@ -366,6 +417,13 @@
                                     <span class="menu-title">{{ __('label.general_settings') }}</span>
                                 </a>
                             @endcan
+                                @can('view_setting')
+                                <a class="menu-link {{ request()->routeIs('admin.pages.index') ? 'active' : '' }}"
+                                    href="{{ route('admin.pages.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">{{ __('label.page_settings') }}</span>
+                                </a>
+                            @endcan
                             @can('view_city')
                                 <a class="menu-link {{ request()->routeIs('admin.settings.cities.*') ? 'active' : '' }}"
                                     href="{{ route('admin.settings.cities.index') }}">
@@ -373,6 +431,8 @@
                                     <span class="menu-title">{{ __('label.cities') }}</span>
                                 </a>
                             @endcan
+
+
                         </div>
 
                     </div>
@@ -466,11 +526,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu-item px-5" data-kt-menu-trigger="click"
-                    data-kt-menu-placement="bottom-end"
+                <div class="menu-item px-5" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
                     data-kt-menu-offset="0,10">
                     <a href="#" class="menu-link px-5">
-                        <span class="menu-title position-relative">{{__('label.language')}}
+                        <span class="menu-title position-relative">{{ __('label.language') }}
                             <span
                                 class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
 
@@ -482,16 +541,19 @@
 
                     <div class="menu-sub menu-sub-dropdown w-175px py-4">
                         <div class="menu-item px-3">
-                            <a href="{{ LaravelLocalization::getLocalizedURL('en') }}" class="menu-link d-flex px-5 active">
+                            <a href="{{ LaravelLocalization::getLocalizedURL('en') }}"
+                                class="menu-link d-flex px-5 active">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{asset('assets/media/flags/united-states.svg')}}" alt="" />
+                                    <img class="rounded-1" src="{{ asset('assets/media/flags/united-states.svg') }}"
+                                        alt="" />
                                 </span>English
                             </a>
                         </div>
                         <div class="menu-item px-3">
                             <a href="{{ LaravelLocalization::getLocalizedURL('ar') }}" class="menu-link d-flex px-5">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{asset('assets/media/flags/palestine.svg')}}" alt="" />
+                                    <img class="rounded-1" src="{{ asset('assets/media/flags/palestine.svg') }}"
+                                        alt="" />
                                 </span>عربي
                             </a>
                         </div>

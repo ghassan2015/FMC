@@ -7,25 +7,35 @@
         <script src="{{ asset('assets/js/message_ar.js') }}"></script>
     @endif
     <script>
+        var appointment_table;
+
         function loadAppointmentTable(params = {}) {
             if ($.fn.DataTable.isDataTable('#appointment_table')) {
-                $('#appointment_table').DataTable().clear().destroy();
+                if (appointment_table) appointment_table.ajax.reload(null, false);
+                return;
             }
 
-            $('#appointment_table').DataTable({
+            appointment_table = $('#appointment_table').DataTable({
                 processing: true,
                 serverSide: true,
                 searching: false,
                 ajax: {
                     url: "{{ route('admin.appointments.getIndex') }}",
-                    type: 'get',
+                    type: "GET",
                     data: function(d) {
                         Object.assign(d, params);
+
+
                     },
+
                     dataSrc: function(response) {
-                        $('#medical_test_competed').text("(" + response.medical_test_competed + ")");
-                        $('#medical_test_count').text("(" + response.medical_test_count + ")");
-                        $('#medical_test_pendding').text("(" + response.medical_test_pendding + ")");
+                        // تحديث الإحصائيات
+                        $('#appointment_count').text(response.appointment_count);
+                        $('#appointment_month_count').text(response.appointment_month_count);
+                        $('#appointment_day_count').text(response.appointment_day_count);
+                        $('#appointment_pendding_count').text(response.appointment_pendding_count);
+
+                        // إعادة بيانات الصفوف للـ DataTable
                         return response.data;
                     }
                 },
@@ -48,7 +58,6 @@
                         name: 'date',
                         orderable: false
                     },
-
                     {
                         data: 'time',
                         name: 'time',
@@ -59,10 +68,9 @@
                         name: 'payment_type'
                     },
                     {
-                        data: 'payment_status',
+                        data: 'is_paid',
                         name: 'payment_status'
                     },
-
                     {
                         data: 'status',
                         name: 'status'
@@ -72,41 +80,41 @@
                         name: 'action',
                         orderable: false,
                         searchable: false
-                    }
+                    },
                 ],
                 order: [
-                    [4, 'desc']
-                ], // ترتيب حسب created_at
+                    [3, 'desc']
+                ],
                 pageLength: 10,
-                lengthMenu: [10, 50, 100, 250, 500],
-                drawCallback: function() {
-                    KTMenu.createInstances();
-                }
             });
         }
+
 
         function getFilterValues() {
             return {
                 user_id: $('#appointment_user_id').val(),
                 start_date: $('#search_appointment_start_date').val(),
                 end_date: $('#search_appointment_end_date').val(),
+                doctor_id: $('#search_doctor_id').val(),
                 status_id: $('#search_appointment_status').val(),
-                search: $('[data-kt-docs-table-filter="search_appointment_test"]').val()
+                search: $('[data-kt-docs-table-filter="search_appointment"]').val()
             };
         }
 
-        $('[data-kt-docs-table-filter="search_appointment_test"]').on('keyup', function() {
+        $('[data-kt-docs-table-filter="search_appointment"]').on('keyup', function() {
             loadAppointmentTable(getFilterValues());
         });
-        $('#appointment_user_id, #search_appointment_start_date, #search_appointment_end_date,#search_appointment_status')
+        $('#appointment_user_id,#search_doctor_id, #search_appointment_start_date, #search_appointment_end_date,#search_appointment_status')
             .on('change',
                 function() {
                     loadAppointmentTable(getFilterValues());
                 });
 
         // تحميل الجدول أول مرة
-        loadAppointmentTable(getFilterValues());
 
+        @can('view_appointment')
+            loadAppointmentTable(getFilterValues());
+        @endcan
 
         $(document).ready(function() {
 
@@ -181,19 +189,32 @@
                         date: date
                     }, function(times) {
                         $('#availableTimes').empty();
+
                         if (times.length === 0) {
                             $('#availableTimes').append(
-                                '<span class="text-danger">لا توجد مواعيد متاحة</span>');
+                                '<span class="text-danger fw-bold">لا توجد مواعيد متاحة</span>'
+                            );
                         } else {
                             times.forEach(time => {
                                 $('#availableTimes').append(
-                                    `<button type="button" class="btn btn-outline-primary m-1">${time}</button>`
+                                    `<button type="button" class="btn btn-outline-primary time-btn">${time}</button>`
                                 );
+                            });
+
+                            // اختيار الوقت عند الضغط
+                            $('.time-btn').click(function() {
+                                $('.time-btn').removeClass('btn-primary text-white')
+                                    .addClass('btn-outline-primary');
+                                $(this).removeClass('btn-outline-primary').addClass(
+                                    'btn-primary text-white');
+                                $('#selectedTime').val($(this)
+                                    .text()); // افترض عندك input مخفي
                             });
                         }
                     });
                 }
             });
+
 
 
             $('#appointmentModal').on('hidden.bs.modal', function() {
@@ -221,6 +242,138 @@
                     preview.hide().attr('src', '');
                 }
             });
+
+
+
+            $(document).on('click', '.edit', function(e) {
+                e.preventDefault();
+
+                const modal = $('#appointmentModal');
+                const form = $('#my-form-apointment')[0];
+
+                // إعادة ضبط الفورم بالكامل
+                form.reset();
+                $('.error').text('');
+                $(form).find('select').val(null).trigger('change');
+                $('#availableTimes').empty();
+
+                // جلب البيانات من attributes
+                const appointmentId = $(this).data('appointment_id');
+                const userId = $(this).data('user_id');
+                const branchId = $(this).data('branch_id');
+                const doctorId = $(this).data('doctor_id');
+                const date = $(this).data('date');
+                const time = $(this).data('time');
+                const isPaid = $(this).data('is_paid');
+                const paymentTypeId = $(this).data('payment_type_id');
+                const appointmentStatusId = $(this).data('appointment_status_cd_id');
+
+                // تعبئة الحقول
+                $('#appointment_id').val(appointmentId);
+                $('#userSelect').val(userId).trigger('change');
+                $('#AppointmentBranch').val(branchId).trigger('change');
+                $('#appointmentDate').val(date);
+                $('#is_paid').val(isPaid).trigger('change');
+                $('#payment_type_id').val(paymentTypeId).trigger('change');
+                $('#appointment_status_id').val(appointmentStatusId).trigger('change');
+
+                // جلب الدكاترة للفرع ثم تحديد الطبيب المختار
+                if (branchId) {
+                    $.ajax({
+                        url: '{{ route('admin.appointments.getDoctors') }}',
+                        type: 'GET',
+                        data: {
+                            branch_id: branchId
+                        },
+                        dataType: 'json',
+                        success: function(doctors) {
+                            const doctorSelect = $('#doctorAppointment');
+                            doctorSelect.empty().append(
+                                '<option value="">{{ __('label.selected') }}</option>');
+
+                            if (doctors.length > 0) {
+                                $.each(doctors, function(index, doctor) {
+                                    doctorSelect.append('<option value="' + doctor.id +
+                                        '">' + doctor.name + '</option>');
+                                });
+                            }
+
+                            // تحديد الطبيب المختار
+                            doctorSelect.val(doctorId).trigger('change');
+
+                            // بعد تحديد الطبيب، تحميل الأوقات المتاحة مع استثناء الموعد الحالي
+                            loadAvailableTimes(doctorId, branchId, date, time, appointmentId);
+                        },
+                        error: function() {
+                            alert('حدث خطأ أثناء تحميل الأطباء');
+                        }
+                    });
+                }
+
+                // تحديث الأوقات عند تغيير الطبيب، الفرع أو التاريخ
+                $('#doctorAppointment, #AppointmentBranch, #appointmentDate').off('change').on('change',
+                    function() {
+                        const selectedDoctor = $('#doctorAppointment').val();
+                        const selectedBranch = $('#AppointmentBranch').val();
+                        const selectedDate = $('#appointmentDate').val();
+                        const currentAppointmentId = $('#appointment_id').val();
+
+                        if (selectedDoctor && selectedBranch && selectedDate) {
+                            loadAvailableTimes(selectedDoctor, selectedBranch, selectedDate, null,
+                                currentAppointmentId);
+                        }
+                    });
+                $('#my-form-apointment').attr('action', '{{ route('admin.appointments.update') }}');
+
+                // فتح المودال
+                modal.modal('show');
+            });
+
+            // دالة تحميل الأوقات المتاحة مع استثناء الموعد الحالي
+            function loadAvailableTimes(doctorId, branchId, date, selectedTime = null, appointmentId = null) {
+                if (doctorId && branchId && date) {
+                    $.get('{{ route('admin.doctors.getAvailableTimes') }}', {
+                        doctor_id: doctorId,
+                        branch_id: branchId,
+                        date: date,
+                        appointment_id: appointmentId // استثناء الموعد الحالي
+                    }, function(times) {
+                        $('#availableTimes').empty();
+
+                        if (times.length === 0) {
+                            $('#availableTimes').append(
+                                '<span class="text-danger fw-bold">لا توجد مواعيد متاحة</span>');
+                        } else {
+                            const formattedSelectedTime = selectedTime ? selectedTime.length === 5 ?
+                                selectedTime + ":00" : selectedTime : null;
+
+                            times.forEach(time => {
+                                const isSelected = formattedSelectedTime === time ?
+                                    'btn-primary text-white' : 'btn-outline-primary';
+                                $('#availableTimes').append(
+                                    `<button type="button" class="btn time-btn ${isSelected}">${time.substring(0,5)}</button>`
+                                );
+                            });
+
+                            // اختيار الوقت عند الضغط
+                            $('.time-btn').off('click').on('click', function() {
+                                $('.time-btn').removeClass('btn-primary text-white').addClass(
+                                    'btn-outline-primary');
+                                $(this).removeClass('btn-outline-primary').addClass(
+                                    'btn-primary text-white');
+                                $('#selectedTime').val($(this).text() + ":00");
+                            });
+
+                            if (formattedSelectedTime) {
+                                $('#selectedTime').val(formattedSelectedTime);
+                            }
+                        }
+                    });
+                }
+            }
+
+
+
 
         });
 
@@ -263,11 +416,10 @@
                         $('#submit-button').prop('disabled', false);
 
                         // Handle the response on success
-                        if (response.success) {
+                        if (response.status == 201) {
                             toastr.success(response.message, 'Success', {
                                 timeOut: 3000
                             });
-                            $('#appointmentModal').modal('hide');
 
 
                         } else {
@@ -276,8 +428,12 @@
                             });
 
                         }
-                        $('#appointment_table').DataTable().ajax.reload(null, false);
+                        $('#appointmentModal').modal('hide');
 
+                        if (typeof appointment_table !== 'undefined' &&
+                            appointment_table) {
+                            appointment_table.ajax.reload(null, false);
+                        }
                     },
                     error: function(xhr) {
                         // Hide the spinner and enable the submit button
@@ -334,8 +490,7 @@
                     "_token": "{{ csrf_token() }}"
                 },
                 success: function(response) {
-                    if (response.success) {
-                        // Show success notification
+                    if (response.status == 201) {
                         toastr.success(response.message, 'Success', {
                             timeOut: 3000
                         });

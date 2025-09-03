@@ -7,7 +7,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Doctor extends Model
 {
-    protected $fillable  = ['id', 'name', 'is_active', 'photo', 'mobile', 'email', 'about_us', 'admin_id', 'license_number','specialization_id'];
+    protected $fillable  = ['id', 'name', 'is_active', 'photo', 'mobile', 'email','medical_examination_price', 'about_us', 'admin_id', 'license_number','specialization_id'];
 
     use HasTranslations;
     public $translatable = ['about_us'];

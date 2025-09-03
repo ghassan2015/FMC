@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('mobile')->nullable()->after('email');
             $table->string('id_number')->nullable()->after('mobile');
-            $table->date('date_birth')->nullable()->after('id_number');
+            $table->string('date_birth')->nullable()->after('id_number');
             $table->string('photo')->nullable()->after('date_birth');
         });
     }

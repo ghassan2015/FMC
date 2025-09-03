@@ -4,15 +4,7 @@
 @section('toolbarPage', __('label.add_new_category'))
 
 @section('content')
-    <style>
-        .ql-container {
-            min-height: 150px;
-            /* لضبط الارتفاع الافتراضي */
-            max-height: 400px;
-            /* حتى لا يكبر كثير */
-            overflow-y: auto;
-        }
-    </style>
+
     <div id="kt_app_content_container" class="app-container container-fluid">
         <div class="card">
             <div class="card-body p-lg-17">
@@ -62,7 +54,7 @@
                     </div>
 
                     <!-- Description AR / EN -->
-                    <div class="row mb-5" style="height: 500px">
+                    <div class="row mb-5" style="height: 400px">
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.description') }} (AR)</label>
                             <div id="description_ar">{{ old('description_en') }}</div>
@@ -79,7 +71,7 @@
                     </div>
 
                     <!-- Signs AR / EN -->
-                    <div class="row mb-5" style="height: 500px">
+                    <div class="row mb-5" style="height: 400px">
                         <div class="col-md-6">
                             <label class="form-label">{{ __('label.signs') }} (AR)</label>
                             <div id="signs_ar">{{ old('signs_ar') }}</div>
@@ -94,30 +86,131 @@
                         </div>
                     </div>
 
-                    <!-- Photo -->
+
+
+
+
                     <div class="row mb-5">
                         <div class="col-md-6">
-                            <label class="form-label">{{ __('label.photo') }}</label>
-                            <input type="file" name="photo" class="form-control" accept=".jpg,.jpeg,.png,.webp">
-                            <div class="photo error"></div>
+                            <label class="form-label">{{ __('label.reason') }} (AR)</label>
+                            <textarea class="form-control" name="reason_ar" id="reason_ar">{{ old('reason_ar') }}</textarea>
+                            <div class="reason_ar error"></div>
 
-                            @error('photo')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.reason') }} (EN)</label>
+                            <textarea class="form-control" name="reason_en" id="reason_en">{{ old('reason_en') }}</textarea>
+                            <div class="reason_en error"></div>
 
-                        <!-- Status -->
-                        <div class="row mb-5">
-                            <div class="col-md-12">
-                                <label class="form-label">{{ __('label.status') }}</label>
-                                <label class="form-switch">
-                                    <input class="form-check-input" name="is_active" id="is_active" value="1"
-                                        type="checkbox" checked>
-                                    <span class="form-check-label"></span>
-                                </label>
-                            </div>
                         </div>
                     </div>
+
+
+
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label" for="disease_type_ar">{{ __('label.disease_type') }} (AR)</label>
+                            <textarea class="form-control" name="disease_type_ar" id="disease_type_ar">{{ old('disease_type_ar') }}</textarea>
+                            <div class="disease_type_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"for="disease_type_en">{{ __('label.disease_type') }} (EN)</label>
+                            <textarea class="form-control" name="disease_type_en" id="disease_type_en">{{ old('disease_type_en') }}</textarea>
+                            <div class="disease_type_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.surgery_therapy') }} (AR)</label>
+                            <textarea class="form-control" name="surgery_therapy_ar" id="surgery_therapy_ar">{{ old('surgery_therapy_ar') }}</textarea>
+                            <div class="surgery_therapy_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.surgery_therapy') }} (EN)</label>
+                            <textarea class="form-control" name="surgery_therapy_en" id="surgery_therapy_en">{{ old('surgery_therapy_ar') }}</textarea>
+                            <div class="surgery_therapy_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.surgery_type') }} (AR)</label>
+                            <textarea class="form-control" name="surgery_type_ar" id="surgery_type_ar">{{ old('surgery_type_ar') }}</textarea>
+
+                            <div class="surgery_type_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.surgery_type') }} (EN)</label>
+                            <textarea class="form-control" name="surgery_type_en" id="surgery_type_en">{{ old('surgery_type_en') }}</textarea>
+                            <div class="surgery_type_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.preparing_operation') }} (AR)</label>
+                            <textarea class="form-control" name="preparing_operation_ar" id="preparing_operation_ar">{{ old('preparing_operation_ar') }}</textarea>
+                            <div class="preparing_operation_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.preparing_operation') }} (EN)</label>
+                            <textarea class="form-control" name="preparing_operation_en" id="preparing_operation_en">{{ old('preparing_operation_en') }}</textarea>
+                            <div class="preparing_operation_en error"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.payment_type') }} (AR)</label>
+                            <textarea class="form-control" name="payment_type_ar" id="payment_type_ar">{{ old('payment_type_ar') }}</textarea>
+                            <div class="payment_type_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.payment_type') }} (EN)</label>
+                            <textarea class="form-control" name="payment_type_en" id="payment_type_en">{{ old('payment_type_en') }}</textarea>
+                            <div class="payment_type_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.operation_pirce') }} (AR)</label>
+                            <input type="text" name="operation_pirce_ar" class="form-control"
+                                value="{{ old('operation_pirce_ar') }}">
+
+                            <div class="operation_pirce_ar error"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.operation_pirce') }} (EN)</label>
+                            <input type="text" name="operation_pirce_en" class="form-control"
+                                value="{{ old('operation_pirce_en') }}">
+                            <div class="operation_pirce_en error"></div>
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Photo -->
+                    <!-- Status -->
+
 
 
 
@@ -183,6 +276,17 @@
                                 <div class="avatar error"></div>
                             </div>
 
+                        </div>
+
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <label class="form-label">{{ __('label.status') }}</label>
+                                <label class="form-switch">
+                                    <input class="form-check-input" name="is_active" id="is_active" value="1"
+                                        type="checkbox" checked>
+                                    <span class="form-check-label"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <!-- Submit -->

@@ -7,12 +7,17 @@
     menu-state-bg-light-primary fw-bold fs-7 w-175px py-4 px-2 start-3"
     data-kt-menu="true">
 
+    @can('view_user')
+
+
         <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
             <i class="fas fa-user-check text-primary"></i>
             <a href="{{ route('admin.users.view', $data->id) }}" class="menu-link px-2">
                 {{ __('label.view_user') }}
             </a>
         </div>
+          @endcan
+    @can('edit_user')
 
         <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
             <i class="fas fa-user-edit text-warning"></i>
@@ -20,6 +25,11 @@
                 {{ __('label.edit_user') }}
             </a>
         </div>
+        @endcan
+
+
+
+
 
 
 
@@ -45,7 +55,7 @@
 
 
     {{-- حذف المستخدم --}}
-    @if (auth('admin')->user()->can('delete_users'))
+    @if (auth('admin')->user()->can('delete_user'))
         <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
             <i class="fas fa-user-times text-danger"></i>
             <a href="#" class="menu-link px-2 delete_user" data-id="{{ $data->id }}"

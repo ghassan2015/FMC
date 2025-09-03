@@ -2,7 +2,8 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title my-single-invoice" id="addInvoiceModalLabel">{{ __('label.medical_test_data') }}</h5>
+                <h5 class="modal-title my-single-invoice" id="addInvoiceModalLabel">{{ __('label.medical_test_data') }}
+                </h5>
                 <button type="button" class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
                     aria-label="Close">
                     <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
@@ -16,7 +17,7 @@
                     <div class="row mb-5">
 
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <label for="add_edit_medical_test_id"
                                 class="form-label required">{{ __('label.medical_test') }}</label>
                             <select class="form-select form-select-solid" data-control="select2" name="medical_test_id"
@@ -31,26 +32,13 @@
                             <div class="medical_test_id error"></div>
                         </div>
 
-                        <div class="col-lg-6">
-                            <label for="add_edit_user_id" class="form-label required">{{ __('label.users') }}</label>
-                            <select class="form-select form-select-solid" data-control="select2" name="user_id"
-                                id="add_edit_user_id" required>
-                                <option value="">{{ __('label.selected') }}</option>
-
-                                @foreach ($users as $value)
-                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                @endforeach
-
-                            </select>
-                            <div class="medical_test_id error"></div>
-                        </div>
-
 
 
 
                     </div>
 
 
+                    <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
 
                     <input type="hidden" id="medical_id" name="medical_id">
 
@@ -103,5 +91,3 @@
         </div>
     </div>
 </div>
-
-

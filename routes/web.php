@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\SenddDoctorNotificationEvent;
+use App\Events\SendNotificationEvent;
 use App\Http\Controllers\Admin\Admin\AdminController;
 use App\Http\Controllers\Admin\Appointments\AppointmentController;
 use App\Http\Controllers\Admin\Articles\ArticaleController;
@@ -10,23 +12,45 @@ use App\Http\Controllers\Admin\Categories\CategoriesController;
 use App\Http\Controllers\Admin\Cities\CitiesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Doctors\DoctorController;
+use App\Http\Controllers\Admin\DrugUsers\DrugUsersController;
 use App\Http\Controllers\Admin\MedicalTest\MedicalTestController;
 use App\Http\Controllers\Admin\MedicalTestsUsers\MedicalTestUserController;
+use App\Http\Controllers\Admin\Notifications\NotiticationController;
 use App\Http\Controllers\Admin\Profile\ProfileController;
 use App\Http\Controllers\Admin\Roles\RoleController;
 use App\Http\Controllers\Admin\Services\ServicController;
+use App\Http\Controllers\Admin\Settings\PageSettingController;
 use App\Http\Controllers\Admin\Settings\SettingController;
 use App\Http\Controllers\Admin\Specializations\SpecializationController;
+use App\Http\Controllers\Admin\SurgicalOperations\SurgicalOperationController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Videoes\VideoController;
+use App\Models\Admin;
+use App\Notifications\AdminSpecificNotification;
+use App\Notifications\DoctorAlert;
+use App\Notifications\DoctorNotification;
+use App\Notifications\NewOrderNotification;
+use App\Notifications\TicketUpdatedNotification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.layouts.master');
+});
+Route::get('/check-admin', function () {
+    return Auth::guard('admin')->check()
+        ? '✅ Admin logged in'
+        : '❌ Not logged in';
 });
 
+Route::get('/send-alert', function () {
+    $doctor = Admin::find(3); // ID الدكتور
 
+    $doctor->notify(new DoctorAlert("لديك موعد جديد مع مريض"));
+});
 
 Route::group(
     [
@@ -45,7 +69,7 @@ Route::group(
                         'middleware' => 'guest'
                     ],
                     function () {
-                        Route::get('login', [LoginController::class, 'getLogin'])->name('admin.login');
+                        Route::get('login', [LoginController::class, 'getLogin'])->name('login');
                         Route::post('post_login', [LoginController::class, 'postLogin'])->name('admin.login.post');
                     }
                 );
@@ -190,21 +214,7 @@ Route::group(
                     Route::post('/delete', [VideoController::class, 'delete'])->name('admin.videos.delete')->middleware('can:delete_video');
                 });
 
-                Route::group(['prefix' => 'doctors'], function () {
-                    Route::get('/', [DoctorController::class, 'index'])->name('admin.doctors.index')->middleware('can:view_articale');
-                    Route::get('/getIndex', [DoctorController::class, 'getIndex'])->name('admin.doctors.getIndex')->middleware('can:view_articale');
-                    Route::get('/create', [DoctorController::class, 'create'])->name('admin.doctors.create')->middleware('can:view_articale');
-                    Route::post('/store', [DoctorController::class, 'store'])->name('admin.doctors.store')->middleware('can:add_articale');
-                    Route::get('/edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctors.edit')->middleware('can:view_articale');
-                    Route::post('/update', [DoctorController::class, 'update'])->name('admin.doctors.update')->middleware('can:edit_articale');
-                    Route::post('/updateStatus', [DoctorController::class, 'updateStatus'])->name('admin.doctors.updateStatus')->middleware('can:update_status_articale');
-                    Route::post('/delete', [DoctorController::class, 'delete'])->name('admin.doctors.delete')->middleware('can:delete_articale');
 
-                    Route::get('/doctor/branches', [DoctorController::class, 'getBranches'])->name('admin.doctors.getBranches');
-                    Route::get('/doctor/available-days', [DoctorController::class, 'getAvailableDays'])->name('admin.doctors.getAvailableDays');
-
-                    Route::get('/doctor/available-times', [DoctorController::class, 'getAvailableTimes'])->name('admin.doctors.getAvailableTimes');
-                });
 
 
 
@@ -225,6 +235,8 @@ Route::group(
 
                     Route::get('/', [SettingController::class, 'index'])->name('admin.settings.index')->middleware('can:view_setting');
                     Route::post('/update', [SettingController::class, 'update'])->name('admin.settings.update');
+                    Route::get('/page', [PageSettingController::class, 'index'])->name('admin.pages.index')->middleware('can:view_setting');
+                    Route::post('/update_page', [PageSettingController::class, 'update'])->name('admin.settings.updatePages');
                 });
 
                 Route::group(['prefix' => 'medical_tests'], function () {
@@ -246,12 +258,20 @@ Route::group(
                     Route::post('/delete', [MedicalTestUserController::class, 'delete'])->name('admin.medicalTestUsers.delete')->middleware('can:delete_medical_test');
                 });
 
+
+                Route::group(['prefix' => 'drug-users'], function () {
+                    Route::get('/', [DrugUsersController::class, 'index'])->name('admin.drugUsers.index')->middleware('can:view_medical_test');
+                    Route::get('/getIndex', [DrugUsersController::class, 'getIndex'])->name('admin.drugUsers.getIndex')->middleware('can:view_medical_test');
+                    Route::post('/store', [DrugUsersController::class, 'store'])->name('admin.drugUsers.store')->middleware('can:add_medical_test');
+                    Route::post('/update', [DrugUsersController::class, 'update'])->name('admin.drugUsers.update')->middleware('can:edit_medical_test');
+                    Route::post('/updateStatus', [DrugUsersController::class, 'updateStatus'])->name('admin.drugUsers.updateStatus')->middleware('can:update_status_city');
+                    Route::post('/delete', [DrugUsersController::class, 'delete'])->name('admin.drugUsers.delete')->middleware('can:delete_medical_test');
+                });
+
                 Route::group(['prefix' => 'categories'], function () {
                     Route::get('/', [CategoriesController::class, 'index'])->name('admin.categories.index')->middleware('can:view_category');
                     Route::get('/getIndex', [CategoriesController::class, 'getIndex'])->name('admin.categories.getIndex')->middleware('can:view_category');
                     Route::get('/create', [CategoriesController::class, 'create'])->name('admin.categories.create')->middleware('can:add_category');
-
-
                     Route::post('/store', [CategoriesController::class, 'store'])->name('admin.categories.store')->middleware('can:add_category');
                     Route::get('/edit/{id}', [CategoriesController::class, 'edit'])->name('admin.categories.edit')->middleware('can:edit_category');
 
@@ -267,37 +287,66 @@ Route::group(
 
 
 
+
                 Route::group(['prefix' => 'users'], function () {
-                    Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
-                    Route::get('/getIndex', [UserController::class, 'getIndex'])->name('admin.users.getIndex');
-                    Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
-                    Route::get('/view/{id}', [UserController::class, 'view'])->name('admin.users.view');
+                    Route::get('/', [UserController::class, 'index'])->name('admin.users.index')->middleware('can:view_user');
+                    Route::get('/getIndex', [UserController::class, 'getIndex'])->name('admin.users.getIndex')->middleware('can:view_user');
+                    Route::get('/create', [UserController::class, 'create'])->name('admin.users.create')->middleware('can:add_user');
+                    Route::get('/view/{id}', [UserController::class, 'view'])->name('admin.users.view')->middleware('can:view_user');
 
-                    Route::post('/store', [UserController::class, 'store'])->name('admin.users.store');
-                    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
+                    Route::post('/store', [UserController::class, 'store'])->name('admin.users.store')->middleware('can:add_user');
+                    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit')->middleware('can:edit_user');
 
-                    Route::post('/update', [UserController::class, 'update'])->name('admin.users.update');
-                    Route::post('/updateStatus', [UserController::class, 'updateStatus'])->name('admin.users.updateStatus');
-                    Route::post('/delete', [UserController::class, 'delete'])->name('admin.users.delete');
+                    Route::post('/update', [UserController::class, 'update'])->name('admin.users.update')->middleware('can:edit_user');
+                    Route::post('/updateStatus', [UserController::class, 'updateStatus'])->name('admin.users.updateStatus')->middleware('can:update_status_user');
+                    Route::post('/delete', [UserController::class, 'delete'])->name('admin.users.delete')->middleware('can:delete_user');
                 });
 
 
 
+                Route::group(['prefix' => 'doctors'], function () {
+                    Route::get('/', [DoctorController::class, 'index'])->name('admin.doctors.index')->middleware('can:view_doctor');
+                    Route::get('/getIndex', [DoctorController::class, 'getIndex'])->name('admin.doctors.getIndex')->middleware('can:view_doctor');
+                    Route::get('/create', [DoctorController::class, 'create'])->name('admin.doctors.create')->middleware('can:add_doctor');
+                    Route::post('/store', [DoctorController::class, 'store'])->name('admin.doctors.store')->middleware('can:add_doctor');
+                    Route::get('/edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctors.edit')->middleware('can:edit_doctor');
+                    Route::post('/update', [DoctorController::class, 'update'])->name('admin.doctors.update')->middleware('can:edit_doctor');
+                    Route::post('/updateStatus', [DoctorController::class, 'updateStatus'])->name('admin.doctors.updateStatus')->middleware('can:update_status_doctor');
+                    Route::post('/delete', [DoctorController::class, 'delete'])->name('admin.doctors.delete')->middleware('can:delete_doctor');
 
+                    Route::get('/doctor/branches', [DoctorController::class, 'getBranches'])->name('admin.doctors.getBranches');
+                    Route::get('/doctor/available-days', [DoctorController::class, 'getAvailableDays'])->name('admin.doctors.getAvailableDays');
+
+                    Route::get('/doctor/available-times', [DoctorController::class, 'getAvailableTimes'])->name('admin.doctors.getAvailableTimes');
+                });
 
 
 
                 Route::group(['prefix' => 'appointments'], function () {
 
-                    Route::get('/', [AppointmentController::class, 'index'])->name('admin.appointments.index')->middleware('can:view_video');
-                    Route::get('/getIndex', [AppointmentController::class, 'getIndex'])->name('admin.appointments.getIndex')->middleware('can:view_video');
+                    Route::get('/', [AppointmentController::class, 'index'])->name('admin.appointments.index')->middleware('can:view_appointment');
+                    Route::get('/getIndex', [AppointmentController::class, 'getIndex'])->name('admin.appointments.getIndex')->middleware('can:view_appointment');
 
-                    Route::post('/store', [AppointmentController::class, 'store'])->name('admin.appointments.store')->middleware('can:add_video');
-                    Route::post('/update', [AppointmentController::class, 'update'])->name('admin.appointments.update')->middleware('can:add_video');
-                    Route::post('/delete', [AppointmentController::class, 'delete'])->name('admin.appointments.delete')->middleware('can:add_video');
-                    Route::get('/getDoctor', [AppointmentController::class, 'getDoctors'])->name('admin.appointments.getDoctors')->middleware('can:view_video');
+                    Route::post('/store', [AppointmentController::class, 'store'])->name('admin.appointments.store')->middleware('can:add_appointment');
+                    Route::post('/update', [AppointmentController::class, 'update'])->name('admin.appointments.update')->middleware('can:edit_appointment');
+                    Route::post('/delete', [AppointmentController::class, 'delete'])->name('admin.appointments.delete')->middleware('can:delete_appointment');
+                    Route::get('/getDoctor', [AppointmentController::class, 'getDoctors'])->name('admin.appointments.getDoctors')->middleware('can:view_appointment');
+                });
 
 
+                Route::group(['prefix' => 'surgical_operation'], function () {
+
+                    Route::get('/', [SurgicalOperationController::class, 'index'])->name('admin.surgicalOperations.index')->middleware('can:view_surgical_operation');
+                    Route::get('/getIndex', [SurgicalOperationController::class, 'getIndex'])->name('admin.surgicalOperations.getIndex')->middleware('can:view_surgical_operation');
+
+                    Route::post('/store', [SurgicalOperationController::class, 'store'])->name('admin.surgicalOperations.store')->middleware('can:add_surgical_operation');
+                    Route::post('/update', [SurgicalOperationController::class, 'update'])->name('admin.surgicalOperations.update')->middleware('can:edit_surgical_operation');
+                    Route::post('/delete', [SurgicalOperationController::class, 'delete'])->name('admin.surgicalOperations.delete')->middleware('can:delete_surgical_operation');
+                });
+
+                Route::group(['prefix' => 'notifciations'], function () {
+                    Route::get('/create', [NotiticationController::class, 'index'])->name('admin.notifciations.create')->middleware('can:view_video');
+                    Route::post('/create', [NotiticationController::class, 'store'])->name('admin.notifications.store')->middleware('can:view_video');
                 });
             }
         );

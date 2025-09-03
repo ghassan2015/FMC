@@ -81,7 +81,7 @@
 
                     <div class="row mb-5">
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label required">{{ __('label.license_number') }}</label>
                             <input type="text" name="license_number" class="form-control"
                                 value="{{ old('license_number') }}" required>
@@ -90,7 +90,7 @@
 
 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label required">{{ __('label.branches') }}</label>
                             <select class="form-select form-select-solid" data-control="select2" multiple name="branch_id[]"
                                 required data-control="select2" id="branchesSelect">
@@ -99,8 +99,20 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
 
-                        <div class="col-md-4">
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.medical_examination_price') }}</label>
+                            <input type="number" name="license_number" class="form-control"
+                                value="{{ old('medical_examination_price') }}" required>
+                            <div class="text-danger medical_examination_price"></div>
+
+
+
+                        </div>
+
+                        <div class="col-md-6">
                             <label class="form-label required">{{ __('label.specializations') }}</label>
                             <select class="form-select form-select-solid" data-control="select2" name="specialization_id"
                                 required data-control="select2">
@@ -165,6 +177,9 @@
                                 <i class="fas fa-info-circle"></i> {{ __('label.allowed_file_types') }}: jpg, png, jpeg,
                                 webp
                             </div>
+
+                            <div class="error avatar"></div>
+
                         </div>
                     </div>
 

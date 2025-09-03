@@ -79,4 +79,10 @@ class Admin extends Authenticatable
     {
         return $this->photo ? asset(  'storage/'.$this->photo) : asset('assets/logo.png');
     }
+
+
+  public function receivesBroadcastNotificationsOn(): string
+{
+    return 'doctor.' . $this->id;
+}
 }

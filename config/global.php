@@ -101,13 +101,11 @@ return [
 
 
         ' المستخدمين' => [
-            'view_users' => 'عرض  كافة المستخدمين',
-            'add_users' => 'اضافة المستخدمين',
-            'edit_users' => 'تعديل  المستخدمين',
-            'delete_users' => 'حذف المستخدمين',
-            'update_status_users' => 'تغير حالة المستخدمين',
-            'export_excel_user' => 'تصدير ملف (Excel)',
-            'export_pdf_user' => 'تصدير ملف (Pdf)',
+            'view_user' => 'عرض  كافة المستخدمين',
+            'add_user' => 'اضافة المستخدمين',
+            'edit_user' => 'تعديل  المستخدمين',
+            'delete_user' => 'حذف المستخدمين',
+            'update_status_user' => 'تغير حالة المستخدمين',
 
 
         ],
@@ -127,6 +125,27 @@ return [
 
 
         ],
+        'الادوية'=>[
+            'view_drug_user'=>'عرض  الادوية ',
+            'add_drug_user'=>'اضافة ادوية جديدة',
+            'edit_drug_user'=>'تعديل بيانات ادوية ',
+            'delete_drug_user'=>'حذف بيانات الادوية'
+        ],
+           'الحجوزات'=>[
+            'view_appointment'=>'عرض  الحجوزات',
+            'add_appointment'=>'اضافة حجوزات جديدة',
+            'edit_appointmentr'=>'تعديل بيانات الحجوزات ',
+            'delete_appointment'=>'حذف بيانات الحجوزات'
+           ],
+
+             'العمليات الجراحية'=>[
+            'view_surgical_operation'=>'عرض  العمليات الجراحية',
+            'add_surgical_operation'=>'اضافة عمليات جراحية جديدة',
+            'edit_surgical_operation'=>'تعديل بيانات العمليات جراحية ',
+            'delete_surgical_operation'=>'حذف بيانات العمليات الجراحية'
+           ],
+
+
 
     ]
 

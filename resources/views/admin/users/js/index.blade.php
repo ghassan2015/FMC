@@ -47,9 +47,24 @@
 
                     },
 
-                      {
+                    {
                         data: 'mobile',
                         name: 'mobile',
+                        orderable: false,
+                        width: '60px'
+
+                    },
+                    {
+                        data: 'appointment_count',
+                        name: 'appointment_count',
+                        orderable: false,
+                        width: '60px'
+
+                    },
+
+                    {
+                        data: 'last_appointment',
+                        name: 'last_appointment',
                         orderable: false,
                         width: '60px'
 
@@ -79,16 +94,4 @@
 
 
         });
-
-
-
-
-
-
-
-
-
-
-
-
     </script>

@@ -1,12 +1,5 @@
 <script>
 
-
-
-
-
-
-
-
     function exportWithFilters(buttonId, routeName, filters = {}) {
         $(buttonId).on('click', function(e) {
             e.preventDefault();

@@ -176,6 +176,20 @@
             theme: 'snow' // or 'bubble'
         });
 
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
         $("#my-form").validate({
 
             rules: {
@@ -216,9 +230,9 @@
                     processData: false,
                     success: function(response) {
 
-                            toastr.success(response.message,
-                                "{{ __('label.successfully_process') }}");
-                            $('#exampleModal').modal('hide');
+                        toastr.success(response.message,
+                            "{{ __('label.successfully_process') }}");
+                        $('#exampleModal').modal('hide');
 
 
 

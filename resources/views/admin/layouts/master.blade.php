@@ -12,7 +12,6 @@ License: For each use you must have a valid license purchased only from above li
 -->
 <html lang="ar" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <!--begin::Head-->
-
 <head>
     <title>Taqat - @yield('title')</title>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\UserRequest;
+use App\Models\Branch;
 use App\Models\Constant;
 use App\Models\Doctor;
 use App\Models\MedicalTest;
@@ -37,6 +38,10 @@ class UserController extends Controller
 
         return DataTables::of($data)
             ->addColumn('title', fn($data) => $data->title)
+
+                        ->addColumn('last_appointment', fn($data) => $data->lastAppointment())
+            ->addColumn('appointment_count', fn($data) => $data->appointmentCount())
+
             ->addColumn('photo', fn($data) => view('admin.users.partials.cover', compact('data')))
             ->addColumn('is_active', fn($data) => view('admin.users.partials.status', compact('data')))
             ->addColumn('action', fn($data) => view('admin.users.partials.actions', compact('data')))
@@ -88,10 +93,16 @@ class UserController extends Controller
         $data['medicalTests'] = MedicalTest::query()->get();
         $data['constants'] = Constant::query()->where('group_name', 'status')->get();
         $data['paymentTypes'] = Constant::query()->where('group_name', 'payment_type')->get();
-        $data['appointmentStatus'] = Constant::query()->where('group_name', 'appointment')->get();
+        $data['appointmentStatuses'] = Constant::query()->where('group_name', 'appointment_status')->get();
 
-        $data['doctors']=Doctor::query()->get();
+        $data['branches'] = Branch::query()->get();
 
+        $data['doctors'] = Doctor::query()
+            ->when(!auth('admin')->user()->is_super && auth('admin')->user()->branch_id, function ($q) {
+                $q->wherehas('branches', function ($q) {
+                    $q->where('branch_id', auth('admin')->user()->branch_id);
+                });
+            })->get();
 
 
         return view('admin.users.view', $data);

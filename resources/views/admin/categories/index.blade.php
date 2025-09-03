@@ -79,7 +79,6 @@
     </table>
 
 
-    @include('Shared.delete')
     @endsection
 
 @push('scripts')

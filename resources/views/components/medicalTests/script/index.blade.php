@@ -3,6 +3,9 @@
     <script src="{{ asset('assets/js/additional-methods.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+
+    <script src="{{ asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
+
     @if (app()->getLocale() === 'ar')
         <script src="{{ asset('assets/js/message_ar.js') }}"></script>
     @endif
@@ -258,7 +261,7 @@
                             });
 
                         }
-                        $('#medical_test_table').DataTable().ajax.reload(null, false);
+                    $('#medical_test_table').DataTable().ajax.reload(null, false);
 
                     },
                     error: function(xhr) {
@@ -340,5 +343,53 @@
                 }
             });
         });
+
+        $('#kt_docs_repeater_basic').repeater({
+            initEmpty: false,
+
+            defaultValues: {
+                'text-input': 'foo'
+            },
+
+            show: function() {
+                $(this).slideDown();
+
+                // Re-init select2
+                $(this).find('[data-kt-repeater="select2"]').select2();
+
+                // Re-init flatpickr
+                // $(this).find('[data-kt-repeater="datepicker"]').flatpickr();
+
+                // // Re-init tagify
+                // new Tagify(this.querySelector('[data-kt-repeater="tagify"]'));
+            },
+
+            hide: function(deleteElement) {
+                $(this).slideUp(deleteElement);
+            },
+
+            ready: function() {
+                // Init select2
+                $('[data-kt-repeater="select2"]').select2();
+
+                // // Init flatpickr
+                // $('[data-kt-repeater="datepicker"]').flatpickr();
+
+                // Init Tagify
+                // new Tagify(document.querySelector('[data-kt-repeater="tagify"]'));
+            }
+
+        });
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $(input).siblings('img').attr('src', e.target.result).show();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
     </script>
 @endpush

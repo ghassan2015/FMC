@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', __('label.add_new_category'))
+@section('title', __('label.edit_category'))
 @section('toolbarSubTitle', __('label.categories_list'))
 @section('toolbarPage', __('label.edit_category'))
 
@@ -24,13 +24,15 @@
                     <div class="row mb-5">
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.name') }} (AR)</label>
-                            <input type="text" name="name_ar" class="form-control" value="{{ $category->getTranslation('name','ar') }}" required>
+                            <input type="text" name="name_ar" class="form-control"
+                                value="{{ $category->getTranslation('name', 'ar') }}" required>
 
                             <div class="name_ar error"></div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.name') }} (EN)</label>
-                            <input type="text" name="name_en" class="form-control" value="{{ $category->getTranslation('name','ar') }}" required>
+                            <input type="text" name="name_en" class="form-control"
+                                value="{{ $category->getTranslation('name', 'ar') }}" required>
                             <div class="name_en error"></div>
 
                         </div>
@@ -44,7 +46,7 @@
                                 <option value="0">{{ __('label.main_category') }}</option>
                                 @foreach ($categories as $value)
                                     <option value="{{ $value->id }}"
-                                        {{$value->id== $category->parent_category_id ? 'selected' : '' }}>
+                                        {{ $value->id == $category->parent_category_id ? 'selected' : '' }}>
                                         {{ $value->name }}
                                     </option>
                                 @endforeach
@@ -52,7 +54,7 @@
                             <div class="parent_category_id error"></div>
 
                         </div>
-                            <input type="hidden" name="category_id" class="form-control" value="{{ $category->id }}">
+                        <input type="hidden" name="category_id" class="form-control" value="{{ $category->id }}">
 
                         <div class="col-md-6">
                             <label class="form-label">{{ __('label.video_url') }}</label>
@@ -66,14 +68,14 @@
                     <div class="row mb-5" style="height: 500px">
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.description') }} (AR)</label>
-                            <div id="description_ar">{!!$category->getTranslation('description','ar') !!}</div>
+                            <div id="description_ar">{!! $category->getTranslation('description', 'ar') !!}</div>
 
                             <div class="description_ar error"></div>
 
                         </div>
                         <div class="col-md-6">
                             <label class="form-label required">{{ __('label.description') }} (EN)</label>
-                            <div id="description_en">{!! $category->getTranslation('description','en') !!}</div>
+                            <div id="description_en">{!! $category->getTranslation('description', 'en') !!}</div>
                             <div class="description_en error"></div>
 
                         </div>
@@ -83,31 +85,138 @@
                     <div class="row mb-5" style="height: 500px">
                         <div class="col-md-6">
                             <label class="form-label">{{ __('label.signs') }} (AR)</label>
-                            <div id="signs_ar">{!! $category->getTranslation('signs','ar') !!}</div>
+                            <div id="signs_ar">{!! $category->getTranslation('signs', 'ar') !!}</div>
                             <div class="signs_ar error"></div>
 
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">{{ __('label.signs') }} (EN)</label>
-                            <div id="signs_en">{!! $category->getTranslation('signs','em') !!}</div>
+                            <div id="signs_en">{!! $category->getTranslation('signs', 'em') !!}</div>
                             <div class="signs_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.reason') }} (AR)</label>
+                            <textarea class="form-control" name="reason_ar" id="reason_ar">{{ $category->getTranslation('reason', 'ar') }}</textarea>
+                            <div class="reason_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.reason') }} (EN)</label>
+                            <textarea class="form-control" name="reason_en" id="reason_en">{{ $category->getTranslation('reason', 'ar') }}</textarea>
+                            <div class="reason_en error"></div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label" for="disease_type_ar">{{ __('label.disease_type') }} (AR)</label>
+                            <textarea class="form-control" name="disease_type_ar" id="disease_type_ar">{{ $category->getTranslation('disease_type', 'ar') }}</textarea>
+                            <div class="disease_type_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"for="disease_type_en">{{ __('label.disease_type') }} (EN)</label>
+                            <textarea class="form-control" name="disease_type_en" id="disease_type_en">{{ $category->getTranslation('disease_type', 'en') }}</textarea>
+                            <div class="disease_type_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.surgery_therapy') }} (AR)</label>
+                            <textarea class="form-control" name="surgery_therapy_ar" id="surgery_therapy_ar">{{ $category->getTranslation('surgery_therapy', 'ar') }}</textarea>
+                            <div class="surgery_therapy_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.surgery_therapy') }} (EN)</label>
+                            <textarea class="form-control" name="surgery_therapy_en" id="surgery_therapy_en">{{ $category->getTranslation('surgery_therapy', 'en') }}</textarea>
+                            <div class="surgery_therapy_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.surgery_type') }} (AR)</label>
+                            <textarea class="form-control" name="surgery_type_ar"id="surgery_type_ar">{{ $category->getTranslation('surgery_type', 'ar') }}</textarea>
+
+                            <div class="surgery_type_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.surgery_type') }} (EN)</label>
+                            <textarea class="form-control" name="surgery_type_en" id="surgery_type_en">{{ $category->getTranslation('surgery_type', 'en') }}</textarea>
+                            <div class="surgery_type_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.preparing_operation') }} (AR)</label>
+                            <textarea class="form-control" name="preparing_operation_ar" id="preparing_operation_ar">{{ $category->getTranslation('preparing_operation', 'ar') }}}</textarea>
+                            <div class="preparing_operation_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.preparing_operation') }} (EN)</label>
+                            <textarea class="form-control" name="preparing_operation_en" id="preparing_operation_en">{{ $category->getTranslation('preparing_operation', 'en') }}</textarea>
+                            <div class="preparing_operation_en error"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.payment_type') }} (AR)</label>
+                            <textarea class="form-control" name="payment_type_ar" id="payment_type_ar">{{ $category->getTranslation('payment_type', 'ar') }}</textarea>
+                            <div class="payment_type_ar error"></div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ __('label.payment_type') }} (EN)</label>
+                            <textarea class="form-control" name="payment_type_en" id="payment_type_en">{{ $category->getTranslation('payment_type', 'en') }}</textarea>
+                            <div class="payment_type_en error"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.operation_pirce') }} (AR)</label>
+                            <input type="text" name="operation_pirce_ar" class="form-control"
+                                value="{{ $category->getTranslation('operation_pirce', 'ar') }}">
+
+                            <div class="operation_pirce_ar error"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">{{ __('label.operation_pirce') }} (EN)</label>
+                            <input type="text" name="operation_pirce_en" class="form-control"
+                                value="{{ $category->getTranslation('operation_pirce', 'en') }}">
+                            <div class="operation_pirce_en error"></div>
 
                         </div>
                     </div>
 
                     <!-- Photo -->
 
-                        <!-- Status -->
-                        <div class="row mb-5">
-                            <div class="col-md-12">
-                                <label class="form-label">{{ __('label.status') }}</label>
-                                <label class="form-switch">
-                                    <input class="form-check-input" name="is_active" id="is_active" value="1"
-                                        type="checkbox" @if($category->is_active)checked @endif>
-                                    <span class="form-check-label"></span>
-                                </label>
-                            </div>
-                        </div>
+                    <!-- Status -->
 
 
 
@@ -134,7 +243,7 @@
                                     style="background-image: url('{{ asset('assets/media/svg/avatars/blank.svg') }}'); margin: auto;">
 
                                     <div class="image-input-wrapper w-125px h-125px" id="logoPreview"
-                                        style="background-image: url({{$category->photo}});"></div>
+                                        style="background-image: url({{ $category->photo }});"></div>
 
                                     <!-- Change -->
                                     <label
@@ -174,6 +283,19 @@
                             </div>
 
                         </div>
+
+
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <label class="form-label">{{ __('label.status') }}</label>
+                                <label class="form-switch">
+                                    <input class="form-check-input" name="is_active" id="is_active" value="1"
+                                        type="checkbox" @if ($category->is_active) checked @endif>
+                                    <span class="form-check-label"></span>
+                                </label>
+                            </div>
+                        </div>
+
                     </div>
                     <!-- Submit -->
                     <div class="text-end">

@@ -96,7 +96,6 @@
         </tbody>
     </table>
 
-    @include('admin.appointment.modal.add_edit')
 @endsection
 
 @push('scripts')

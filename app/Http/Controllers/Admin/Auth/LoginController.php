@@ -51,10 +51,6 @@ public function postLogin(LoginRequest $request)
     {
         $admin = Auth::guard('admin')->user();
 
-        // Log the logout activity
-        activity()->performedOn($admin)
-            ->causedBy($admin)
-            ->log('Admin logged out: ' . $admin->email);
 
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login');

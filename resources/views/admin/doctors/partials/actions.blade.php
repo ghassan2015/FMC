@@ -17,13 +17,7 @@
                     @endcan
 
 
-                        <div class="menu-item px-3">
-                            <a data-doctor_id="{{ $data->id }}" class="menu-link px-3 appointment"
-                                 title="{{ __('label.create_appointment') }}">
-                                <i class="fa fa-trash px-3" style="color: #dc3545;"></i>
-                                {{ __('label.add_appointment') }}
-                            </a>
-                        </div>
+                    
                     @can('delete_doctor')
                         <div class="menu-item px-3">
                             <a data-id="{{ $data->id }}" class="menu-link px-3 delete "

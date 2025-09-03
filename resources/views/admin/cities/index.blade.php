@@ -87,7 +87,6 @@
 
 
     <input type="hidden" name="show_modal" id="show_modal" value="{{ $modal }}">
-    @include('Shared.delete')
 
     @include('admin.cities.Model.view')
 

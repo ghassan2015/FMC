@@ -24,8 +24,8 @@ class DoctorController extends Controller
     {
         $data['specializations'] = Specialization::query()->active()->get();
         $data['branches'] = Branch::query()->active()->get();
-        $data['users']=User::query()->get();
-     $data['paymentTypes'] = Constant::query()->where('group_name','payment_type')->get();
+        $data['users'] = User::query()->get();
+        $data['paymentTypes'] = Constant::query()->where('group_name', 'payment_type')->get();
 
         return view('admin.doctors.index', $data);
     }
@@ -85,6 +85,8 @@ class DoctorController extends Controller
                 'email'            => $request->email,
                 'mobile'           => $request->mobile,
                 'license_number'   => $request->license_number,
+                'medical_examination_price' => $request->medical_examination_price,
+
                 'about_us'         => ['ar' => $request->about_us_ar, 'en' => $request->about_us_en],
                 'specialization_id' => $request->specialization_id,
             ]);
@@ -178,6 +180,7 @@ class DoctorController extends Controller
                 'email'             => $request->email,
                 'mobile'            => $request->mobile,
                 'license_number'    => $request->license_number,
+                'medical_examination_price' => $request->medical_examination_price,
                 'about_us'          => [
                     'ar' => $request->about_us_ar,
                     'en' => $request->about_us_en,
@@ -234,6 +237,7 @@ class DoctorController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
 
+            return $exception;
             return response()->json([
                 'status'  => 422,
                 'message' => __('label.process_fail'),
@@ -309,61 +313,125 @@ class DoctorController extends Controller
 
 
 
-public function getBranches(Request $request)
-{
-    $doctor = Doctor::with('branches')->findOrFail($request->doctor_id);
-    return response()->json($doctor->branches);
-}
-
-public function getAvailableDays(Request $request)
-{
-    $days = DoctorSchedule::where('doctor_id', $request->doctor_id)
-        ->where('branch_id', $request->branch_id)
-        ->pluck('day'); // هنا تأكد القيم Sunday, Monday أو أرقام
-
-    return response()->json($days);
-}
-
-public function getAvailableTimes(Request $request)
-{
-
-
-    $date=$request->date;
-    $day = Carbon::parse($date)->format('l'); // يعطي اسم اليوم بالإنجليزي، مثل 'Monday'
-
-    $schedule = DoctorSchedule::query()->
-    where('doctor_id', $request->doctor_id)
-        ->where('branch_id', $request->branch_id)
-        ->where('day', $day)
-        ->first();
-
-    if (!$schedule) {
-        return response()->json([]);
+    public function getBranches(Request $request)
+    {
+        $doctor = Doctor::with('branches')->findOrFail($request->doctor_id);
+        return response()->json($doctor->branches);
     }
 
-    // بناء الفترات الزمنية
-    $start = new \DateTime($schedule->start_time);
-    $end   = new \DateTime($schedule->end_time);
-    $interval = new \DateInterval('PT' . $schedule->session_duration . 'M');
-    $periods = new \DatePeriod($start, $interval, $end);
+    public function getAvailableDays(Request $request)
+    {
+        $days = DoctorSchedule::where('doctor_id', $request->doctor_id)
+            ->where('branch_id', $request->branch_id)
+            ->pluck('day'); // هنا تأكد القيم Sunday, Monday أو أرقام
 
-    // الأوقات المحجوزة
-    $booked = Appointment::where('doctor_id', $request->doctor_id)
-        ->where('branch_id', $request->branch_id)
-        ->whereDate('date', $request->date)
-        ->pluck('time') // أو العمود الصحيح
-        ->toArray();
+        return response()->json($days);
+    }
+    // public function getAvailableTimes(Request $request)
+    // {
+    //     $date = $request->date;
+    //     $day = Carbon::parse($date)->format('l'); // اسم اليوم بالإنجليزي
+    //     $now = Carbon::now();
 
-    // فلترة
-    $available = [];
-    foreach ($periods as $time) {
-        $formatted = $time->format('H:i:s');
-        if (!in_array($formatted, $booked)) {
+    //     // جلب جدول الطبيب
+    //     $schedule = DoctorSchedule::where('doctor_id', $request->doctor_id)
+    //         ->where('branch_id', $request->branch_id)
+    //         ->where('day', $day)
+    //         ->first();
+
+    //     if (!$schedule) {
+    //         return response()->json([]);
+    //     }
+
+    //     // بناء الفترات الزمنية
+    //     $start = new \DateTime($schedule->start_time);
+    //     $end   = new \DateTime($schedule->end_time);
+    //     $interval = new \DateInterval('PT' . $schedule->session_duration . 'M');
+
+    //     // تعديل النهاية لتضم آخر جلسة
+    //     $end->modify('+1 second');
+    //     $periods = new \DatePeriod($start, $interval, $end);
+
+    //     // جلب الأوقات المحجوزة وتوحيد التنسيق
+    //     $booked = Appointment::where('doctor_id', $request->doctor_id)
+    //         ->where('branch_id', $request->branch_id)
+    //         ->whereDate('date', $date)
+    //         ->pluck('time')
+    //         ->map(function($t) {
+    //             return Carbon::parse($t)->format('H:i:s');
+    //         })
+    //         ->toArray();
+
+    //     $bookedTimes = array_flip($booked);
+
+    //     // فلترة الأوقات المتاحة
+    //     $available = [];
+    //     foreach ($periods as $time) {
+    //         $formatted = $time->format('H:i:s');
+
+    //         // تجاهل الأوقات المحجوزة
+    //         if (isset($bookedTimes[$formatted])) {
+    //             continue;
+    //         }
+
+    //         // إذا التاريخ اليومي الحالي، تجاهل الأوقات الماضية
+    //         if (Carbon::parse($date)->isToday() && $time < $now) {
+    //             continue;
+    //         }
+
+    //         $available[] = $formatted;
+    //     }
+
+    //     return response()->json($available);
+    // }
+
+    public function getAvailableTimes(Request $request)
+    {
+        $date = $request->date;
+        $day = Carbon::parse($date)->format('l');
+        $now = Carbon::now();
+
+        $schedule = DoctorSchedule::where('doctor_id', $request->doctor_id)
+            ->where('branch_id', $request->branch_id)
+            ->where('day', $day)
+            ->first();
+
+        if (!$schedule) {
+            return response()->json([]);
+        }
+
+        $start = new \DateTime($schedule->start_time);
+        $end   = new \DateTime($schedule->end_time);
+        $interval = new \DateInterval('PT' . $schedule->session_duration . 'M');
+        $end->modify('+1 second');
+        $periods = new \DatePeriod($start, $interval, $end);
+
+        // جلب الأوقات المحجوزة مع استثناء الموعد الحالي إذا موجود
+        $bookedQuery = Appointment::where('doctor_id', $request->doctor_id)
+            ->where('branch_id', $request->branch_id)
+            ->whereDate('date', $date);
+
+        if ($request->appointment_id) {
+            $bookedQuery->where('id', '!=', $request->appointment_id);
+        }
+
+        $booked = $bookedQuery->pluck('time')
+            ->map(fn($t) => Carbon::parse($t)->format('H:i:s'))
+            ->toArray();
+
+        $bookedTimes = array_flip($booked);
+
+        $available = [];
+        foreach ($periods as $time) {
+            $formatted = $time->format('H:i:s');
+
+            if (isset($bookedTimes[$formatted])) continue;
+
+            if (Carbon::parse($date)->isToday() && $time < $now) continue;
+
             $available[] = $formatted;
         }
+
+        return response()->json($available);
     }
-
-    return response()->json($available);
-}
-
 }

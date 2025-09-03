@@ -2,7 +2,10 @@
     <base href="" />
     <title>@yield('title')</title>
     <meta charset="utf-8" />
-    <meta name="description" content=" />
+    <meta name="description" content="" />
+    <meta name="user-id" content="{{ auth('admin')->user()->id }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
@@ -19,25 +22,31 @@
         rel="stylesheet">
 
     <style>
-        .error {
-            color: #e60000;
-            !important;
-
+     .ql-container {
+            min-height: 150px;
+            max-height: 340px;
+            overflow-y: auto;
         }
 
+    .error {
+    color: #e60000;
+    !important;
 
-        th {
+    }
 
-            text-align: start !important;
-        }
 
-        .avatar-circle {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 50%;
-            /* Ensures the image is circular */
-        }
+    th {
+
+    text-align: start !important;
+    }
+
+    .avatar-circle {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    /* Ensures the image is circular */
+    }
     </style>
     @if (app()->getLocale() == 'ar')
         <!--end::Page Vendor Stylesheets-->
@@ -62,8 +71,9 @@
 
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
         type="text/css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!--end::Global Stylesheets Bundle-->
     @stack('styles')
+    @vite(['resources/js/notifications.js'])
 </head>

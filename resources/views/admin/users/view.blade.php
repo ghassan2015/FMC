@@ -75,23 +75,10 @@
                                         </div>
                                     @endif
 
-                                    <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
-                                        <i class="fas fa-file-invoice text-success"></i>
-                                        <a href="#" class="menu-link px-2 add_invoice"
-                                            data-user_id="{{ $user->id }}">
-                                            {{ __('label.add_invoice') }}
-                                        </a>
-                                    </div>
 
 
 
-                                    <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
-                                        <i class="fas fa-sms text-dark"></i>
 
-                                        <a href="#" class="menu-link px-2 sendSms" data-user_id="{{ $user->id }}">
-                                            {{ __('label.send_sms') }}
-                                        </a>
-                                    </div>
 
                                     {{-- إرسال إشعار --}}
                                     <div class="menu-item d-flex align-items-center gap-2 px-3 mb-1">
@@ -129,13 +116,13 @@
                                     <!--begin::Number-->
                                     <div class="d-flex align-items-center">
                                         <i class="ki-outline ki-arrow-up fs-3 text-success me-2"></i>
-                                        <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="100"
-                                            data-kt-countup-prefix="$">0
+                                        <div class="fs-2 fw-bold" data-kt-countup="true"
+                                            data-kt-countup-value="{{ $user->appointments()->count() }}">0
                                         </div>
                                     </div>
                                     <!--end::Number-->
                                     <!--begin::Label-->
-                                    <div class="fw-semibold fs-6 text-gray-500">{{ __('label.total_income') }}</div>
+                                    <div class="fw-semibold fs-6 text-gray-500">{{ __('label.appointment_count') }}</div>
                                     <!--end::Label-->
                                 </div>
                                 <!--end::Stat-->
@@ -144,11 +131,12 @@
                                     <!--begin::Number-->
                                     <div class="d-flex align-items-center">
                                         <i class="ki-outline ki-arrow-down fs-3 text-danger me-2"></i>
-                                        <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="">0</div>
+                                        <div class="fs-2 fw-bold" data-kt-countup="true"
+                                            data-kt-countup-value="{{ $user->surgicalOperations()->count() }}">0</div>
                                     </div>
                                     <!--end::Number-->
                                     <!--begin::Label-->
-                                    <div class="fw-semibold fs-6 text-gray-500">{{ __('label.total_contracts') }}</div>
+                                    <div class="fw-semibold fs-6 text-gray-500">{{ __('label.surgical_operations') }}</div>
                                     <!--end::Label-->
                                 </div>
                                 <!--end::Stat-->
@@ -157,11 +145,11 @@
                                     <!--begin::Number-->
                                     <div class="d-flex align-items-center">
                                         <i class="ki-outline ki-arrow-up fs-3 text-success me-2"></i>
-                                        <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="">0</div>
+                                        <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="{{$user->medicalTestUsers()->count()}}">0</div>
                                     </div>
                                     <!--end::Number-->
                                     <!--begin::Label-->
-                                    <div class="fw-semibold fs-6 text-gray-500">{{ __('label.project_count') }}</div>
+                                    <div class="fw-semibold fs-6 text-gray-500">{{ __('label.medical_test') }}</div>
                                     <!--end::Label-->
                                 </div>
                                 <!--end::Stat-->
@@ -187,24 +175,43 @@
                         {{ __('label.overview') }}
                     </button>
                 </li>
+                @can('view_medical_test')
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="medical_test-tab" data-bs-toggle="tab" data-bs-target="#medical_test"
                         type="button" role="tab" aria-controls="medical_test" aria-selected="false">
                         {{ __('label.medical_test') }}
                     </button>
                 </li>
+                @endcan
+                                @can('view_surgical_operation')
+
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="surgical_operations-tab" data-bs-toggle="tab" data-bs-target="#surgical_operations"
-                        type="button" role="tab" aria-controls="surgical_operations" aria-selected="false">
+                    <button class="nav-link" id="surgical_operations-tab" data-bs-toggle="tab"
+                        data-bs-target="#surgical_operations" type="button" role="tab"
+                        aria-controls="surgical_operations" aria-selected="false">
                         {{ __('label.surgical_operations') }}
                     </button>
                 </li>
+                @endcan
+                @can('view_appointment')
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="appointment-tab" data-bs-toggle="tab" data-bs-target="#appointment"
                         type="button" role="tab" aria-controls="appointment" aria-selected="false">
-                        {{ __('label.appointment') }}
+                        {{ __('label.appointment_list') }}
                     </button>
                 </li>
+                @endcan
+                @can('view_drug_user')
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="drug-tab" data-bs-toggle="tab" data-bs-target="#drug" type="button"
+                            role="tab" aria-controls="drug" aria-selected="false">
+                            {{ __('label.drug_list') }}
+                        </button>
+                    </li>
+                @endcan
+
+
+
 
 
 
@@ -263,35 +270,45 @@
                     </div>
                 </div>
 
-            <div class="tab-pane fade" id="medical_test" role="tabpanel" aria-labelledby="medical_test-tab">
+                <div class="tab-pane fade" id="medical_test" role="tabpanel" aria-labelledby="medical_test-tab">
 
 
-                @include('components.medicalTests.table')
+                    @include('components.medicalTests.table')
+
+                </div>
+
+
+
+
+                <div class="tab-pane fade" id="surgical_operations" role="tabpanel"
+                    aria-labelledby="surgical_operations-tab">
+                    @include('components.surgicalOperations.table')
+                </div>
+
+
+
+                <div class="tab-pane fade" id="appointment" role="tabpanel" aria-labelledby="appointment-tab">
+
+                    @include('components.appointments.table')
+
+                </div>
+
+
+
+
+                <div class="tab-pane fade" id="drug" role="tabpanel" aria-labelledby="drug-tab">
+                    @include('components.drugUsers.table')
+
+                </div>
+
+
+
+
+
 
             </div>
+        @endsection
 
-            <div class="tab-pane fade" id="surgical_operations" role="tabpanel" aria-labelledby="surgical_operations-tab">
-saas
-            </div>
-
-            <div class="tab-pane fade" id="appointment" role="tabpanel" aria-labelledby="appointment-tab">
-
-                @include('components.appointments.table')
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-        </div>
-    @endsection
-
-    @push('scripts')
-        {{-- @include('admin.users.js.view') --}}
-    @endpush
+        @push('scripts')
+            {{-- @include('admin.users.js.view') --}}
+        @endpush

@@ -60,9 +60,19 @@ class CategoriesController extends Controller
             'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
             'signs' => ['ar' => $request->signs_ar, 'en' => $request->signs_en],
             'video' => $request->video,
+            'disease_type' => ['ar' => $request->disease_type_ar, 'en' => $request->disease_type_en],
+            'surgery_therapy' => ['ar' => $request->surgery_therapy_ar, 'en' => $request->surgery_therapy_en],
+            'surgery_type' => ['ar' => $request->surgery_type_ar, 'en' => $request->surgery_type_en],
+            'preparing_operation' => ['ar' => $request->preparing_operation_ar, 'en' => $request->preparing_operation_en],
+            'payment_type' => ['ar' => $request->payment_type_ar, 'en' => $request->payment_type_en],
+            'operation_pirce' => ['ar' => $request->operation_pirce_ar, 'en' => $request->operation_pirce_en],
+            'reason' => ['ar' => $request->reason_ar, 'en' => $request->reason_en],
+
             'photo' => $photo,
-            'is_active' => $request->is_active,
+            'is_active' => $request->is_active ? 1 : 0,
         ]);
+
+
 
         foreach ($request->before_surgical_photos as $value) {
             CategoryBeforeSurgicalOperation::query()->updateOrCreate([
@@ -103,7 +113,15 @@ class CategoriesController extends Controller
             'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
             'signs' => ['ar' => $request->signs_ar, 'en' => $request->signs_en],
             'video' => $request->video,
-            'is_active' => $request->is_active,
+            'is_active' => $request->is_active?1:0,
+
+            'disease_type' => ['ar' => $request->disease_type_ar, 'en' => $request->disease_type_en],
+            'surgery_therapy' => ['ar' => $request->surgery_therapy_ar, 'en' => $request->surgery_therapy_en],
+            'surgery_type' => ['ar' => $request->surgery_type_ar, 'en' => $request->surgery_type_en],
+            'preparing_operation' => ['ar' => $request->preparing_operation_ar, 'en' => $request->preparing_operation_en],
+            'payment_type' => ['ar' => $request->payment_type_ar, 'en' => $request->payment_type_en],
+            'operation_pirce' => ['ar' => $request->operation_pirce_ar, 'en' => $request->operation_pirce_en],
+            'reason' => ['ar' => $request->reason_ar, 'en' => $request->reason_en],
         ]);
 
 
