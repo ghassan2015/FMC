@@ -16,4 +16,8 @@ class Banner extends Model
     {
         return $value ? asset('storage/' . $value) : asset('assets/default.png');
     }
+
+    public function scopeActive($q){
+        return $q->where('is_active',1);
+    }
 }

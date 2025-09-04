@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\Specializations\SpecializationController;
 use App\Http\Controllers\Admin\SurgicalOperations\SurgicalOperationController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Videoes\VideoController;
+use App\Http\Controllers\Front\IndexController;
 use App\Models\Admin;
 use App\Notifications\AdminSpecificNotification;
 use App\Notifications\DoctorAlert;
@@ -37,9 +38,9 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
-Route::get('/', function () {
-    return view('front.layouts.master');
-});
+// Route::get('/', function () {
+//     return view('front.layouts.master');
+// });
 Route::get('/check-admin', function () {
     return Auth::guard('admin')->check()
         ? '✅ Admin logged in'
@@ -355,5 +356,11 @@ Route::group(
                 });
             }
         );
+
+
+        Route::get('/', [IndexController::class, 'index'])->name('home');
+        Route::get('/appointment', [IndexController::class, 'appointment'])->name('appointment');
+
+
     }
 );

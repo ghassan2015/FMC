@@ -253,7 +253,8 @@ return [
     'user'=>'المستخدم',
     'work_hours'=>'اوقات العمل',
     'facebook'=>'رابط الفيس بوك',
-    'instagram'=>'انستغرام'
+    'instagram'=>'انستغرام',
+    'Mail Us For Support'=>'أرسل لنا بريدًا للدعم الفني'
 
 
 
