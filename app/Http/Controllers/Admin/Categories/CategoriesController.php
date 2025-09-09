@@ -270,6 +270,7 @@ class CategoriesController extends Controller
                 'message' => __('label.successful_process'),
             ]);
         } catch (\Exception $ex) {
+            
 
             return response()->json([
                 "status" => 422,
