@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
 
     public function index($slug){
-  return  $data['category']=Category::query()->where('slug',$slug)->orderby('id','desc')->first();
+    $data['category']=Category::query()->where('slug',$slug)->orderby('id','desc')->first();
     return view('front.categories.index',$data);
 
     }
