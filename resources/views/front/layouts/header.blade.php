@@ -8,6 +8,7 @@
                       {{-- <ul class="header-top-info v6 list-unstyled m-0">
                           <li>{{__('label.welcome')}} <a href="#">{{settings('general','name')->value}}</a> </li>
                       </ul> --}}
+                      
                   </div>
                   <div class="col-auto d-none d-lg-block">
                       <ul class="head-top-links v6 text-end">
