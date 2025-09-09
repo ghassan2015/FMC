@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
 
-    public function index(){
-    $data['category']=Category::query()->orderby('id','desc')->first();
+    public function index($slug){
+  return  $data['category']=Category::query()->where('slug',$slug)->orderby('id','desc')->first();
     return view('front.categories.index',$data);
 
     }

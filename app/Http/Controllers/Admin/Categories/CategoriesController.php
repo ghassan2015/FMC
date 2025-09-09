@@ -56,7 +56,7 @@ class CategoriesController extends Controller
         $photo = $request->avatar->store('categories', 'public');
         $category = Category::query()->create([
             'name' => ['ar' => $request->name_ar, 'en' => $request->name_en],
-            'slug' => ['ar' => $request->name_ar, 'en' => $request->name_en],
+            'slug' =>  Str::slug($request->name_en),
             'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
             'signs' => ['ar' => $request->signs_ar, 'en' => $request->signs_en],
             'video' => $request->video,
@@ -109,7 +109,7 @@ class CategoriesController extends Controller
         $category = Category::query()->findOrFail($request->category_id);
         $category->update([
             'name' => ['ar' => $request->name_ar, 'en' => $request->name_en],
-            'slug' => ['ar' => $request->name_ar, 'en' => $request->name_en],
+            'slug' =>  Str::slug($request->name_en),
             'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
             'signs' => ['ar' => $request->signs_ar, 'en' => $request->signs_en],
             'video' => $request->video,

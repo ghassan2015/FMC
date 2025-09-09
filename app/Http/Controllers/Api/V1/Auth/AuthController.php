@@ -93,6 +93,7 @@ class AuthController extends Controller
 
             return response_api(true, __('lang.success'), $response, 201);
         } catch (\Exception $exception) {
+            return $exception;
             $response['data'] = [];
             return response_api(false, __('lang.error'), $response, 500);
         }

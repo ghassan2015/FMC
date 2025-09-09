@@ -319,6 +319,9 @@ return [
     'preparing_operation'=> 'التحضير للعملية',
     'payment_type'       => 'طريقة الدفع',
     'operation_price'    => 'سعر العملية',
-    'subcategories'=>'العيادات التابعه لها'
+    'subcategories'=>'العيادات التابعه لها',
+        'our_blogs' => 'مدونتنا',
+    'blogs_subtitle' => 'أحدث المقالات والأخبار من خبرائنا',
+
 
 ];

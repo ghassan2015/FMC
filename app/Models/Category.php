@@ -9,9 +9,9 @@ class Category extends Model
 {
         protected $guarded = [];
     use HasTranslations;
-    public $translatable = ['name','slug','signs', 'description','reason','disease_type','surgery_therapy','surgery_type','preparing_operation','payment_type','operation_pirce'];
+    public $translatable = ['name','signs', 'description','reason','disease_type','surgery_therapy','surgery_type','preparing_operation','payment_type','operation_pirce'];
 
-  
+
 
     public function scopeActive($q){
 

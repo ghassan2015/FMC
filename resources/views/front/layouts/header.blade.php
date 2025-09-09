@@ -8,7 +8,7 @@
                       {{-- <ul class="header-top-info v6 list-unstyled m-0">
                           <li>{{__('label.welcome')}} <a href="#">{{settings('general','name')->value}}</a> </li>
                       </ul> --}}
-                      
+
                   </div>
                   <div class="col-auto d-none d-lg-block">
                       <ul class="head-top-links v6 text-end">
@@ -60,9 +60,9 @@
                       <div class="row align-items-center justify-content-between">
                           <div class="col-auto">
                               <div class="header1-logo">
-                                  <a href="{{route('home')}}"><img
-                                    style="width:160px"
-                                    src="{{ asset('storage/' . settings('general', 'logo')->value) }}" alt="Logo"></a>
+                                  <a href="{{ route('home') }}"><img style="width:160px"
+                                          src="{{ asset('storage/' . settings('general', 'logo')->value) }}"
+                                          alt="Logo"></a>
                               </div>
                           </div>
 
@@ -71,15 +71,16 @@
                               <div class="location-box one">
                                   <span class="fa fa-envelope"></span>
                                   <div class="content-box">
-                                      <span class="text-title">{{__('label.Mail Us For Support')}}</span>
-                                      <h6 class="title"><a href="#">{{settings('contact_us', 'email')->value}}</a></h6>
+                                      <span class="text-title">{{ __('label.Mail Us For Support') }}</span>
+                                      <h6 class="title"><a
+                                              href="#">{{ settings('contact_us', 'email')->value }}</a></h6>
                                   </div>
                               </div>
                               <div class="location-box">
                                   <span class="fa fa-map-marker"></span>
                                   <div class="content-box">
-                                      <span class="text-title">{{__('label.address')}}</span>
-                                      <h6 class="title">{{settings('contact_us', 'location')->value}}</h6>
+                                      <span class="text-title">{{ __('label.address') }}</span>
+                                      <h6 class="title">{{ settings('contact_us', 'location')->value }}</h6>
                                   </div>
                               </div>
                           </div>
@@ -95,22 +96,44 @@
                               <nav class="main-menu menu-style1 d-none d-lg-block">
                                   <ul>
                                       <li class="">
-                                          <a href="{{route('home')}}"><span class="has-new-label">{{__('label.main')}}</span></a>
+                                          <a href="{{ route('home') }}"><span
+                                                  class="has-new-label">{{ __('label.main') }}</span></a>
 
                                       </li>
                                       <li>
-                                          <a href="{{route('front.aboutUs')}}">{{__('label.about_us')}}</a>
+                                          <a href="{{ route('front.aboutUs') }}">{{ __('label.about_us') }}</a>
                                       </li>
-                                              <li>
-                                          <a href="{{route('front.doctors')}}">{{__('label.doctors')}}</a>
+                                      <li>
+                                          <a href="{{ route('front.doctors') }}">{{ __('label.doctors') }}</a>
                                       </li>
                                       <li class="menu-item-has-children">
-                                          <a href="service.html">Services</a>
+                                          <a href="#">{{ __('label.categories') }}</a>
                                           <ul class="sub-menu">
-                                              <li><a href="service.html">Services</a></li>
-                                              <li><a href="service-details.html">Services Details</a></li>
+                                              @foreach ($categories as $category)
+                                                  <li
+                                                      class="{{ $category->childCategories->count() ? 'menu-item-has-children' : '' }}">
+                                                      <a href="{{ route('front.categories.index', $category->slug) }}">
+                                                          {{ $category->name }}
+                                                      </a>
+
+                                                      @if ($category->childCategories->count())
+                                                          <ul class="sub-menu">
+                                                              @foreach ($category->childCategories as $child)
+                                                                  <li>
+                                                                      <a
+                                                                          href="{{ route('front.categories.index', $child->slug) }}">
+                                                                          {{ $child->name }}
+                                                                      </a>
+                                                                      {{-- يمكنك تكرار هذا الجزء إذا كانت لديك أكثر من مستوى فرعي --}}
+                                                                  </li>
+                                                              @endforeach
+                                                          </ul>
+                                                      @endif
+                                                  </li>
+                                              @endforeach
                                           </ul>
                                       </li>
+
                                       <li class="menu-item-has-children">
                                           <a href="blog.html">Blog</a>
                                           <ul class="sub-menu">
@@ -119,16 +142,17 @@
                                           </ul>
                                       </li>
                                       </li>
-                                              <li>
-                                          <a href="{{route('front.articles.index')}}">{{__('label.articales')}}</a>
+                                      <li>
+                                          <a
+                                              href="{{ route('front.articles.index') }}">{{ __('label.articales') }}</a>
                                       </li>
                                       </li>
-                                          </li>
-                                              <li>
-                                          <a href="{{route('front.video')}}">{{__('label.videoes')}}</a>
                                       </li>
                                       <li>
-                                          <a href="{{route('front.contactUs')}}">{{__('label.contact_title')}}</a>
+                                          <a href="{{ route('front.video') }}">{{ __('label.videoes') }}</a>
+                                      </li>
+                                      <li>
+                                          <a href="{{ route('front.contactUs') }}">{{ __('label.contact_title') }}</a>
                                       </li>
                                   </ul>
                               </nav>
@@ -136,11 +160,12 @@
                                       class="fas fa-bars"></i></button>
                           </div>
                           <div class="btn-box-six">
-                              <a href="#" class="contact-btn"><i class="fa fa-phone"></i>{{__('label.mobile')}}:
-                                <span>
-                                {{settings('contact_us','mobile')->value}}
-                                </span>
-                            </a>
+                              <a href="#" class="contact-btn"><i
+                                      class="fa fa-phone"></i>{{ __('label.mobile') }}:
+                                  <span>
+                                      {{ settings('contact_us', 'mobile')->value }}
+                                  </span>
+                              </a>
                           </div>
                       </div>
                   </div>

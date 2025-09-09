@@ -295,5 +295,7 @@ return [
 
     'get_our_services' => 'Get Our Services',
     'services_subtitle' => 'Proactively revolutionize granular customer service after pandemic internal or "organic" sources instinctively impact proactive human',
+    'our_blogs' => 'Our Blogs',
+    'blogs_subtitle' => 'Latest articles and news from our experts',
 
 ];
