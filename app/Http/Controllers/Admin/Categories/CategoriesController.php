@@ -50,47 +50,45 @@ class CategoriesController extends Controller
     }
 
 
-    public function store(CategoryRequest $request)
-    {
+  public function store(CategoryRequest $request)
+{
+    $photo = $request->avatar->store('categories', 'public');
+    $category = Category::query()->create([
+        'name' => ['ar' => $request->name_ar, 'en' => $request->name_en],
+        'slug' => ['ar' => $request->name_ar, 'en' => $request->name_en],
+        'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
+        'signs' => ['ar' => $request->signs_ar, 'en' => $request->signs_en],
+        'video' => $request->video,
+        'disease_type' => ['ar' => $request->disease_type_ar, 'en' => $request->disease_type_en],
+        'surgery_therapy' => ['ar' => $request->surgery_therapy_ar, 'en' => $request->surgery_therapy_en],
+        'surgery_type' => ['ar' => $request->surgery_type_ar, 'en' => $request->surgery_type_en],
+        'preparing_operation' => ['ar' => $request->preparing_operation_ar, 'en' => $request->preparing_operation_en],
+        'payment_type' => ['ar' => $request->payment_type_ar, 'en' => $request->payment_type_en],
+        'operation_pirce' => ['ar' => $request->operation_pirce_ar, 'en' => $request->operation_pirce_en],
+        'reason' => ['ar' => $request->reason_ar, 'en' => $request->reason_en],
+        'photo' => $photo,
+        'is_active' => $request->is_active ? 1 : 0,
+    ]);
 
-        $photo = $request->avatar->store('categories', 'public');
-        $category = Category::query()->create([
-            'name' => ['ar' => $request->name_ar, 'en' => $request->name_en],
-            'slug' => ['ar' => $request->name_ar, 'en' => $request->name_en],
-            'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
-            'signs' => ['ar' => $request->signs_ar, 'en' => $request->signs_en],
-            'video' => $request->video,
-            'disease_type' => ['ar' => $request->disease_type_ar, 'en' => $request->disease_type_en],
-            'surgery_therapy' => ['ar' => $request->surgery_therapy_ar, 'en' => $request->surgery_therapy_en],
-            'surgery_type' => ['ar' => $request->surgery_type_ar, 'en' => $request->surgery_type_en],
-            'preparing_operation' => ['ar' => $request->preparing_operation_ar, 'en' => $request->preparing_operation_en],
-            'payment_type' => ['ar' => $request->payment_type_ar, 'en' => $request->payment_type_en],
-            'operation_pirce' => ['ar' => $request->operation_pirce_ar, 'en' => $request->operation_pirce_en],
-            'reason' => ['ar' => $request->reason_ar, 'en' => $request->reason_en],
-
-            'photo' => $photo,
-            'is_active' => $request->is_active ? 1 : 0,
-        ]);
-
-
-
-        foreach ($request->before_surgical_photos as $value) {
-            CategoryBeforeSurgicalOperation::query()->updateOrCreate([
-                'id' => $value,
-            ], [
-                'category_id' => $category->id,
-            ]);
-        }
-
-        foreach ($request->after_surgical_photos as $value) {
-            CategoryAferSurgicalOperation::query()->updateOrCreate([
-                'id' => $value,
-            ], [
-                'category_id' => $category->id,
-            ]);
-        }
-
+    foreach ($request->before_surgical_photos ?? [] as $value) {
+        CategoryBeforeSurgicalOperation::query()->updateOrCreate(
+            ['id' => $value],
+            ['category_id' => $category->id]
+        );
     }
+
+    foreach ($request->after_surgical_photos ?? [] as $value) {
+        CategoryAferSurgicalOperation::query()->updateOrCreate(
+            ['id' => $value],
+            ['category_id' => $category->id]
+        );
+    }
+
+    return response()->json([
+        'success' => true,
+        'message' => __('label.process_success'),
+    ]);
+}
 
     public function edit($id)
     {
