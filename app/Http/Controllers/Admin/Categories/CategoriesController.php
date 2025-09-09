@@ -74,6 +74,7 @@ class CategoriesController extends Controller
 
 
 
+        if($request->before_surgical_photos){
         foreach ($request->before_surgical_photos as $value) {
             CategoryBeforeSurgicalOperation::query()->updateOrCreate([
                 'id' => $value,
@@ -82,6 +83,11 @@ class CategoriesController extends Controller
             ]);
         }
 
+    }
+
+
+        if($request->after_surgical_photos)
+
         foreach ($request->after_surgical_photos as $value) {
             CategoryAferSurgicalOperation::query()->updateOrCreate([
                 'id' => $value,
@@ -89,6 +95,7 @@ class CategoriesController extends Controller
                 'category_id' => $category->id,
             ]);
         }
+    }
         return response()->json([
             'success' => true,
             'message' => __('label.process_success'),
@@ -270,7 +277,7 @@ class CategoriesController extends Controller
                 'message' => __('label.successful_process'),
             ]);
         } catch (\Exception $ex) {
-            
+
 
             return response()->json([
                 "status" => 422,
