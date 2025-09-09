@@ -75,5 +75,4 @@
 
     <!--end::Global Stylesheets Bundle-->
     @stack('styles')
-    @vite(['resources/js/notifications.js'])
 </head>
