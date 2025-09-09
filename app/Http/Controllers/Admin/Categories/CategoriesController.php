@@ -86,7 +86,7 @@ class CategoriesController extends Controller
     }
 
 
-        if($request->after_surgical_photos)
+        if($request->after_surgical_photos){
 
         foreach ($request->after_surgical_photos as $value) {
             CategoryAferSurgicalOperation::query()->updateOrCreate([
@@ -96,6 +96,7 @@ class CategoriesController extends Controller
             ]);
         }
     }
+
         return response()->json([
             'success' => true,
             'message' => __('label.process_success'),
