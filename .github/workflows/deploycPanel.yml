@@ -1,0 +1,25 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main  # يمكن تغييره إلى الفرع الذي تريد النشر منه
+
+jobs:
+  deploy:
+    name: Deploy Website via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v5
+        with:
+          server: ${{ secrets.FTP_SERVER }}       # مثال: ftp.example.com
+          username: ${{ secrets.FTP_USERNAME }}   # اسم المستخدم للـ FTP
+          password: ${{ secrets.FTP_PASSWORD }}   # كلمة المرور
+          local-dir: ./                           # مجلد المشروع على GitHub
+          server-dir: /public_html/               # المجلد على الاستضافة cPanel
+          git-ftp-args: --insecure
