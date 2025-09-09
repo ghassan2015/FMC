@@ -56,7 +56,7 @@ class CategoriesController extends Controller
         $photo = $request->avatar->store('categories', 'public');
         $category = Category::query()->create([
             'name' => ['ar' => $request->name_ar, 'en' => $request->name_en],
-            'slug' =>  Str::slug($request->name_en),
+            'slug' => ['ar' => $request->name_ar, 'en' => $request->name_en],
             'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
             'signs' => ['ar' => $request->signs_ar, 'en' => $request->signs_en],
             'video' => $request->video,
@@ -73,30 +73,22 @@ class CategoriesController extends Controller
         ]);
 
 
-// صور قبل العملية
-if ($request->filled('before_surgical_photos') && is_array($request->before_surgical_photos)) {
-    foreach ($request->before_surgical_photos as $value) {
-        if ($value) { // تأكد أن القيمة ليست فارغة
-            CategoryBeforeSurgicalOperation::query()->updateOrCreate(
-                ['id' => $value],
-                ['category_id' => $category->id]
-            );
-        }
-    }
-}
 
-// صور بعد العملية
-if ($request->filled('after_surgical_photos') && is_array($request->after_surgical_photos)) {
-    foreach ($request->after_surgical_photos as $value) {
-        if ($value) { // تأكد أن القيمة ليست فارغة
-            CategoryAferSurgicalOperation::query()->updateOrCreate(
-                ['id' => $value],
-                ['category_id' => $category->id]
-            );
+        foreach ($request->before_surgical_photos as $value) {
+            CategoryBeforeSurgicalOperation::query()->updateOrCreate([
+                'id' => $value,
+            ], [
+                'category_id' => $category->id,
+            ]);
         }
-    }
-}
 
+        foreach ($request->after_surgical_photos as $value) {
+            CategoryAferSurgicalOperation::query()->updateOrCreate([
+                'id' => $value,
+            ], [
+                'category_id' => $category->id,
+            ]);
+        }
         return response()->json([
             'success' => true,
             'message' => __('label.process_success'),
