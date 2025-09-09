@@ -5,7 +5,7 @@
 
 <body>
 
-    <div class="preloader  ">
+    {{-- <div class="preloader  ">
         <button class="vs-btn preloaderCls">Cancel Preloader </button>
         <div class="preloader-inner">
             <svg width="88px" height="108px" viewBox="0 0 54 64">
@@ -17,7 +17,7 @@
                 </g>
             </svg>
         </div>
-    </div>
+    </div> --}}
     <!--==============================
     Mobile Menu
     ============================== -->

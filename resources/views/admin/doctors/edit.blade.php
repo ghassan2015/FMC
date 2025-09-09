@@ -239,7 +239,7 @@
                             <div class="image-input image-input-outline" data-kt-image-input="true"
                                 style="background-image: url('{{ asset('assets/media/svg/avatars/blank.svg') }}'); margin: auto;">
                                 <div class="image-input-wrapper w-125px h-125px" id="logoPreview"
-                                    style="background-image: url('{{ $doctor->admin?->photo ? asset('storage/' . $doctor->admin->photo) : asset('images/default.png') }}}}');">
+                                    style="background-image: url('{{ $doctor->admin?->photo ? asset('storage/' . $doctor->admin->photo) : asset('images/default.png') }}');">
                                 </div>
 
                                 <!-- Change -->

@@ -26,6 +26,8 @@ class ServiceRequest extends FormRequest
             'name_en' => 'required|string|max:255',
             'is_active' => 'nullable',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|required_if:service_id,null',
+            'logo_icon' => 'nullable|image|mimes:jpeg,png,jpg|required_if:service_id,null',
+
             'service_id' => 'nullable|exists:services,id',
         ];
     }

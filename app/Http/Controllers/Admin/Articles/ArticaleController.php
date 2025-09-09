@@ -9,6 +9,7 @@ use App\Models\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class ArticaleController extends Controller
 {
@@ -16,7 +17,7 @@ class ArticaleController extends Controller
     public function index()
     {
         $data['specializations'] = Specialization::query()->active()->get();
-        return view('admin.articales.index',$data);
+        return view('admin.articales.index', $data);
     }
 
     // Fetch branches data for DataTables
@@ -25,7 +26,7 @@ class ArticaleController extends Controller
         $search = $request->search ?? null;
 
         $data = Article::query()
-        ->with('specializations')
+            ->with('specializations')
             ->when(isset($request->is_active), fn($q) => $q->where('is_active', $request->is_active))
             ->when($search, fn($q) => $q->where('title', 'like', "%{$search}%"))
             ->orderBy('id', 'desc');
@@ -48,11 +49,13 @@ class ArticaleController extends Controller
             $path = $request->file('avatar')->store('articales', 'public');
 
             Article::query()->create([
-                'title' => ['ar' => $request->title_en, 'en' => $request->title_en],
+                'title' => ['ar' => $request->title_ar, 'en' => $request->title_en],
+                'slug' => Str::slug($request->title_en), // توليد slug من العنوان الإنجليزي
+
                 'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
                 'is_active' => $request->is_active ? 1 : 0,
                 'photo' => $path,
-                'specialization_id'=>$request->specialization_id,
+                'specialization_id' => $request->specialization_id,
 
             ]);
 
@@ -70,10 +73,12 @@ class ArticaleController extends Controller
         try {
             $banner = Article::query()->where('id', $request->banner_id)->first();
             $banner->update([
-                'title' => ['ar' => $request->title_en, 'en' => $request->title_en],
+                'title' => ['ar' => $request->title_ar, 'en' => $request->title_en],
+                'slug' => Str::slug($request->title_en), // توليد slug من العنوان الإنجليزي
+
                 'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
                 'is_active' => $request->is_active ? 1 : 0,
-                'specialization_id'=>$request->specialization_id,
+                'specialization_id' => $request->specialization_id,
 
             ]);
 
@@ -152,5 +157,4 @@ class ArticaleController extends Controller
             ]);
         }
     }
-
 }

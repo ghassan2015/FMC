@@ -30,8 +30,8 @@ class ArticaleRequest extends FormRequest
         return [
        'title_ar' => 'required|string|max:100',
             'title_en' => 'required|string|max:100',
-            'description_ar' => 'required|string|max:1000',
-            'description_en' => 'required|string|max:1000',
+            'description_ar' => 'required|string',
+            'description_en' => 'required|string',
             'specialization_id'=>'required|exists:specializations,id',
 
             'is_active' => 'nullable',

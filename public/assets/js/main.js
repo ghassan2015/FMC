@@ -36,19 +36,19 @@
     /*
 
   /*---------- 01. On Load Function ----------*/
-    $(window).on("load", function () {
-        $(".preloader").fadeOut();
-    });
+    // $(window).on("load", function () {
+    //     $(".preloader").fadeOut();
+    // });
 
-    /*---------- 02. Preloader ----------*/
-    if ($(".preloader").length > 0) {
-        $(".preloaderCls").each(function () {
-            $(this).on("click", function (e) {
-                e.preventDefault();
-                $(".preloader").css("display", "none");
-            });
-        });
-    }
+    // /*---------- 02. Preloader ----------*/
+    // if ($(".preloader").length > 0) {
+    //     $(".preloaderCls").each(function () {
+    //         $(this).on("click", function (e) {
+    //             e.preventDefault();
+    //             $(".preloader").css("display", "none");
+    //         });
+    //     });
+    // }
 
     /*---------- 03. Mobile Menu Active ----------*/
     $.fn.vsmobilemenu = function (options) {
@@ -713,7 +713,7 @@
     $(".date-pick").datetimepicker({
         timepicker: false,
         datepicker: true,
-        format: "m-d-y",
+        format: "Y-m-d",
         step: 10,
     });
 

@@ -25,6 +25,10 @@ use App\Http\Controllers\Admin\Specializations\SpecializationController;
 use App\Http\Controllers\Admin\SurgicalOperations\SurgicalOperationController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Videoes\VideoController;
+use App\Http\Controllers\Front\Appoiments\AppoimentController;
+use App\Http\Controllers\Front\Articales\ArticaleController as ArticalesArticaleController;
+use App\Http\Controllers\Front\Categories\CategoryController;
+use App\Http\Controllers\Front\Doctors\DoctorController as DoctorsDoctorController;
 use App\Http\Controllers\Front\IndexController;
 use App\Models\Admin;
 use App\Notifications\AdminSpecificNotification;
@@ -37,10 +41,20 @@ use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
+Route::get('clear', function () {
+    \Illuminate\Support\Facades\Artisan::call('config:clear');
+    \Illuminate\Support\Facades\Artisan::call('config:cache');
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
 
-// Route::get('/', function () {
-//     return view('front.layouts.master');
-// });
+    dd('as');
+});
+
+Route::get('storage_db', function () {
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+
+    dd('as');
+});
+
 Route::get('/check-admin', function () {
     return Auth::guard('admin')->check()
         ? '✅ Admin logged in'
@@ -359,7 +373,36 @@ Route::group(
 
 
         Route::get('/', [IndexController::class, 'index'])->name('home');
-        Route::get('/appointment', [IndexController::class, 'appointment'])->name('appointment');
+        Route::get('/about-us', [IndexController::class, 'aboutUs'])->name('front.aboutUs');
+
+        Route::get('/contact-us', [IndexController::class, 'countactUs'])->name('front.contactUs');
+
+        Route::post('/contact-us/store', [IndexController::class, 'storeCountactUs'])->name('front.contactUs.store');
+
+        Route::get('/video', [IndexController::class, 'video'])->name('front.video');
+
+
+
+
+        Route::get('/appointment', [AppoimentController::class, 'getDoctors'])->name('front.appointments.getDoctors');
+        Route::get('/get_available-times', [AppoimentController::class, 'getAvailableTimes'])->name('front.appointments.getAvailableTimes');
+        Route::post('/get_available-times', [AppoimentController::class, 'store'])->name('front.appointments.store');
+
+        Route::group(['prefix' => 'doctors'], function () {
+            Route::get('/', [DoctorsDoctorController::class, 'index'])->name('front.doctors');
+            Route::get('/{slug}', [DoctorsDoctorController::class, 'show'])->name('front.doctors.show');
+        });
+
+
+        Route::group(['prefix' => 'articles'], function () {
+            Route::get('/', [ArticalesArticaleController::class, 'index'])->name('front.articles.index');
+            Route::get('/{slug}', [ArticalesArticaleController::class, 'show'])->name('front.articles.show');
+       });
+        Route::group(['prefix' => 'category'], function () {
+            Route::get('/{slug?}', [CategoryController::class, 'index'])->name('front.categories.index');
+
+
+        });
 
 
     }

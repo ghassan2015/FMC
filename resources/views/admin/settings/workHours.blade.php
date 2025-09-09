@@ -45,14 +45,15 @@
                                     <div class="col-md-4">
                                         <input type="hidden" name="date[{{ $day }}]" value="{{ $day }}">
                                         <input type="text" class="form-control bg-light fw-bold text-center"
-                                            value="{{ $day }}" disabled>
+                                            value="{{ __('label.' . $day) }}" disabled>
                                     </div>
 
                                     <!-- وقت البداية -->
                                     <div class="col-md-4">
                                         <input type="time" name="time_in[{{ $day }}]"
                                             class="form-control text-center"
-                                            value="{{ old('time_in.' . $day, $workHours[$day]->time_in ?? '') }}">
+                                            value="{{ old('time_in.' . $day, isset($workHours[$day]) ? \Carbon\Carbon::parse($workHours[$day]->time_in)->format('H:i') : '') }}">
+
                                         <div class="time_in_{{ $day }} error text-danger small mt-1"></div>
                                     </div>
 
@@ -60,7 +61,7 @@
                                     <div class="col-md-4">
                                         <input type="time" name="time_out[{{ $day }}]"
                                             class="form-control text-center"
-                                            value="{{ old('time_out.' . $day, $workHours[$day]->time_out ?? '') }}">
+                                            value="{{ old('time_in.' . $day, isset($workHours[$day]) ? \Carbon\Carbon::parse($workHours[$day]->time_out)->format('H:i') : '') }}">
                                         <div class="time_out_{{ $day }} error text-danger small mt-1"></div>
                                     </div>
                                 </div>

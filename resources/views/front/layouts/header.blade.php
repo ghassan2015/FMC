@@ -5,10 +5,9 @@
               <div
                   class="row justify-content-center justify-content-lg-between justify-content-md-start align-items-center">
                   <div class="col-auto">
-                      <ul class="header-top-info v6 list-unstyled m-0">
+                      {{-- <ul class="header-top-info v6 list-unstyled m-0">
                           <li>{{__('label.welcome')}} <a href="#">{{settings('general','name')->value}}</a> </li>
-                          <li><i class="far fa-clock"></i>Mon - Fri: 8:00 am - 7:00 pm</li>
-                      </ul>
+                      </ul> --}}
                   </div>
                   <div class="col-auto d-none d-lg-block">
                       <ul class="head-top-links v6 text-end">
@@ -59,10 +58,14 @@
                   <div class="container container-style6 position-relative">
                       <div class="row align-items-center justify-content-between">
                           <div class="col-auto">
-                              <div class="header1-logo py-2">
-                                  <a href="{{route('home')}}"><img src="{{ asset('storage/' . settings('general', 'logo')->value) }}" alt="Logo"></a>
+                              <div class="header1-logo">
+                                  <a href="{{route('home')}}"><img
+                                    style="width:160px"
+                                    src="{{ asset('storage/' . settings('general', 'logo')->value) }}" alt="Logo"></a>
                               </div>
                           </div>
+
+
                           <div class="col d-lg-flex justify-content-end">
                               <div class="location-box one">
                                   <span class="fa fa-envelope"></span>
@@ -95,7 +98,10 @@
 
                                       </li>
                                       <li>
-                                          <a href="about.html">About</a>
+                                          <a href="{{route('front.aboutUs')}}">{{__('label.about_us')}}</a>
+                                      </li>
+                                              <li>
+                                          <a href="{{route('front.doctors')}}">{{__('label.doctors')}}</a>
                                       </li>
                                       <li class="menu-item-has-children">
                                           <a href="service.html">Services</a>
@@ -111,59 +117,17 @@
                                               <li><a href="blog-details.html">Blog Details</a></li>
                                           </ul>
                                       </li>
-                                      <li class="menu-item-has-children mega-menu-wrap">
-                                          <a href="#"><span class="has-new-label">Pages</span></a>
-                                          <ul class="mega-menu">
-                                              <li><a href="shop.html">Pagelist 1</a>
-                                                  <ul>
-                                                      <li><a href="index.html">Home One</a></li>
-                                                      <li><a href="index-2.html">Home Two</a></li>
-                                                      <li><a href="index-3.html">Home Three</a></li>
-                                                      <li><a href="index-4.html">Home Four</a></li>
-                                                      <li><a href="index-5.html">Home Five</a></li>
-                                                      <li><a href="index-6.html">Home Six<span
-                                                                  class="new-label">New</span></a></li>
-                                                      <li><a href="index-7.html">Home Seven <span
-                                                                  class="new-label">New</span></a></li>
-                                                      <li><a href="index-8.html">Home Eight <span
-                                                                  class="new-label">New</span></a></li>
-                                                  </ul>
-                                              </li>
-                                              <li><a href="#">Pagelist 2</a>
-                                                  <ul>
-                                                      <li><a href="about.html">About Us</a></li>
-                                                      <li><a href="service.html">Services</a></li>
-                                                      <li><a href="service-details.html">Services Details</a></li>
-                                                      <li><a href="team.html">Team</a></li>
-                                                      <li><a href="team-details.html">Team Details</a></li>
-                                                  </ul>
-                                              </li>
-                                              <li><a href="#">Pagelist 3</a>
-                                                  <ul>
-                                                      <li><a href="project.html">Projects</a></li>
-                                                      <li><a href="shop.html">Our Shop <span
-                                                                  class="new-label">New</span></a></li>
-                                                      <li><a href="shop-details.html">Shop Details <span
-                                                                  class="new-label">New</span></a></li>
-                                                      <li><a href="cart.html">Shopping Cart <span
-                                                                  class="new-label">New</span></a></li>
-                                                      <li><a href="checkout.html">Checkout <span
-                                                                  class="new-label">New</span></a></li>
-                                                  </ul>
-                                              </li>
-                                              <li><a href="#">Pagelist 4</a>
-                                                  <ul>
-                                                      <li><a href="blog.html">Blog</a></li>
-                                                      <li><a href="blog-details.html">Blog Details</a></li>
-                                                      <li><a href="appointment.html">Appointment</a></li>
-                                                      <li><a href="contact.html">Contact Us</a></li>
-                                                      <li><a href="error.html">Error Page</a></li>
-                                                  </ul>
-                                              </li>
-                                          </ul>
+                                      </li>
+                                              <li>
+                                          <a href="{{route('front.articles.index')}}">{{__('label.articales')}}</a>
+                                      </li>
+                                      </li>
+                                          </li>
+                                              <li>
+                                          <a href="{{route('front.video')}}">{{__('label.videoes')}}</a>
                                       </li>
                                       <li>
-                                          <a href="contact.html">Contact</a>
+                                          <a href="{{route('front.contactUs')}}">{{__('label.contact_title')}}</a>
                                       </li>
                                   </ul>
                               </nav>
@@ -171,8 +135,11 @@
                                       class="fas fa-bars"></i></button>
                           </div>
                           <div class="btn-box-six">
-                              <a href="#" class="contact-btn"><i class="fa fa-phone"></i>Call Anytime:669 2568
-                                  2596</a>
+                              <a href="#" class="contact-btn"><i class="fa fa-phone"></i>{{__('label.mobile')}}:
+                                <span>
+                                {{settings('contact_us','mobile')->value}}
+                                </span>
+                            </a>
                           </div>
                       </div>
                   </div>

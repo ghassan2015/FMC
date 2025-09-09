@@ -175,6 +175,7 @@
 
             let _url = "{{ route('admin.services.store') }}";
             $('#logoPreview').css('background-image', 'url(' + '{{ asset('assets/default.png') }}' + ')');
+            $('#iconPreview').css('background-image', 'url(' + '{{ asset('assets/default.png') }}' + ')');
 
             $('#my-form')[0].reset();
 
@@ -200,10 +201,14 @@
             $('#is_active').prop('checked', button.data('is_active'));
             // تحديث صورة الغلاف
             let photo = button.data('photo');
+            let icon_logo = button.data('icon_logo');
+
             if (photo) {
                 $('#logoPreview').css('background-image', 'url(' + photo + ')');
 
             }
+            $('#iconPreview').css('background-image', 'url(' + icon_logo + ')');
+
 
             $('#my-form').attr('action', "{{ route('admin.services.update') }}");
             // فتح المودال

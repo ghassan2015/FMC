@@ -95,12 +95,15 @@ class SettingController extends Controller
                     if ($setting->value && Storage::disk('public')->exists($setting->value)) {
                         Storage::disk('public')->delete($setting->value);
                     }
-                    $setting->update(['value' =>$filePath]);
+                    $setting->update(
+                                     [           'value' => ['ar'=>$filePath,'en'=>$filePath],
+
+]                    );
                 } else {
                     Setting::query()->create([
                         'key' => 'general',
-                        'name' => $fieldName,
-                        'value' => $filePath,
+                        'name' => ['ar'=>$fieldName,'en'=>$fieldName],
+                        'value' => ['ar'=>$filePath,'en'=>$filePath],
                     ]);
                 }
             }

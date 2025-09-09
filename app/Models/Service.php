@@ -7,7 +7,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Service extends Model
 {
-        protected $fillable  = ['id', 'name', 'is_active', 'photo', 'description'];
+        protected $fillable  = ['id', 'name', 'is_active', 'photo', 'description','icon_logo'];
 
     use HasTranslations;
     public $translatable = ['name','description'];
@@ -16,4 +16,16 @@ class Service extends Model
     {
         return $value ? asset('storage/' . $value) : asset('assets/default.png');
     }
+    public function getIconLogoAttribute($value)
+    {
+        return $value ? asset('storage/' . $value) : asset('assets/default.png');
+    }
+
+    public function scopeActive($q){
+        return $q->where('is_active',1);
+    }
+
+
+
+
 }

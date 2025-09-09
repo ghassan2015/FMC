@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Medixi - Medical and Health Care HTML Template - Home Eight</title>
+    <title>{{settings('general','name')->value}} @yield('title')</title>
     <meta name="author" content="Vecuro">
-    <meta name="description" content="Medixi - Medical and Health Care HTML Template">
-    <meta name="keywords" content="Medixi - Medical and Health Care HTML Template">
+    <meta name="description" content="{{settings('general','description')->value}}">
+    <meta name="keywords" content="{{settings('general','description')->value}}">
     <meta name="robots" content="INDEX,FOLLOW">
 
     <!-- Mobile Specific Metas -->
@@ -22,8 +22,8 @@
 
 
     <!-- Favicons - Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('storage/'.settings('general','icon_logo')->value)}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('storage/'.settings('general','icon_logo')->value)}}" type="image/x-icon">
 
 
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -47,6 +47,7 @@
 
     <!-- Animate CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     @if (app()->getLocale() == 'ar')
         <link rel="stylesheet" href="{{ asset('assets/css/style-rtl.css') }}">
@@ -57,7 +58,7 @@
             rel="stylesheet">
         <style>
             body {
-                font-family: 'Almarai', sans-serif !important;
+                font-family: 'Cairo', sans-serif !important;
             }
         </style>
     @else
@@ -66,5 +67,10 @@
 
     <!-- Theme Custom CSS -->
 
+    <style>
+        .error{
+            color: red
+        }
+        </style>
 
 </head>

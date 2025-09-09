@@ -6,6 +6,9 @@
     @if (app()->getLocale() === 'ar')
         <script src="{{ asset('assets/js/message_ar.js') }}"></script>
     @endif
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
     <script>
         var appointment_table;
 

@@ -15,6 +15,7 @@
                         data-description_ar="{{ $data->getTranslation('description', 'ar') }}"
                     data-description_en="{{ $data->getTranslation('description', 'en') }}"
                     data-photo="{{ $data->photo }}"
+                    data-icon_logo="{{$data->icon_logo}}"
                     data-is_active="{{ $data->is_active }}"
                     data-kt-docs-table-filter="edit_row">
                     <i class="fa fa-edit px-3" style="color: #007bff;"></i>

@@ -71,12 +71,12 @@ Version: 1.0.0
 ==================================*/
 /*------------------- 1.1. Variable-------------------*/
 :root {
-  --theme-color: #07ccec;
+  --theme-color: #e88230;
   --theme-color2: #2cb624;
-  --theme-color3: #27477d;
-  --theme-color4: #07ccec;
+  --theme-color3: #1a99d3;
+  --theme-color4: #e88230;
   --theme-color5: #27467C;
-  --title-color: #27477d;
+  --title-color: #1a99d3;
   --title-color2: #000000;
   --body-color: #888c92;
   --body-color2: #555555;
@@ -1965,7 +1965,7 @@ textarea.form-control.is-invalid {
   font-size: 16px;
   color: var(--white-color);
   font-weight: 700;
-  background: #07CCEC;
+  background: #e88230;
   display: inline-block;
   height: 51px;
   line-height: 51px;
@@ -1980,7 +1980,7 @@ textarea.form-control.is-invalid {
   font-weight: 700;
   line-height: 56px;
   border-radius: 50px 5px 5px 5px;
-  background: #07ccec;
+  background: #e88230;
   height: 56px;
   padding: 0 37px 0 51px;
   display: inline-block;
@@ -1988,8 +1988,8 @@ textarea.form-control.is-invalid {
 }
 .btn-style8:hover {
   background-color: #fff;
-  border-color: #07ccec;
-  color: #07ccec;
+  border-color: #e88230;
+  color: #e88230;
 }
 
 /*------------------- 3.3. Titles -------------------*/
@@ -3454,7 +3454,7 @@ textarea.form-control.is-invalid {
 .newsletter-section {
   position: relative;
   z-index: 9;
-  background-color: #27477D;
+  background-color: #1a99d3;
   /* Extra small devices */
 }
 @media (max-width: 576px) {
@@ -3480,7 +3480,7 @@ textarea.form-control.is-invalid {
   width: 100%;
   height: 100%;
   opacity: 0.8;
-  background: #27477D;
+  background: #1a99d3;
   z-index: -1;
 }
 
@@ -4950,7 +4950,7 @@ textarea.form-control.is-invalid {
 }
 
 .header-layout4 .header-top {
-  background-color: #27477d;
+  background-color: #1a99d3;
   --body-color: #fff;
 }
 .header-layout4 .menu-area {
@@ -5078,7 +5078,7 @@ textarea.form-control.is-invalid {
   height: 50px;
   line-height: 50px;
   padding: 0 30px;
-  background-color: #07CCEC;
+  background-color: #e88230;
   display: inline-block;
   margin-right: 0;
 }
@@ -5099,7 +5099,7 @@ textarea.form-control.is-invalid {
   margin-left: 0;
 }
 .icon-btn-two i {
-  background: #27477D;
+  background: #1a99d3;
   color: var(--white-color);
   width: 50px;
   height: 50px;
@@ -5110,7 +5110,7 @@ textarea.form-control.is-invalid {
   transition: all 0.3s ease;
 }
 .icon-btn-two i:hover {
-  background: #07CCEC;
+  background: #e88230;
 }
 .icon-btn-two span {
   position: absolute;
@@ -5119,7 +5119,7 @@ textarea.form-control.is-invalid {
   font-size: 12px;
   display: inline-block;
   color: var(--white-color);
-  background-color: #07CCEC;
+  background-color: #e88230;
   border-radius: 10px;
   text-transform: uppercase;
   width: 18px;
@@ -5158,7 +5158,7 @@ textarea.form-control.is-invalid {
 }
 .location-box .content-box .title {
   margin-bottom: 0;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 700;
 }
 .location-box .content-box .title a {
@@ -5180,7 +5180,7 @@ textarea.form-control.is-invalid {
           transform: translateY(-50%);
   left: 0;
   width: 1px;
-  height: 80px;
+  height: 50px;
   background: #D9D9D9;
 }
 
@@ -5234,10 +5234,10 @@ textarea.form-control.is-invalid {
   position: relative;
 }
 .btn-box-six .contact-btn {
-  font-size: 20px;
+  font-size: 16px;
   color: var(--white-color);
   font-weight: 700;
-  background: #07CCEC;
+  background: #e88230;
   display: inline-block;
   height: 60px;
   line-height: 60px;
@@ -5431,7 +5431,7 @@ textarea.form-control.is-invalid {
   font-size: 12px;
   display: inline-block;
   color: var(--white-color);
-  background-color: #07CCEC;
+  background-color: #e88230;
   border-radius: 10px;
   text-transform: uppercase;
   width: 18px;
@@ -5461,7 +5461,7 @@ textarea.form-control.is-invalid {
 
 .header-layout8 {
   position: relative;
-  background: #27477d;
+  background: #1a99d3;
 }
 
 .header-top-eight {
@@ -6011,7 +6011,7 @@ textarea.form-control.is-invalid {
   right: 0;
   width: 22px;
   height: 4px;
-  background-color: #07CCEC;
+  background-color: #e88230;
   border-radius: 0;
   -webkit-transform: skewX(10deg);
   transform: skewX(10deg);
@@ -6557,7 +6557,7 @@ textarea.form-control.is-invalid {
   right: 0;
   width: 67px;
   height: 3px;
-  background: #07ccec;
+  background: #e88230;
 }
 
 .vs-widget-about-eight {
@@ -6625,7 +6625,7 @@ textarea.form-control.is-invalid {
   line-height: 49px;
   text-align: center;
   border-radius: 50%;
-  background-color: #07ccec;
+  background-color: #e88230;
   margin-left: 14px;
   /* Extra small devices */
 }
@@ -6760,7 +6760,7 @@ textarea.form-control.is-invalid {
   position: absolute;
   font-size: 14px;
   font-weight: 400;
-  color: #07ccec;
+  color: #e88230;
 }
 
 .menu-eight.v1 {
@@ -8330,7 +8330,7 @@ blockquote cite:before {
   line-height: 34px;
   text-align: center;
   border-radius: 50px;
-  background: #07ccec;
+  background: #e88230;
   z-index: 999;
 }
 .blog-img-eight .blog-date-eight span {
@@ -8447,12 +8447,12 @@ blockquote cite:before {
   font-size: 16px;
   font-weight: 700;
   line-height: 28px;
-  border-bottom: 2px solid #07ccec;
+  border-bottom: 2px solid #e88230;
   position: relative;
   z-index: 99;
 }
 .review-btn-two:hover {
-  color: #07ccec;
+  color: #e88230;
 }
 
 .btn-box-eight {
@@ -9198,7 +9198,7 @@ blockquote cite:before {
   font-size: 16px;
   font-weight: 700;
   line-height: 28px;
-  border-bottom: 2px solid #07ccec;
+  border-bottom: 2px solid #e88230;
   font-family: var(--title-font);
 }
 
@@ -10474,7 +10474,7 @@ blockquote cite:before {
           transform: translateX(50%);
   width: 370px;
   border-radius: 10px 150px 10px 10px;
-  background: #27477d;
+  background: #1a99d3;
   padding: 29px 85px 25px 0;
   /* Extra small devices */
 }
@@ -10497,7 +10497,7 @@ blockquote cite:before {
   line-height: 85px;
   text-align: center;
   border-radius: 50%;
-  background-color: #07ccec;
+  background-color: #e88230;
   /* Extra small devices */
 }
 @media (max-width: 416px) {
@@ -10586,7 +10586,7 @@ blockquote cite:before {
   line-height: 70px;
   text-align: center;
   border-radius: 50px;
-  border: 1px solid #07ccec;
+  border: 1px solid #e88230;
   margin-left: 11px;
 }
 .about-contact-box-eight .content-box span {
@@ -11235,7 +11235,7 @@ blockquote cite:before {
   color: var(--theme-color);
 }
 .ser-content7 span {
-  color: #07CCEC;
+  color: #e88230;
   font-size: 20px;
   font-weight: 700;
   line-height: normal;
@@ -11485,7 +11485,7 @@ blockquote cite:before {
 
 .service-tabs {
   border-radius: 10px 10px 10px 300px;
-  background: #27477d;
+  background: #1a99d3;
   padding: 25px 22px 23px 25px;
   overflow: hidden;
   /* Large devices */
@@ -11522,7 +11522,7 @@ blockquote cite:before {
   line-height: normal;
 }
 .service-tabs .nav-tabs .nav-link:hover {
-  background-color: #07ccec;
+  background-color: #e88230;
 }
 .service-tabs .nav-tabs .nav-link:hover i {
   color: var(--white-color);
@@ -11535,7 +11535,7 @@ blockquote cite:before {
   color: rgba(255, 255, 255, 0.5);
 }
 .service-tabs .nav-link.active {
-  background-color: #07ccec;
+  background-color: #e88230;
 }
 .service-tabs .nav-link.active i {
   color: var(--white-color);
@@ -11632,7 +11632,7 @@ blockquote cite:before {
   line-height: 124.044px;
   text-align: center;
   border-radius: 50%;
-  background-color: #07ccec;
+  background-color: #e88230;
   border-radius: 50%;
 }
 .service-tab-content .ser-img-nine .icon-box::before {
@@ -11671,7 +11671,7 @@ blockquote cite:before {
   width: 14px;
   height: 14px;
   border-radius: 50px;
-  background-color: #07ccec;
+  background-color: #e88230;
 }
 
 .ser-btn-nine {
@@ -11681,7 +11681,7 @@ blockquote cite:before {
   font-style: normal;
   font-weight: 700;
   line-height: 28px;
-  border-bottom: 2px solid #07ccec;
+  border-bottom: 2px solid #e88230;
 }
 
 .service-section-ten {
@@ -11723,7 +11723,7 @@ blockquote cite:before {
   right: 0;
   width: 100%;
   height: 6px;
-  background-color: #07ccec;
+  background-color: #e88230;
   border-radius: 10px;
 }
 @media (max-width: 992px) {
@@ -12384,8 +12384,8 @@ blockquote cite:before {
 }
 .arrows-style-7 .slick-prev:hover,
 .arrows-style-7 .slick-next:hover {
-  border-color: #07CCEC;
-  background-color: #07CCEC;
+  border-color: #e88230;
+  background-color: #e88230;
 }
 .arrows-style-7 .slick-prev:hover:before,
 .arrows-style-7 .slick-next:hover:before {
@@ -13366,7 +13366,7 @@ body {
   visibility: visible;
 }
 .team-card-ten:hover .share-icon-ten {
-  background: #07ccec;
+  background: #e88230;
   border-color: transparent;
   color: var(--white-color);
 }
@@ -13407,7 +13407,7 @@ body {
   text-align: center;
   font-size: 24px;
   border-radius: 30px;
-  border: 2px solid #07ccec;
+  border: 2px solid #e88230;
   color: #000000;
   background: #FFF;
   -webkit-transition: all 300ms ease;
@@ -13507,7 +13507,7 @@ body {
   margin-top: 4px;
 }
 .social-links-ten a:hover {
-  background: #07ccec;
+  background: #e88230;
   border-color: transparent;
   color: var(--white-color);
 }
@@ -13555,7 +13555,7 @@ body {
   margin-bottom: 9px;
 }
 .info-box-ten .number {
-  color: #07ccec;
+  color: #e88230;
   font-family: var(--title-font);
   font-size: 22px;
   font-weight: 700;
@@ -13923,7 +13923,7 @@ body {
 .form-box-two {
   position: relative;
   border-radius: 10px;
-  background: #27477D;
+  background: #1a99d3;
   -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.09);
           box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.09);
   padding: 60px 60px 40px;
@@ -14765,7 +14765,7 @@ body {
 
 .testi-slider-eight {
   border-radius: 10px 10px 10px 250px;
-  border: 5px solid #07ccec;
+  border: 5px solid #e88230;
   background: #FFF;
   padding: 42px 57px 54px;
   /* Extra small devices */
@@ -14915,7 +14915,7 @@ body {
 
 .testi-form-title {
   border-radius: 10px 10px 100px 10px;
-  background: #27477d;
+  background: #1a99d3;
   padding: 30px 49px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -14950,7 +14950,7 @@ body {
   line-height: 79.956px;
   text-align: center;
   border-radius: 50%;
-  background-color: #07ccec;
+  background-color: #e88230;
   margin-left: 21px;
 }
 .testi-form-title .content-box .title {
@@ -15318,7 +15318,7 @@ body {
   font-size: 60px;
   font-weight: 700;
   font-family: var(--title-font);
-  color: #07ccec;
+  color: #e88230;
   right: 50%;
   top: 50%;
   -webkit-transform: translate(50%, -50%);
@@ -16066,7 +16066,7 @@ body {
           transform: translateX(50%);
   width: 119px;
   height: 119px;
-  background-color: #07ccec;
+  background-color: #e88230;
   line-height: 119px;
   text-align: center;
   border-radius: 50%;

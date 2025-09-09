@@ -40,7 +40,7 @@
                         <div class="col-md-6">
                             <label class="form-label required" for="description_ar">{{ __('label.description') }}
                                 (AR)</label>
-                            <textarea  name="description_ar" class="form-control" id="description_ar" required></textarea>
+                            <textarea name="description_ar" class="form-control" id="description_ar" required></textarea>
                             <div class="description_ar error"></div>
                         </div>
                         <div class="col-md-6">
@@ -54,14 +54,12 @@
 
 
                     <div class="row mb-5">
-                        <div class="col-md-12 ">
+                        <div class="col-md-6 ">
                             <label class="form-label fw-semibold fs-6">{{ __('label.logo') }}</label>
                             <div class="image-input image-input-outline" data-kt-image-input="true"
                                 style="background-image: url('{{ asset('assets/media/svg/avatars/blank.svg') }}'); margin: auto;">
 
-                                <div class="image-input-wrapper w-125px h-125px"
-                                     id="logoPreview"
-
+                                <div class="image-input-wrapper w-125px h-125px" id="logoPreview"
                                     style="background-image: url('{{ asset('assets/default.png') }}');"></div>
 
                                 <!-- Change -->
@@ -93,7 +91,7 @@
                                             class="path2"></span></i>
                                 </span>
 
-                                                            <div class="avatar error"></div>
+                                <div class="avatar error"></div>
 
                             </div>
                             <div class="form-text mt-2">
@@ -102,6 +100,54 @@
                                 webp
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold fs-6">{{ __('label.logo_icon') }}</label>
+                            <div class="image-input image-input-outline" data-kt-image-input="true"
+                                style="background-image: url('{{ asset('assets/media/svg/avatars/blank.svg') }}'); margin: auto;">
+
+                                <div class="image-input-wrapper w-125px h-125px" id="iconPreview"
+                                    style="background-image: url('{{ asset('assets/default.png') }}');">
+                                </div>
+
+                                <!-- Change -->
+                                <label
+                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute top-0 end-0 translate-middle"
+                                    data-kt-image-input-action="change" data-bs-toggle="tooltip"
+                                    title="{{ __('label.change_avatar') }}">
+                                    <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span
+                                            class="path2"></span></i>
+                                    <input type="file" name="logo_icon" accept=".png, .jpg, .jpeg, .webp" />
+                                    <input type="hidden" name="logo_icon_remove" />
+                                </label>
+
+                                <!-- Cancel -->
+                                <span
+                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute top-0 start-0 translate-middle"
+                                    data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                                    title="{{ __('label.cancel_avatar') }}">
+                                    <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span
+                                            class="path2"></span></i>
+                                </span>
+
+                                <!-- Remove -->
+                                <span
+                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow position-absolute bottom-0 end-50 translate-middle-x"
+                                    data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                                    title="{{ __('label.remove_avatar') }}">
+                                    <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
+                                            class="path2"></span></i>
+                                </span>
+
+                                <div class="logo_icon error"></div>
+
+                            </div>
+                            <div class="form-text mt-2">
+                                <i class="fas fa-info-circle"></i> {{ __('label.allowed_file_types') }}: jpg, png,
+                                jpeg, webp
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -114,8 +160,8 @@
                         <div class="col-md-12">
                             <label class="form-label">{{ __('label.status') }}</label>
                             <label class="form-switch">
-                                <input class="form-check-input" name="is_active" id="is_active" value="1" type="checkbox"
-                                    checked>
+                                <input class="form-check-input" name="is_active" id="is_active" value="1"
+                                    type="checkbox" checked>
                                 <span class="form-check-label"></span>
                             </label>
                         </div>

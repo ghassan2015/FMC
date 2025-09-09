@@ -44,19 +44,22 @@ class ServicController extends Controller
         try {
 
             $path = $request->file('avatar')->store('services', 'public');
+            $logo_icon = $request->file('logo_icon')->store('services', 'public');
 
             Service::query()->create([
                 'name' => ['ar' => $request->name_ar, 'en' => $request->name_en],
                 'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
 
                 'is_active' => $request->is_active ? 1 : 0,
-                'photo' => $path
+                'photo' => $path,
+                'icon_logo'=>$logo_icon
             ]);
 
 
 
             return response_web(true, __('label.successful_process'), [], 201);
         } catch (\Exception $exception) {
+            return $exception;
             return response_web(false, __('label.error_server'), [], 500);
         }
     }
@@ -85,6 +88,20 @@ class ServicController extends Controller
                     'photo' => $path
                 ]);
             }
+
+                 if ($request->logo_icon) {
+
+
+                if ($service->photo && FacadesStorage::disk('public')->exists($service->icon_logo)) {
+                    FacadesStorage::disk('public')->delete($service->icon_logo);
+                }
+                $path = $request->file('logo_icon')->store('services', 'public');
+                $service->update([
+                    'icon_logo' => $path
+                ]);
+            }
+
+
 
 
 

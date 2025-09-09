@@ -17,6 +17,11 @@ class Branch extends Model
         return $q->where('is_active',1);
     }
 
+
+    public function doctors(){
+                return $this->belongsToMany(Doctor::class, 'branches_doctors',  'branch_id','doctor_id', 'id');
+
+    }
         public function getPhotoAttribute($value)
     {
         return $value ? asset('storage/' . $value) : asset('assets/default.png');

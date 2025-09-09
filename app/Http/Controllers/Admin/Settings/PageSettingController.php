@@ -66,8 +66,8 @@ class PageSettingController extends Controller
         $rules = [];
     $validated = $request->validate([
     'date.*' => 'required|string',
-    'time_in.*' => 'nullable|date_format:H:i:s',
-    'time_out.*' => 'nullable|date_format:H:i:s',
+    'time_in.*' => 'nullable|date_format:H:i',
+    'time_out.*' => 'nullable|date_format:H:i',
 ]);
 
 

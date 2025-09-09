@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('storage/' . settings('general', 'icon_logo')->value) }}" />
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap">
     <!-- Global Stylesheets Bundle -->
@@ -67,7 +67,7 @@
             <div class="d-flex flex-lg-row-fluid">
                 <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
                     <img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
-                        src="{{ asset('storage/' . settings('general', 'coverLogo')->value) }}" alt="Medical Logo" />
+                        src="{{ asset('storage/' . settings('general', 'cover_logo')->value) }}" alt="Medical Logo" />
 
                 </div>
             </div>

@@ -7,7 +7,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Article extends Model
 {
-    protected $fillable  = ['id', 'title', 'is_active', 'photo', 'description','specialization_id'];
+    protected $fillable  = ['id', 'title', 'is_active', 'photo', 'description','specialization_id','slug'];
 
     use HasTranslations;
     public $translatable = ['title', 'description'];
@@ -19,6 +19,11 @@ class Article extends Model
     public function getPhotoAttribute($value)
     {
         return $value ? asset('storage/' . $value) : asset('assets/default.png');
+    }
+
+
+    public function scopeActive($q){
+        return $q->where('is_active',1);
     }
 
 }

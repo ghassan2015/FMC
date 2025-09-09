@@ -45,7 +45,7 @@ class BannerController extends Controller
             $path = $request->file('avatar')->store('banners', 'public');
 
             Banner::query()->create([
-                'title' => ['ar' => $request->title_en, 'en' => $request->title_en],
+                'title' => ['ar' => $request->title_ar, 'en' => $request->title_en],
                 'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
                 'is_active' => $request->is_active ? 1 : 0,
                 'photo' => $path
@@ -65,7 +65,7 @@ class BannerController extends Controller
         try {
             $banner = Banner::query()->where('id', $request->banner_id)->first();
             $banner->update([
-                'title' => ['ar' => $request->title_en, 'en' => $request->title_en],
+                'title' => ['ar' => $request->title_ar, 'en' => $request->title_en],
                 'description' => ['ar' => $request->description_ar, 'en' => $request->description_en],
                 'is_active' => $request->is_active ? 1 : 0,
 
