@@ -89,10 +89,7 @@ class CategoriesController extends Controller
                 'category_id' => $category->id,
             ]);
         }
-        return response()->json([
-            'success' => true,
-            'message' => __('label.process_success'),
-        ]);
+
     }
 
     public function edit($id)
